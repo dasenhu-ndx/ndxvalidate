@@ -26,7 +26,7 @@ public class TestController {
 
     @PostMapping("/addTest")
     public String addTestInstance(@ModelAttribute("newTestAtt")TestEntity testEntity, Model model){
-
+        System.out.println("In addTest");
         testRepo.save(testEntity);
 
         model.addAttribute("saved", "This test is saved see database");

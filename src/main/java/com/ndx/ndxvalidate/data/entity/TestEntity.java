@@ -14,7 +14,7 @@ public class TestEntity {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Column(name = "TestName")
     private String testName;

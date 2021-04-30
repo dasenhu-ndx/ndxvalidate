@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<section>
+
+    <div class="container">
+        <form action="" th:action="@{/addTest}" th:object="${newTestAtt}">
+
+            <label for="testName">Lab Name</label>
+            <input type="text" id="testName" th:field="*{testName}">
+
+            <label for="mode">Mode</label>
+            <input type="text" id="mode" th:field="*{mode}">
+
+            <label for="labTestNote">Add Note</label>
+            <input type="text" id="labTestNote" th:field="*{labTestNote}">
+
+            <label for="doctor">Doctor Name</label>
+            <input type="text" id="doctor" th:field="*{doctor}">
+
+            <label for="customer">Customer Name</label>
+            <input type="text" id="customer" th:field="*{customer}">
+
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>
+</body>
+</html>

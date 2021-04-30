@@ -8,7 +8,11 @@
 <section>
 
     <div class="container">
-        <form action="" th:action="@{/addTest}" th:object="${newTestAtt}">
+
+        <div class="success" style="color: darkgreen">
+            <h6><span th:text="${saved}"></span></h6>
+        </div>
+        <form method="post" action="" th:action="@{/addTest}" th:object="${newTestAtt}">
 
             <label for="testName">Lab Name</label>
             <input type="text" id="testName" th:field="*{testName}">

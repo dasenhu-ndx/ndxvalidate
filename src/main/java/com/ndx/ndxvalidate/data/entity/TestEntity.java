@@ -1,9 +1,14 @@
 package com.ndx.ndxvalidate.data.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "NDX_Validate_TestTable")
+@Getter
+@Setter
 public class TestEntity {
 
     @Id

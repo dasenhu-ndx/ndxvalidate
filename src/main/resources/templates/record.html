@@ -12,17 +12,24 @@
         <table class="table">
             <thead>
                 <tr>
-                    <td>Id</td>
-                    <td>Lab</td>
-                    <td>Mode</td>
-                    <td>Note</td>
-                    <td>Doctor</td>
+                    <td>Warning</td>
+                    <td>Doctor Number</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Licence No</td>
+                    <td>NPI No</td>
                     <td>Customer</td>
                 </tr>
             </thead>
             <tbody>
-               <tr th:each="s : ${}">
-
+               <tr th:each="s : ${getNow}">
+                    <td th:text="${s.warning}"></td>
+                   <td th:text="${s.doctorNumber}"></td>
+                   <td th:text="${s.firstName}"></td>
+                   <td th:text="${s.lastName}"></td>
+                   <td th:text="${s.licenceNumber}"></td>
+                   <td th:text="${s.npiNumber}"></td>
+                   <td th:text="${s.customerID}"></td>
                </tr>
             </tbody>
         </table>

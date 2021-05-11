@@ -1,5 +1,6 @@
 package com.ndx.ndxvalidate.controller;
 
+import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.entity.TestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,4 +27,18 @@ public class AppController {
 
         return new TestEntity();
     }
+
+    @ModelAttribute("newAccount")
+    public AccountRequest getInstanceAc(){
+
+
+        return new AccountRequest();
+    }
+
+    @GetMapping("/request")
+    public String getRequestPage(){
+
+        return "request";
+    }
+
 }

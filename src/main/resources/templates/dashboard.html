@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+</head>
+<body>
+<section>
+    <div class="demoNote">
+        <h5>This a demo of the dashboard page it will hold a nave and user's open requests</h5>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Lab Name</td>
+                    <td>Mode</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Customer Practice Name </td>
+                    <td>State</td>
+                    <td>NPI No</td>
+                    <td>Licence No</td>
+                </tr>
+            </thead>
+            <tbody>
+               <tr th:each="s : ${requests}">
+                   <td th:text="${s.labName}"></td>
+                    <td th:text="${s.mode}"></td>
+                   <td th:text="${s.FName}"></td>
+                   <td th:text="${s.LName}"></td>
+                   <td th:text="${s.customerId}"></td>
+                   <td th:text="${s.state}"></td>
+                   <td th:text="${s.npi}"></td>
+                   <td th:text="${s.licenceNo}"></td>
+               </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</body>
+</html>

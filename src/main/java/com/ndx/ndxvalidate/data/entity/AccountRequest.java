@@ -14,7 +14,7 @@ public class AccountRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AccountequestId")
+    @Column(name = "AccountReqId")
     private Long accId;
 
     @Column(name = "RequestMode")

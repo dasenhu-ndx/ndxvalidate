@@ -71,5 +71,8 @@ public class AccountRequest {
     @Column(name = "Notes")
     private String  notes;
 
+    @Column(name = "Status")
+    private int status;
+
 
 }

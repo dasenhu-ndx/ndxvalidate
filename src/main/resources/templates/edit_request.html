@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta  http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Ndx Validate</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-blue nav-bottom-green">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Ndx Validate</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/request" class="nav-link">Request New Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#documentation" class="nav-link">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link">Request Archive</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="card bg-white mt-5">
+        <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+            <h3>Edit your Request</h3>
+        </div>
+        <div class="form-container m-2" >
+
+            <form id="updateRequest"  method="post" >
+
+                <input type="hidden" id="requestId"  th:value="${accRequest.accId}" >
+                <label for="LabName" class="form-label">Lab Name</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"  id="LabName" th:value="${accRequest.labName}">
+                </div>
+
+
+                <label for="mode">Mode</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="mode" th:value="${accRequest.mode}">
+                </div>
+
+                <label for="IsRush">Is Rush</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="IsRush" th:value="${accRequest.isRush}">
+                </div>
+
+                <label for="doctorId">Old Doctor ID</label>
+                <div class="input-group mb-5">
+                    <input type="text" class="form-control"   id="doctorId" th:value="${accRequest.docId}">
+                </div>
+
+
+                <label for="customerId">Old Customer ID</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="customerId" th:value="${accRequest.customerId}">
+                </div>
+
+                <label for="address0">Address1</label>
+                <div class="input-group mb-5">
+                    <input type="text" class="form-control"   id="address0" th:value="${accRequest.add1}">
+                </div>
+
+                <label for="address1">Address2</label>
+                <div class="input-group mb-5">
+                    <input type="text" class="form-control"   id="address1" th:value="${accRequest.add2}">
+                </div>
+
+
+                <label for="city">City</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="city" th:value="${accRequest.city}">
+                </div>
+
+                <label for="state">State</label>
+                <div class="input-group mb-5">
+                    <input type="text" class="form-control"   id="state" th:value="${accRequest.state}">
+                </div>
+
+                <label for="zip">Zip</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="zip" th:value="${accRequest.zip}">
+                </div>
+
+
+                <label for="fName">Doctor First Name</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="fName" th:value="${accRequest.FName}">
+                </div>
+
+                <label for="lName">Doctor Last Name</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="lName" th:value="${accRequest.LName}">
+                </div>
+
+                <label for="email">Email</label>
+                <div class="input-group mb-5">
+                    <input type="text" class="form-control"   id="email" th:value="${accRequest.email}">
+                </div>
+
+                <label for="phone">Phone</label>
+                <div class="input-group mb-5">
+                    <input type="text" class="form-control"   id="phone" th:value="${accRequest.phone}">
+                </div>
+
+                <label for="licenceNo">Doctor Licence Number</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="licenceNo" th:value="${accRequest.licenceNo}">
+                </div>
+
+
+                <label for="nip">NPI Number</label>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control"   id="nip" th:value="${accRequest.npi}">
+                </div>
+
+                <label for="labNote">Add Note</label>
+                <div class="input-group mb-5">
+                    <textarea type="text" class="form-control"   id="labNote" th:value="${accRequest.notes}"> </textarea>
+                </div>
+
+                <input id="submitForm"  type="submit" value="Submit">
+
+            </form>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</body>
+<footer >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/2effb491bc.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript">
+        const contextpath = /*[[@{/}]]*/ "/";
+        let csrfHeaderName = "[[${_csrf.headerName}]]";
+        let csrfValue = "[[${_csrf.token}]]";
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $("#updateRequest").submit(function (event){
+                event.preventDefault();
+                ajaxPost();
+            });
+
+            function ajaxPost(){
+                let formData = {
+                    labName: $("#LabName").val(),
+                    mode: $("#mode").val(),
+                    isRush: $("#isRush").val(),
+                    docId: $("#doctorId").val(),
+                    customerId: $("#customerId").val(),
+                    add1: $("#address0").val(),
+                    add2: $("#address1").val(),
+                    city: $("#city").val(),
+                    state: $("#state").val(),
+                    zip: $("#zip").val(),
+                    fname: $("#fName").val(),
+                    lname: $("#lName").val(),
+                    email: $("#email").val(),
+                    phone: $("#phone").val(),
+                    licenceNo: $("#licenceNo").val(),
+                    npi: $("#nip").val(),
+                    notes: $("#notes").val()
+
+
+                };
+
+                let requestId = $("#requestId").val();
+                let url = contextpath + "api/request/update/"+requestId;
+
+                $.ajax({
+                    type : "POST",
+                    contentType : "application/json",
+                    url : url,
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader(csrfHeaderName, csrfValue);
+                    },
+                    data : JSON.stringify(formData),
+                    dataType : 'json',
+                    success : function (response){
+                        window.location.assign("http://localhost:8080/dashboard");
+                        console.log(response);
+                    },
+                    error: function (e){
+                        console.log("Error: ", e);
+                        console.log("data: ", JSON.stringify(formData))
+                        window.location.assign("http://localhost:8080/dashboard");
+                    }
+
+                });
+            }
+        })
+    </script>
+</footer>
+</html>

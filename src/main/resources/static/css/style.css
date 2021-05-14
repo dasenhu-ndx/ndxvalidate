@@ -1,0 +1,31 @@
+.bg-blue{
+    background-color: #002855;
+    color: #FFFFFF;
+}
+.nav-bottom-green{
+    border-bottom: #5dbb46 solid 10px;
+}
+
+.ndx-header{
+    border-radius: 0;
+}
+
+.ndx-btn-color{
+    background-color: #002855;
+    color: #5dbb46;
+}
+
+.ndx-btn-color a,
+.ndx-btn-color a:hover,
+.ndx-btn-color a:active,
+.ndx-btn-color a:visited{
+    color: #5dbb46;
+}
+
+.color-green,
+.color-green a,
+.color-green a:hover,
+.color-green a:visited,
+.color-green a:active{
+    color: #5dbb46;
+}

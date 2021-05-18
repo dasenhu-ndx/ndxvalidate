@@ -29,3 +29,24 @@
 .color-green a:active{
     color: #5dbb46;
 }
+
+.error-card{
+    width: 400px;
+    display: block;
+    margin: auto;
+}
+.error-title{
+    font-size: xxx-large;
+    font-weight: bolder;
+    color: #002855;
+}
+
+.error-tag{
+    color: red;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.lms-nav-btn-group{
+    display: inline-flex;
+}

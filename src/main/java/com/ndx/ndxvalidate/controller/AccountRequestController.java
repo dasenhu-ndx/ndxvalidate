@@ -1,11 +1,14 @@
 package com.ndx.ndxvalidate.controller;
 
+import com.ndx.ndxvalidate.business.service.DateTimeService;
 import com.ndx.ndxvalidate.business.service.MTUserService;
 import com.ndx.ndxvalidate.business.service.NdxModeService;
 import com.ndx.ndxvalidate.business.service.RequestTransaction;
 import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.repository.AccountRequestRepo;
+import com.ndx.ndxvalidate.data.repository.OtherSPRepo;
+import com.ndx.ndxvalidate.data.sp_access.LabUserPair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,12 +23,16 @@ public class AccountRequestController {
     private final RequestTransaction requestTransaction;
     private final MTUserService mtUserService;
     private final NdxModeService ndxModeService;
+    private final OtherSPRepo otherSPRepo;
+    private final DateTimeService dateTimeService;
 
-    public AccountRequestController(AccountRequestRepo accountRequestRepo, RequestTransaction requestTransaction, MTUserService mtUserService, NdxModeService ndxModeService) {
+    public AccountRequestController(AccountRequestRepo accountRequestRepo, RequestTransaction requestTransaction, MTUserService mtUserService, NdxModeService ndxModeService, OtherSPRepo otherSPRepo, DateTimeService dateTimeService) {
         this.accountRequestRepo = accountRequestRepo;
         this.requestTransaction = requestTransaction;
         this.mtUserService = mtUserService;
         this.ndxModeService = ndxModeService;
+        this.otherSPRepo = otherSPRepo;
+        this.dateTimeService = dateTimeService;
     }
 
     @ModelAttribute("newAccount")
@@ -38,11 +45,14 @@ public class AccountRequestController {
 
     @PostMapping("/requestAccount")
     public String requestNewAccount(@ModelAttribute("newAccount") AccountRequest accountRequest, Model model){
-
-        accountRequest.setMtUserName(mtUserService.currentUserName());
+        String mtUserCurrent = mtUserService.currentUserName();
+        accountRequest.setMtUserName(mtUserCurrent);
+        accountRequest.setTimeStamp(dateTimeService.getCurrentDate());
+        accountRequest.setLms(0);
         accountRequestRepo.save(accountRequest);
         List<NdxMode> ndxModes = ndxModeService.listModes();
-
+        List<LabUserPair> labUserPairList = otherSPRepo.getLabUserPairList(mtUserCurrent);
+        model.addAttribute("labUserPair", labUserPairList);
         model.addAttribute("ndxMode", ndxModes);
         model.addAttribute("sent", "Your request has been sent to the LMS team or processing. Allow a few hours.");
         return "request";

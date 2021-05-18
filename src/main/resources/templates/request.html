@@ -12,7 +12,7 @@
 <div class="wrapper">
     <nav class="navbar navbar-expand-lg navbar-dark bg-blue nav-bottom-green">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Ndx Validate</a>
+            <a class="navbar-brand" href="/">Ndx Validate</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,7 +28,7 @@
                         <a href="#documentation" class="nav-link">Documentation</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/dashboard" class="nav-link">Request Archive</a>
+                        <a href="/processed/requests/complete" class="nav-link">Request Archive</a>
                     </li>
                     <li class="nav-item">
                         <a href="/logout" class="nav-link">Sign Out</a>
@@ -53,7 +53,9 @@
 
                     <label for="LabName" class="form-label">Lab Name</label>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control"  id="LabName" th:field="*{labName}">
+                        <select type="text" class="form-control"  id="LabName" th:field="*{labName}">
+                            <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}" th:text="${l.labName}" ></option>
+                        </select>
                     </div>
 
 
@@ -67,7 +69,18 @@
                     <label for="IsRush">Is Rush</label>
                     <div class="input-group mb-3">
 
-                        <input type="text" class="form-control"   id="IsRush" th:field="*{isRush}">
+                        <select type="text" class="form-control"   id="IsRush" th:field="*{isRush}">
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+                        </select>
+                    </div>
+                    <label for="dhs">Is DHS</label>
+                    <div class="input-group mb-3">
+
+                        <select class="form-control"   id="dhs" th:field="*{dhs}">
+                            <option value="0">NO</option>
+                            <option value="1">Yes</option>
+                        </select>
                     </div>
 
                     <label for="doctorId">Old Doctor ID</label>
@@ -79,6 +92,17 @@
                     <label for="customerId">Old Customer ID</label>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control"   id="customerId" th:field="*{customerId}">
+                    </div>
+                    <label for="dGroup">Dental Group</label>
+                    <div class="input-group mb-3">
+
+                        <input type="text" class="form-control"   id="dGroup" th:field="*{DGroup}">
+                    </div>
+
+                    <label for="pName">Practice Name</label>
+                    <div class="input-group mb-3">
+
+                        <input type="text" class="form-control"   id="pName" th:field="*{PName}">
                     </div>
 
                     <label for="address1">Address1</label>
@@ -141,7 +165,7 @@
 
                     <label for="labNote">Add Note</label>
                     <div class="input-group mb-4">
-                        <input type="text" class="form-control"   id="labNote" th:field="*{notes}">
+                        <textarea type="text" class="form-control"   id="labNote" th:field="*{notes}"> </textarea>
                     </div>
 
                     <input type="submit" value="Submit">

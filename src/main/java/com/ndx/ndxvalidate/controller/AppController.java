@@ -6,6 +6,8 @@ import com.ndx.ndxvalidate.business.service.NdxModeService;
 import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.entity.TestEntity;
+import com.ndx.ndxvalidate.data.repository.OtherSPRepo;
+import com.ndx.ndxvalidate.data.sp_access.LabUserPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +21,15 @@ public class AppController {
 
     private  final MTUserService mtUserService;
     private final AdminService adminService;
+    private final OtherSPRepo otherSPRepo;
 
     private final NdxModeService ndxModeService;
 
     @Autowired
-    public AppController(MTUserService mtUserService, AdminService adminService, NdxModeService ndxModeService) {
+    public AppController(MTUserService mtUserService, AdminService adminService, OtherSPRepo otherSPRepo, NdxModeService ndxModeService) {
         this.mtUserService = mtUserService;
         this.adminService = adminService;
+        this.otherSPRepo = otherSPRepo;
         this.ndxModeService = ndxModeService;
     }
 
@@ -73,7 +77,8 @@ public class AppController {
     @GetMapping("/request")
     public String getRequestPage(Model model){
         List<NdxMode> ndxModes = ndxModeService.listModes();
-
+        List<LabUserPair> labUserPairList = otherSPRepo.getLabUserPairList(mtUserService.currentUserName());
+        model.addAttribute("labUserPair", labUserPairList);
         model.addAttribute("ndxMode", ndxModes);
 
         return "request";

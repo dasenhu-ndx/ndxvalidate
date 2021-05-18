@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface RunRequestRepo extends JpaRepository<AccountRequest, Long> {
 
 
-    @Query(nativeQuery = true, value = " EXEC AZPHX.dbo.SP_NewAccountCreation" +
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_NDXValidateNewAccountCreation]" +
             " @LabName = ?1" +
             ",@Operator= ?2" +
             ",@Prospect= ?3" +
@@ -30,7 +30,7 @@ public interface RunRequestRepo extends JpaRepository<AccountRequest, Long> {
             ",@ZipCode= ?17" +
             ",@OfficePhone= ?18" +
             ",@Email=?19" +
-            ",@LicenseNumber= 20" +
+            ",@LicenseNumber= ?20" +
             ",@NPINumber= ?21" +
             ",@MasterAccountID= ?22" +
             ",@eModelCustomerID= ?23" +
@@ -40,15 +40,15 @@ public interface RunRequestRepo extends JpaRepository<AccountRequest, Long> {
             ",@CustomerOnly= ?27" +
             ",@IsLab= ?28" +
             ",@Verify= 'CHECK'" +
-            ",@UserID= ?29" )
-    public void runCheck(String labName, String operator,int prospect, String agdnNumber,String pdmnNotes,
+            ",@UserID= ?29")
+    public void runCheck(String labName, String operator, int prospect, String agdnNumber, String pdmnNotes,
                          String mode, int dhs, String docId, String customerId, String dentalGroup, String practiceName,
-                         String fName, String lName,String add1, String add2, String city, String state, String zip, String phone,
-                         String email, String licenceNo, String npi, String masterAccNo, String modelCustomerId, int useStreetAdd,  String country,
-                         String corpCamp, int customerOnly, int isLab,String mtUserName );
+                         String fName, String lName, String add1, String city, String state, String zip, String phone,
+                         String email, String licenceNo, String npi, String masterAccNo, String modelCustomerId, int useStreetAdd, String country,
+                         String corpCamp, int customerOnly, int isLab, String mtUserName);
 
 
-    @Query(nativeQuery = true, value = " EXEC AZPHX.dbo.SP_NewAccountCreation" +
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_NDXValidateNewAccountCreation]" +
             " @LabName = ?1" +
             ",@Operator= ?2" +
             ",@Prospect= ?3" +
@@ -68,7 +68,7 @@ public interface RunRequestRepo extends JpaRepository<AccountRequest, Long> {
             ",@ZipCode= ?17" +
             ",@OfficePhone= ?18" +
             ",@Email=?19" +
-            ",@LicenseNumber= 20" +
+            ",@LicenseNumber= ?20" +
             ",@NPINumber= ?21" +
             ",@MasterAccountID= ?22" +
             ",@eModelCustomerID= ?23" +
@@ -78,11 +78,12 @@ public interface RunRequestRepo extends JpaRepository<AccountRequest, Long> {
             ",@CustomerOnly= ?27" +
             ",@IsLab= ?28" +
             ",@Verify= 'RUN'" +
-            ",@UserID= ?29" )
+            ",@UserID= ?29")
     public AccountCreated runAccount(String labName, String operator, int prospect, String agdnNumber, String pdmnNotes,
                                      String mode, int dhs, String docId, String customerId, String dentalGroup, String practiceName,
-                                     String fName, String lName, String add1, String add2, String city, String state, String zip, String phone,
+                                     String fName, String lName, String add1, String city, String state, String zip, String phone,
                                      String email, String licenceNo, String npi, String masterAccNo, String modelCustomerId, int useStreetAdd, String country,
-                                     String corpCamp, int customerOnly, int isLab, String mtUserName );
+                                     String corpCamp, int customerOnly, int isLab, String mtUserName);
+
 
 }

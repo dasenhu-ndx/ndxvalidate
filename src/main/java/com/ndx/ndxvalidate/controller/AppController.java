@@ -2,6 +2,8 @@ package com.ndx.ndxvalidate.controller;
 
 import com.ndx.ndxvalidate.business.service.AdminService;
 import com.ndx.ndxvalidate.business.service.MTUserService;
+import com.ndx.ndxvalidate.business.service.NdxModeService;
+import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.entity.TestEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +12,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
+
 @Controller
 public class AppController {
 
     private  final MTUserService mtUserService;
     private final AdminService adminService;
 
+    private final NdxModeService ndxModeService;
+
     @Autowired
-    public AppController(MTUserService mtUserService, AdminService adminService) {
+    public AppController(MTUserService mtUserService, AdminService adminService, NdxModeService ndxModeService) {
         this.mtUserService = mtUserService;
         this.adminService = adminService;
+        this.ndxModeService = ndxModeService;
     }
 
 
@@ -33,18 +40,7 @@ public class AppController {
         return "index";
     }
 
-    @GetMapping("/lms")
-    public String getLmsDashboard(){
 
-        String mtUserName = mtUserService.currentUserName();
-        Boolean userStatus = adminService.checkAdminPrivilege(mtUserName);
-        System.out.println(userStatus);
-        if(userStatus == true) {
-            return "lms_portal";
-        }else{
-            return "no_access";
-        }
-    }
 
 
 
@@ -68,10 +64,21 @@ public class AppController {
         return new AccountRequest();
     }
 
+    @ModelAttribute("updateAccountRequest")
+    public AccountRequest updateAccountRequest(){
+
+
+        return new AccountRequest();
+    }
     @GetMapping("/request")
-    public String getRequestPage(){
+    public String getRequestPage(Model model){
+        List<NdxMode> ndxModes = ndxModeService.listModes();
+
+        model.addAttribute("ndxMode", ndxModes);
 
         return "request";
     }
+
+
 
 }

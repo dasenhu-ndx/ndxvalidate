@@ -1,54 +1,107 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Test</title>
+    <meta  http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Ndx Validate</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
+
 <body>
-<section>
-    <div class="demoNote">
-        <h5>This a demo of the dashboard page it will hold a nave and user's open requests</h5>
-    </div>
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-blue nav-bottom-green">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Ndx Validate</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/request" class="nav-link">Request New Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#documentation" class="nav-link">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/dashboard" class="nav-link">Request Archive</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>Lab Name</td>
-                    <td>Mode</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Customer Practice Name </td>
-                    <td>State</td>
-                    <td>NPI No</td>
-                    <td>Licence No</td>
-                </tr>
-            </thead>
-            <tbody>
-               <tr th:each="s : ${requests}">
-                   <td th:text="${s.labName}"></td>
-                    <td th:text="${s.mode}"></td>
-                   <td th:text="${s.FName}"></td>
-                   <td th:text="${s.LName}"></td>
-                   <td th:text="${s.customerId}"></td>
-                   <td th:text="${s.state}"></td>
-                   <td th:text="${s.npi}"></td>
-                   <td th:text="${s.licenceNo}"></td>
-               </tr>
-            </tbody>
-        </table>
-        <div th:if="${admin != null }">
-            <div class="p-5">
-                <div class="text-center">
-                    <div class="btn btn-dark">
-                        <a href="/lms">LMS Dashboard</a>
+        <section class="mt-5">
+            <div class="request-sender mb-3">
+                <div class="float-right">
+                    <div class="btn ndx-btn-color">
+                        <a href="/request">Request Account</a>
                     </div>
                 </div>
             </div>
-        </div>
-   
+            <div class="card bg-white">
+                <div class="card-header nav-bottom-green bg-blue ndx-header">
+                    <h4>Account Request Queue</h4>
+                </div>
+            </div>
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Lab Name</td>
+                        <td>Mode</td>
+                        <td>Doctor Name</td>
+                        <td>Practice Name </td>
+                        <td>State</td>
+                        <td>NPI No</td>
+                        <td>Licence No</td>
+                        <td>Status</td>
+                        <td>Edit</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="s : ${requests}">
+                        <td th:text="${s.labName}"></td>
+                        <td th:text="${s.mode}"></td>
+                        <td th:text="${s.FName} + ' ' + ${s.LName} "></td>
+                        <td th:text="${s.customerId}"></td>
+                        <td th:text="${s.state}"></td>
+                        <td th:text="${s.npi}"></td>
+                        <td th:text="${s.licenceNo}"></td>
+                        <td > <span th:if="${s.status == 0}">Processing</span> </td>
+                        <td><h4 class="text-center color-green"><a href="/dashboard/edit_request.html" th:href="@{/edit_request/{id}(id=${s.accId})}" ><i class="far fa-edit"></i></a></h4></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div th:if="${admin != null }">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <div class="btn ndx-btn-color">
+                                <a href="/lms">LMS Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </div>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+</div>
+
+
+
 </body>
+<footer >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/2effb491bc.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+</footer>
 </html>

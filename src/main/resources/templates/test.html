@@ -14,9 +14,6 @@
             <h6><span th:text="${saved}"></span></h6>
         </div>
         <form method="post" action="" th:action="@{/addTest}" th:object="${newTestAtt}">
-
-
-
             <label for="testName" class="form-label">Lab Name</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control"  id="testName" th:field="*{testName}">

@@ -48,13 +48,15 @@
         <div class="card-body">
              <div class="account-info mt-3">
                  <h4>Request Mode: <span th:text="${ndxModel.mode}"></span></h4>
-                 <h4>Requested by: <span th:text="${accountCreated.getRequesterID()}"></span></h4>
-                 <h4>New Customer Id: <span th:text="${accountCreated.getCustomerID()}"></span></h4>
-                 <h4>New Doctor Id: <span th:text="${accountCreated.getCustomerID()}"></span></h4>
-                 <h4>Processed by: <span th:text="${accountCreated.getOperator()}"></span></h4>
+                 <h4>Requested by: <span th:text="${accountCreated.accountRequest.mtUserName}"></span></h4>
+                 <h4>New Customer Id: <span th:text="${accountCreated.newCusId}"></span></h4>
+                 <h4>New Doctor Id: <span th:text="${accountCreated.newDocId}"></span></h4>
+                 <h4>Processed by: <span th:text="${accountCreated.procBy}"></span></h4>
              </div>
         </div>
     </div>
+
+    <a href="/dashboard" class="mt-3 color-green">Dashboard</a>
 
 </div>
 

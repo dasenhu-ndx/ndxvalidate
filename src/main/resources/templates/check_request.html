@@ -44,6 +44,9 @@
            <h4>Checking Account Request for Errors</h4>
         </div>
         <div class="card-body">
+            <div class="request-mode mt-4">
+                <h4 class="color-green">Request Mode: <span th:text="${ndxMode.mode}"></span></h4>
+            </div>
             <div class="check-entry p-2  table-responsive mt-4">
 
                 <table class="table">
@@ -113,7 +116,79 @@
                     </tr>
                     </tbody>
                 </table>
+                <table class="table mt-3">
+                    <thead  class="table-light">
 
+                    <h4 class="text-center mt-5">Checking Existing Customer</h4>
+
+                    <tr>
+
+                        <th scope="col">Warning</th>
+                        <th scope="col">Customer #</th>
+                        <th scope="col">DentalGroup</th>
+                        <th scope="col">Practice Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">State</th>
+                        <th scope="col">City</th>
+                        <th scope="col">ZipCode</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Created By</th>
+                        <th scope="col">Created On</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="d: ${existingCus}">
+
+                        <td th:text="${d.warning}"></td>
+                        <td th:text="${d.customerID}"></td>
+                        <td th:text="${d.getDentalGroup()}"></td>
+                        <td th:text="${d.getPracticeName()}"></td>
+                        <td th:text="${d.getAddress1()}"></td>
+                        <td th:text="${d.getState()}"></td>
+                        <td th:text="${d.city}"></td>
+                        <td th:text="${d.getZipCode()}"></td>
+                        <td th:text="${d.getOfficePhone()}"></td>
+                        <td th:text="${d.createdBy}"></td>
+                        <td th:text="${d.createDate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table mt-3">
+                    <thead  class="table-light">
+
+                    <h4 class="text-center mt-5">Checking Similar Customer</h4>
+
+                    <tr>
+
+                        <th scope="col">Warning</th>
+                        <th scope="col">Customer #</th>
+                        <th scope="col">DentalGroup</th>
+                        <th scope="col">Practice Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">State</th>
+                        <th scope="col">City</th>
+                        <th scope="col">ZipCode</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Created By</th>
+                        <th scope="col">Created On</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="f: ${similarCus}">
+                        <td th:text="${f.warning}"></td>
+                        <td th:text="${f.customerID}"></td>
+                        <td th:text="${f.getDentalGroup()}"></td>
+                        <td th:text="${f.getPracticeName()}"></td>
+                        <td th:text="${f.getAddress1()}"></td>
+                        <td th:text="${f.getState()}"></td>
+                        <td th:text="${f.city}"></td>
+                        <td th:text="${f.getZipCode()}"></td>
+                        <td th:text="${f.getOfficePhone()}"></td>
+                        <td th:text="${f.createdBy}"></td>
+                        <td th:text="${f.createDate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -42,11 +42,10 @@ public interface MiniChecksRepo extends JpaRepository<AccountRequest, Long> {
             ",@LastName = ?3" +
             ",@LicenseNumber = ?4" +
             ",@NPINumber = ?5" +
-            ",@ExistingCustomerID = ?6" +
-            ",@Address1 = ?7" +
-            ",@OfficePhone = ?8"
+            ",@Address1 = ?6" +
+            ",@OfficePhone = ?7"
     )
-    List<CheckSimilarDoctor> getSimilarDoctor(String labName, String fName, String lName, String licenceNo, String npi, String eCustomerId,
+    List<CheckSimilarDoctor> getSimilarDoctor(String labName, String fName, String lName, String licenceNo, String npi,
                                               String add1, String phone);
 
 

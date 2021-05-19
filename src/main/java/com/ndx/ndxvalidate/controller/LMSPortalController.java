@@ -29,7 +29,7 @@ public class LMSPortalController {
         String mtUserName = mtUserService.currentUserName();
         Boolean userStatus = adminService.checkAdminPrivilege(mtUserName);
 
-        List<AccountRequest> accountRequests = accountRequestRepo.findAccountRequestsByStatus(0);
+        List<AccountRequest> accountRequests = accountRequestRepo.findAllByLms(0);
 
         model.addAttribute("requestList", accountRequests);
         System.out.println(userStatus);

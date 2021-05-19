@@ -37,61 +37,28 @@
             </div>
         </div>
     </nav>
-
-    <div class="container">
-
-        <div class="mb-3 mt-5">
-            <div class="lms-nav-btn-group text-center">
-                <div class="btn ndx-btn-color mx-2">
-                    <a href="/processed/requests">All Processed Requests</a>
-                </div>
-                <div class="btn ndx-btn-color mx-2">
-                    <a href="/my/processed/requests">My Processed Requests</a>
-                </div>
-            </div>
-        </div>
-        <div class="card mt-4 bg-white">
-            <div class="card-header bg-blue nav-bottom-green ndx-header">
-                <h4>New Account Request Queue</h4>
-            </div>
-            <div class="container mt-3">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Requester</th>
-                        <th scope="col">Lab Name</th>
-                        <th scope="col">Mode</th>
-                        <th scope="col">Doctor Name</th>
-                        <th scope="col">Practice Name </th>
-                        <th scope="col">State</th>
-                        <th scope="col">NPI No</th>
-                        <th scope="col">Licence No</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Process</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="s : ${requestList}">
-                        <td th:text="${#dates.format(s.timeStamp, 'yyyy/MM/dd : hh:mm a')}"></td>
-                        <td th:text="${s.mtUserName}"></td>
-                        <td th:text="${s.labName}"></td>
-                        <td th:text="${s.mode}"></td>
-                        <td th:text="${s.FName} + ' ' + ${s.LName} "></td>
-                        <td th:text="${s.PName}"></td>
-                        <td th:text="${s.state}"></td>
-                        <td th:text="${s.npi}"></td>
-                        <td th:text="${s.licenceNo}"></td>
-                        <td > <span th:if="${s.status == 0}">Not Processed</span></td>
-                        <td><h4 class="text-center color-green"><a href="/lms/process.html" th:href="@{/process/request/{id}(id=${s.accId})}" ><i class="far fa-dot-circle"></i></a></h4></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 </div>
 
+<div  class="created-account">
+
+    <div class="card mt-5 bg-white">
+        <div class="card-header ndx-header bg-blue nav-bottom-green">
+            <h3>Account Request Completed!</h3>
+        </div>
+        <div class="card-body">
+             <div class="account-info mt-3">
+                 <h4>Request Mode: <span th:text="${ndxModel.mode}"></span></h4>
+                 <h4>Requested by: <span th:text="${accountCreated.accountRequest.mtUserName}"></span></h4>
+                 <h4>New Customer Id: <span th:text="${accountCreated.newCusId}"></span></h4>
+                 <h4>New Doctor Id: <span th:text="${accountCreated.newDocId}"></span></h4>
+                 <h4>Processed by: <span th:text="${accountCreated.procBy}"></span></h4>
+             </div>
+        </div>
+    </div>
+
+    <a href="/dashboard" class="mt-3 color-green">Dashboard</a>
+
+</div>
 
 
 </body>

@@ -12,7 +12,7 @@
 <div class="wrapper">
     <nav class="navbar navbar-expand-lg navbar-dark bg-blue nav-bottom-green">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Ndx Validate</a>
+            <a class="navbar-brand" href="/">Ndx Validate</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,7 +28,7 @@
                         <a href="#documentation" class="nav-link">Documentation</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/dashboard" class="nav-link">Request Archive</a>
+                        <a href="/processed/requests/complete" class="nav-link">Request Archive</a>
                     </li>
                     <li class="nav-item">
                         <a href="/logout" class="nav-link">Sign Out</a>
@@ -55,23 +55,25 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <td>Lab Name</td>
-                        <td>Mode</td>
-                        <td>Doctor Name</td>
-                        <td>Practice Name </td>
-                        <td>State</td>
-                        <td>NPI No</td>
-                        <td>Licence No</td>
-                        <td>Status</td>
-                        <td>Edit</td>
+                        <th scope="col">Date</th>
+                        <th scope="col">Lab Name</th>
+                        <th scope="col">Mode</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Practice Name </th>
+                        <th scope="col">State</th>
+                        <th scope="col">NPI No</th>
+                        <th scope="col">Licence No</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Edit</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="s : ${requests}">
+                        <td th:text="${#dates.format(s.timeStamp, 'yyyy/MM/dd : hh:mm a')}"></td>
                         <td th:text="${s.labName}"></td>
                         <td th:text="${s.mode}"></td>
                         <td th:text="${s.FName} + ' ' + ${s.LName} "></td>
-                        <td th:text="${s.customerId}"></td>
+                        <td th:text="${s.PName}"></td>
                         <td th:text="${s.state}"></td>
                         <td th:text="${s.npi}"></td>
                         <td th:text="${s.licenceNo}"></td>

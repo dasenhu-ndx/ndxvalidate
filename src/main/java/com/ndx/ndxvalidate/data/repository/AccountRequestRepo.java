@@ -15,6 +15,7 @@ public interface AccountRequestRepo extends JpaRepository<AccountRequest, Long> 
     List<AccountRequest> findAccountRequestsByMtUserName(String mtUserName);
     List<AccountRequest> findAccountRequestsByMtUserNameAndStatus(String mtUserName, int status);
     AccountRequest findAccountRequestsByAccId(Long id);
+   List<AccountRequest> findAllByLms(int lms);
 
     List<AccountRequest> findAccountRequestsByStatus(int status);
 

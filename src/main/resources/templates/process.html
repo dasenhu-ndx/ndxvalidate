@@ -12,7 +12,7 @@
 <div class="wrapper">
     <nav class="navbar navbar-expand-lg navbar-dark bg-blue nav-bottom-green">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Ndx Validate</a>
+            <a class="navbar-brand" href="/">Ndx Validate</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,7 +28,7 @@
                         <a href="#documentation" class="nav-link">Documentation</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/dashboard" class="nav-link">Request Archive</a>
+                        <a href="/processed/requests/complete" class="nav-link">Request Archive</a>
                     </li>
                     <li class="nav-item">
                         <a href="/logout" class="nav-link">Sign Out</a>
@@ -63,6 +63,10 @@
                         <td th:text="${accountRequest.isRush}"></td>
                     </tr>
                     <tr>
+                        <td >IS DHS</td>
+                        <td th:text="${accountRequest.dhs}"></td>
+                    </tr>
+                    <tr>
                         <td>Request By</td>
                         <td th:text="${accountRequest.mtUserName}"></td>
                     </tr>
@@ -76,11 +80,11 @@
                     </tr>
                     <tr>
                         <td> Dental Group Name</td>
-                        <td></td>
+                        <td th:text="${accountRequest.DGroup}"></td>
                     </tr>
                     <tr>
                         <td >Practice Name</td>
-                        <td></td>
+                        <td th:text="${accountRequest.PName}"></td>
                     </tr>
                     <tr>
                         <td> First Name</td>
@@ -140,10 +144,10 @@
                         Controls
                     </div>
                     <div class="container p-3">
-                        <a href="#" class="btn ndx-btn-color">
+                        <a href="/process/check_request.html" th:href="@{/check/request/{id}(id= ${accountRequest.accId})}" class="btn ndx-btn-color">
                             Check
                         </a>
-                        <a href="#" class="ndx-btn-color btn">
+                        <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accountRequest.accId})}" class="ndx-btn-color btn">
                             Run
                         </a>
                     </div>

@@ -1,9 +1,13 @@
 package com.ndx.ndxvalidate.data.entity;
 
+import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Entity
@@ -16,6 +20,10 @@ public class AccountRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AccountReqId")
     private Long accId;
+
+    @Column(name = "TimeStamp")
+    @CreatedDate
+    private Date timeStamp;
 
     @Column(name = "RequestMode")
     private int mode;
@@ -74,5 +82,15 @@ public class AccountRequest {
     @Column(name = "Status")
     private int status;
 
+    @Column(name = "DentalGroup")
+    private String dGroup;
 
+    @Column(name = "PracticeName")
+    private String pName;
+
+    @Column(name = "DHS")
+    private int dhs;
+
+    @Column(name = "LMSStatus")
+    private int lms;
 }

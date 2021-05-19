@@ -50,3 +50,12 @@
 .lms-nav-btn-group{
     display: inline-flex;
 }
+#wrapper {
+    min-height: calc(100vh - 70px);
+    margin-bottom: -50px;
+}
+
+.footer
+{
+    text-align: center!important;
+}

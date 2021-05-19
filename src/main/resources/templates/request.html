@@ -51,8 +51,8 @@
 
 
 
-                    <label for="LabName" class="form-label">Lab Name</label>
-                    <div class="input-group mb-3">
+                    <label   for="LabName" class="form-label">Lab Name</label>
+                    <div  class="input-group mb-3">
                         <select type="text" class="form-control"  id="LabName" th:field="*{labName}">
                             <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}" th:text="${l.labName}" ></option>
                         </select>
@@ -66,16 +66,16 @@
                         </select>
                     </div>
 
-                    <label for="IsRush">Is Rush</label>
-                    <div class="input-group mb-3">
+                    <label id="IsRush2" for="IsRush">Is Rush</label>
+                    <div id="IsRush1" class="input-group mb-3">
 
                         <select type="text" class="form-control"   id="IsRush" th:field="*{isRush}">
                             <option value="YES">Yes</option>
                             <option value="NO">No</option>
                         </select>
                     </div>
-                    <label for="dhs">Is DHS</label>
-                    <div class="input-group mb-3">
+                    <label id="dhs2" for="dhs">Is DHS</label>
+                    <div id="dhs1" class="input-group mb-3">
 
                         <select class="form-control"   id="dhs" th:field="*{dhs}">
                             <option value="0">NO</option>
@@ -83,88 +83,89 @@
                         </select>
                     </div>
 
-                    <label for="doctorId">Old Doctor ID</label>
-                    <div class="input-group mb-4">
+                    <label id="doctorId2" for="doctorId">Old Doctor ID</label>
+                    <div id="doctorId1" class="input-group mb-4">
                         <input type="text" class="form-control"   id="doctorId" th:field="*{docId}">
+                        <p id="EDoc"></p>
                     </div>
 
 
-                    <label for="customerId">Old Customer ID</label>
-                    <div class="input-group mb-3">
+                    <label id="customerId2" for="customerId">Old Customer ID</label>
+                    <div id="customerId1" class="input-group mb-3">
                         <input type="text" class="form-control"   id="customerId" th:field="*{customerId}">
                     </div>
-                    <label for="dGroup">Dental Group</label>
-                    <div class="input-group mb-3">
+                    <label id="dGroup2" for="dGroup">Dental Group</label>
+                    <div id="dGroup1" class="input-group mb-3">
 
                         <input type="text" class="form-control"   id="dGroup" th:field="*{DGroup}">
                     </div>
 
-                    <label for="pName">Practice Name</label>
-                    <div class="input-group mb-3">
+                    <label id="pName2" for="pName">Practice Name</label>
+                    <div id="pName1" class="input-group mb-3">
 
                         <input type="text" class="form-control"   id="pName" th:field="*{PName}">
                     </div>
 
-                    <label for="address1">Address1</label>
-                    <div class="input-group mb-4">
+                    <label id="address12" for="address1">Address1</label>
+                    <div id="address11" class="input-group mb-4">
                         <input type="text" class="form-control"   id="address1" th:field="*{add1}">
                     </div>
 
-                    <label for="address2">Address2</label>
-                    <div class="input-group mb-4">
+                    <label id="address22" for="address2">Address2</label>
+                    <div id="address21" class="input-group mb-4">
                         <input type="text" class="form-control"   id="address2" th:field="*{add2}">
                     </div>
 
 
-                    <label for="city">City</label>
-                    <div class="input-group mb-3">
+                    <label id="city2" for="city">City</label>
+                    <div  id="city1" class="input-group mb-3">
                         <input type="text" class="form-control"   id="city" th:field="*{city}">
                     </div>
 
-                    <label for="state">State</label>
-                    <div class="input-group mb-4">
+                    <label  id="state2" for="state">State</label>
+                    <div  id="state1" class="input-group mb-4">
                         <input type="text" class="form-control"   id="state" th:field="*{state}">
                     </div>
 
-                    <label for="zip">Zip</label>
-                    <div class="input-group mb-3">
+                    <label id="zip2" for="zip">Zip</label>
+                    <div  id="zip1" class="input-group mb-3">
                         <input type="text" class="form-control"   id="zip" th:field="*{zip}">
                     </div>
 
 
-                    <label for="fName">Doctor First Name</label>
-                    <div class="input-group mb-3">
+                    <label id="fName2" for="fName">Doctor First Name</label>
+                    <div id="fName1" class="input-group mb-3">
                         <input type="text" class="form-control"   id="fName" th:field="*{FName}">
                     </div>
 
-                    <label for="lName">Doctor Last Name</label>
-                    <div class="input-group mb-3">
+                    <label id="lName2" for="lName">Doctor Last Name</label>
+                    <div id="lName1" class="input-group mb-3">
                         <input type="text" class="form-control"   id="lName" th:field="*{LName}">
                     </div>
 
-                    <label for="email">Email</label>
-                    <div class="input-group mb-4">
+                    <label id="email2" for="email">Email</label>
+                    <div id="email1" class="input-group mb-4">
                         <input type="text" class="form-control"   id="email" th:field="*{email}">
                     </div>
 
-                    <label for="phone">Phone</label>
-                    <div class="input-group mb-4">
+                    <label id="phone2" for="phone">Phone</label>
+                    <div  id="phone1" class="input-group mb-4">
                         <input type="text" class="form-control"   id="phone" th:field="*{phone}">
                     </div>
 
-                    <label for="licenceNo">Doctor Licence Number</label>
-                    <div class="input-group mb-3">
+                    <label id="licenceNo2" for="licenceNo">Doctor Licence Number</label>
+                    <div  id="licenceNo1" class="input-group mb-3">
                         <input type="text" class="form-control"   id="licenceNo" th:field="*{licenceNo}">
                     </div>
 
 
-                    <label for="nip">NPI Number</label>
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control"   id="nip" th:field="*{npi}">
+                    <label id="npi2" for="npi">NPI Number</label>
+                    <div id="npi1" class="input-group mb-3">
+                        <input type="text" class="form-control"   id="npi" th:field="*{npi}">
                     </div>
 
-                    <label for="labNote">Add Note</label>
-                    <div class="input-group mb-4">
+                    <label id="labNote2" for="labNote">Add Note</label>
+                    <div id="labNote1" class="input-group mb-4">
                         <textarea type="text" class="form-control"   id="labNote" th:field="*{notes}"> </textarea>
                     </div>
 

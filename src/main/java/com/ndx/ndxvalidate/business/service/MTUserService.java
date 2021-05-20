@@ -1,7 +1,6 @@
 package com.ndx.ndxvalidate.business.service;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,6 @@ public class MTUserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)  authentication.getPrincipal();
 
-        String mtUserName = userDetails.getUsername();
-
-        return mtUserName;
+        return userDetails.getUsername();
     }
 }

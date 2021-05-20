@@ -1,11 +1,10 @@
 package com.ndx.ndxvalidate.controller;
 
-import com.ndx.ndxvalidate.business.service.AdminService;
 import com.ndx.ndxvalidate.business.service.MTUserService;
 import com.ndx.ndxvalidate.business.service.NdxModeService;
 import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
-import com.ndx.ndxvalidate.data.entity.TestEntity;
+import com.ndx.ndxvalidate.data.entity.Admin;
 import com.ndx.ndxvalidate.data.repository.OtherSPRepo;
 import com.ndx.ndxvalidate.data.sp_access.LabUserPair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,46 +19,31 @@ import java.util.List;
 public class AppController {
 
     private  final MTUserService mtUserService;
-    private final AdminService adminService;
     private final OtherSPRepo otherSPRepo;
 
     private final NdxModeService ndxModeService;
 
+//    This is the application general controller that opens html pages not mapped already to the web.
+//    It also alLows us to pass models and attributes we want available on all pages
+//    Note that userPermission is coming from the AdminService business logic and it helps you identify when a user is from the LMS Team.
+
     @Autowired
-    public AppController(MTUserService mtUserService, AdminService adminService, OtherSPRepo otherSPRepo, NdxModeService ndxModeService) {
+    public AppController(MTUserService mtUserService, OtherSPRepo otherSPRepo, NdxModeService ndxModeService) {
         this.mtUserService = mtUserService;
-        this.adminService = adminService;
         this.otherSPRepo = otherSPRepo;
         this.ndxModeService = ndxModeService;
     }
 
 
-    @GetMapping("/home")
-    public  String getIndex(Model model){
-        String mtUserName = mtUserService.currentUserName();
-        Boolean userStatus = adminService.checkAdminPrivilege(mtUserName);
 
-        model.addAttribute("userPermission", userStatus);
+    @ModelAttribute("newMember")
+    public Admin getInstanceAdmin(){
 
-        return "index";
+
+        return new Admin();
     }
 
 
-
-
-
-    @GetMapping("/test")
-    public String getTestPage(){
-
-        return "test";
-    }
-
-    @ModelAttribute("newTestAtt")
-    public TestEntity getInstance(){
-
-
-        return new TestEntity();
-    }
 
     @ModelAttribute("newAccount")
     public AccountRequest getInstanceAc(){

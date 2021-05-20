@@ -29,7 +29,12 @@
 .color-green a:active{
     color: #5dbb46;
 }
-
+.card-500{
+    width: 500px;
+}
+.form-450{
+    width: 450px;
+}
 .error-card{
     width: 400px;
     display: block;

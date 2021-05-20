@@ -1,15 +1,12 @@
 package com.ndx.ndxvalidate.controller;
 
-import com.ndx.ndxvalidate.business.service.DateTimeService;
 import com.ndx.ndxvalidate.business.service.NdxModeService;
 import com.ndx.ndxvalidate.business.service.ProcessRequestService;
 import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.entity.ProcessedRequest;
 import com.ndx.ndxvalidate.data.repository.AccountRequestRepo;
-import com.ndx.ndxvalidate.data.repository.MiniChecksRepo;
 import com.ndx.ndxvalidate.data.repository.ProcessedRequestRepo;
-import com.ndx.ndxvalidate.data.repository.RunRequestRepo;
 import com.ndx.ndxvalidate.data.sp_access.AccountCreated;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,21 +17,15 @@ import java.util.List;
 
 @Controller
 public class ProcessingRequestController {
-    private final MiniChecksRepo miniChecksRepo;
-    private final RunRequestRepo runRequestRepo;
     private final AccountRequestRepo accountRequestRepo;
     private final ProcessRequestService processRequestService;
     private final NdxModeService ndxModeService;
-    private final DateTimeService dateTimeService;
     private final ProcessedRequestRepo processedRequestRepo;
 
-    public ProcessingRequestController(MiniChecksRepo miniChecksRepo, RunRequestRepo runRequestRepo, AccountRequestRepo accountRequestRepo, ProcessRequestService processRequestService, NdxModeService ndxModeService, DateTimeService dateTimeService, ProcessedRequestRepo processedRequestRepo) {
-        this.miniChecksRepo = miniChecksRepo;
-        this.runRequestRepo = runRequestRepo;
+    public ProcessingRequestController(AccountRequestRepo accountRequestRepo, ProcessRequestService processRequestService, NdxModeService ndxModeService, ProcessedRequestRepo processedRequestRepo) {
         this.accountRequestRepo = accountRequestRepo;
         this.processRequestService = processRequestService;
         this.ndxModeService = ndxModeService;
-        this.dateTimeService = dateTimeService;
         this.processedRequestRepo = processedRequestRepo;
     }
 

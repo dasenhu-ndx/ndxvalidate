@@ -12,11 +12,11 @@
 <div class="wrapper">
     <nav class="navbar navbar-expand-lg navbar-dark bg-blue nav-bottom-green">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Ndx Validate</a>
+            <a class="navbar-brand" href="/">CAVE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="/dashboard" class="nav-link">Dashboard</a>
@@ -31,7 +31,9 @@
                         <a href="/processed/requests/complete" class="nav-link">Request Archive</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/logout" class="nav-link">Sign Out</a>
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" class="ndx-btn-color btn" value="Sign Out">
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -189,6 +191,14 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <div class="m-5 text-center">
+                    <div class="btn ndx-btn-color p-5">
+                        <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accId})}" class="ndx-btn-color btn">
+                            <h2>RUN</h2>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

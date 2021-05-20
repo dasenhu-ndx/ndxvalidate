@@ -21,31 +21,27 @@ public class CheckRequestService {
     }
 
     public List<CheckSimilarDoctor>  getSimilarDocList(AccountRequest accountRequest){
-        List<CheckSimilarDoctor> checkSimilarDoctor = miniChecksRepo.getSimilarDoctor(accountRequest.getLabName(),accountRequest.getFName(), accountRequest.getLName(),
-                accountRequest.getLicenceNo(), accountRequest.getNpi(), accountRequest.getAdd1() + " " +accountRequest.getAdd2(),accountRequest.getPhone()) ;
 
-        return checkSimilarDoctor;
+        return miniChecksRepo.getSimilarDoctor(accountRequest.getLabName(),accountRequest.getFName(), accountRequest.getLName(),
+                accountRequest.getLicenceNo(), accountRequest.getNpi(), accountRequest.getAdd1() + " " +accountRequest.getAdd2(),accountRequest.getPhone());
     }
 
     public  List<CheckExistingDoctor> getExistingDocList(AccountRequest accountRequest){
-        List<CheckExistingDoctor>  checkExistingDoctorList = miniChecksRepo.getExistingDoctor(accountRequest.getLabName(),accountRequest.getDocId(),
-                accountRequest.getLName(),accountRequest.getLicenceNo(),accountRequest.getNpi());
 
-        return checkExistingDoctorList;
+        return miniChecksRepo.getExistingDoctor(accountRequest.getLabName(),accountRequest.getDocId(),
+                accountRequest.getLName(),accountRequest.getLicenceNo(),accountRequest.getNpi());
     }
 
     public  List<CheckExistingCustomer> getExistingCustomer(AccountRequest accountRequest){
-        List<CheckExistingCustomer> checkExistingCustomers = miniChecksRepo.getExistingCustomer(accountRequest.getLabName(),accountRequest.getAdd1(),
-                accountRequest.getCustomerId(), accountRequest.getPhone());
 
-        return checkExistingCustomers;
+        return miniChecksRepo.getExistingCustomer(accountRequest.getLabName(),accountRequest.getAdd1(),
+                accountRequest.getCustomerId(), accountRequest.getPhone());
 
     }
     public  List<CheckSimilarCustomer> getSimilarCustomer(AccountRequest accountRequest){
-        List<CheckSimilarCustomer> checkSimilarCustomers = miniChecksRepo.getSimilarCustomer(accountRequest.getLabName(),accountRequest.getAdd1(),
-                accountRequest.getCustomerId(), accountRequest.getPhone());
 
-        return checkSimilarCustomers;
+        return miniChecksRepo.getSimilarCustomer(accountRequest.getLabName(),accountRequest.getAdd1(),
+                accountRequest.getCustomerId(), accountRequest.getPhone());
 
     }
 }

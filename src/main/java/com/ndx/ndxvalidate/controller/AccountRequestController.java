@@ -3,7 +3,6 @@ package com.ndx.ndxvalidate.controller;
 import com.ndx.ndxvalidate.business.service.DateTimeService;
 import com.ndx.ndxvalidate.business.service.MTUserService;
 import com.ndx.ndxvalidate.business.service.NdxModeService;
-import com.ndx.ndxvalidate.business.service.RequestTransaction;
 import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.repository.AccountRequestRepo;
@@ -16,19 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+// This is the account request controller  and it handles the initial submit of any account request
 @Controller
 public class AccountRequestController {
 
     private final AccountRequestRepo accountRequestRepo;
-    private final RequestTransaction requestTransaction;
     private final MTUserService mtUserService;
     private final NdxModeService ndxModeService;
     private final OtherSPRepo otherSPRepo;
     private final DateTimeService dateTimeService;
 
-    public AccountRequestController(AccountRequestRepo accountRequestRepo, RequestTransaction requestTransaction, MTUserService mtUserService, NdxModeService ndxModeService, OtherSPRepo otherSPRepo, DateTimeService dateTimeService) {
+    public AccountRequestController(AccountRequestRepo accountRequestRepo, MTUserService mtUserService, NdxModeService ndxModeService, OtherSPRepo otherSPRepo, DateTimeService dateTimeService) {
         this.accountRequestRepo = accountRequestRepo;
-        this.requestTransaction = requestTransaction;
         this.mtUserService = mtUserService;
         this.ndxModeService = ndxModeService;
         this.otherSPRepo = otherSPRepo;
@@ -42,7 +40,7 @@ public class AccountRequestController {
         return new AccountRequest();
     }
 
-
+// This is tied to the form using the action and object method, it performs the form submission. Action = /request object = newAccount
     @PostMapping("/requestAccount")
     public String requestNewAccount(@ModelAttribute("newAccount") AccountRequest accountRequest, Model model){
         String mtUserCurrent = mtUserService.currentUserName();

@@ -1,6 +1,8 @@
 package com.ndx.ndxvalidate.controller;
 
+import com.ndx.ndxvalidate.business.service.AdminService;
 import com.ndx.ndxvalidate.business.service.CheckRequestService;
+import com.ndx.ndxvalidate.business.service.MTUserService;
 import com.ndx.ndxvalidate.business.service.NdxModeService;
 import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
@@ -16,20 +18,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+//This controller processes the check page for the lms team to check requests
 @Controller
 public class CheckingRequestController {
 
     private final CheckRequestService checkRequestService;
     private final AccountRequestRepo accountRequestRepo;
     private  final NdxModeService ndxModeService;
+    private final MTUserService mtUserService;
+    private final AdminService adminService;
 
 
-    public CheckingRequestController(CheckRequestService checkRequestService, AccountRequestRepo accountRequestRepo, NdxModeService ndxModeService) {
+    public CheckingRequestController(CheckRequestService checkRequestService, AccountRequestRepo accountRequestRepo, NdxModeService ndxModeService, MTUserService mtUserService, AdminService adminService) {
         this.checkRequestService = checkRequestService;
         this.accountRequestRepo = accountRequestRepo;
         this.ndxModeService = ndxModeService;
+        this.mtUserService = mtUserService;
+        this.adminService = adminService;
     }
 
+//    All four checks are controlled by the below method
     @GetMapping("/check/request/{id}")
     private String checkRequest(@PathVariable(value = "id") Long id, Model model){
         AccountRequest accountRequest = accountRequestRepo.findAccountRequestsByAccId(id);
@@ -39,6 +47,7 @@ public class CheckingRequestController {
         List<CheckSimilarCustomer> checkSimilarCustomers = checkRequestService.getSimilarCustomer(accountRequest);
         List<NdxMode> ndxModes = ndxModeService.listModes();
         NdxMode ndxMode = ndxModes.get(accountRequest.getMode());
+        model.addAttribute("accId", id);
         model.addAttribute("ndxMode", ndxMode);
         model.addAttribute("similarDoc", checkSimilarDoctor);
         model.addAttribute("existingDoc", checkExistingDoctor);
@@ -46,7 +55,17 @@ public class CheckingRequestController {
         model.addAttribute("existingCus", checkExistingCustomers);
 
 
-        return "check_request";
+        String mtUserName = mtUserService.currentUserName();
+        Boolean userStatus = adminService.checkAdminPrivilege(mtUserName);
+
+
+        System.out.println(userStatus);
+        if(userStatus) {
+            return "check_request";
+        }else{
+            return "no_access";
+        }
+
     }
 
 }

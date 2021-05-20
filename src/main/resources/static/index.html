@@ -20,7 +20,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="/dashboard" class="nav-link">Dashboard</a>
@@ -35,14 +35,16 @@
                         <a href="/processed/requests/complete" class="nav-link">Request Archive</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/logout" class="nav-link">Sign Out</a>
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" class="ndx-btn-color btn" value="Sign Out">
+                        </form>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div id="wrapper">
-        <div class="jumbotron text-center" id="jumbo">
+        <div class="jumbotron mt-4 text-center" id="jumbo">
             <h1>Welcome to the CAVE request processor</h1>
             <h3>This project aims to make the new account creation seamless</h3>
             <h3></h3>
@@ -51,6 +53,7 @@
         </div>
 
     </div>
+</div>
 </body>
 
 <footer class="footer">

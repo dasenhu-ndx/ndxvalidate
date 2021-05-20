@@ -19,8 +19,6 @@ public class AdminService {
 
         Admin admin = adminRepo.findAdminByMtUserName(mtUserName);
 
-        if (admin == null){
-            return false;
-        } else return true;
+        return admin != null;
     }
 }

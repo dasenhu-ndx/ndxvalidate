@@ -63,4 +63,51 @@ public interface MiniChecksRepo extends JpaRepository<AccountRequest, Long> {
             ",@ExistingCustomerID = ?2" +
             ",@OfficePhone = ?3")
     CheckExistingCustomer getExistingCustomerByCustomerIdAndPhone(String labName, String customerId, String phone);
+
+
+    @Query(nativeQuery = true, value = "EXEC  [NDXData].[dbo].[SP_NDXValidateCheckSimilarCustomer] " +
+            "@LabName = ?1" +
+            ",@Address1 = ?2" +
+            ",@ZipCode = ''" +
+            ",@OfficePhone = ''")
+    List<CheckSimilarCustomer> getSimilarCustomerByAddress(String labName, String add1);
+
+    @Query(nativeQuery = true, value = "EXEC  [NDXData].[dbo].[SP_NDXValidateCheckSimilarCustomer] " +
+            "@LabName = ?1" +
+            ",@Address1 = ?2" +
+            ",@ZipCode = ''" +
+            ",@OfficePhone = ?3")
+    List<CheckSimilarCustomer> getSimilarCustomerByAddressAndPhone(String labName, String add1, String phone);
+
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_NDXValidateCheckSimilarDoctor]" +
+            "@LabName = ?1" +
+            ",@FirstName = ?2" +
+            ",@LastName = ?3" +
+            ",@LicenseNumber = ''" +
+            ",@NPINumber = ''" +
+            ",@Address1 = ''" +
+            ",@OfficePhone = ''"
+    )
+    List<CheckSimilarDoctor> getSimilarDoctorByName(String labName, String fName, String lName);
+
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_NDXValidateCheckSimilarDoctor]" +
+            "@LabName = ?1" +
+            ",@FirstName = ?2" +
+            ",@LastName = ?3" +
+            ",@LicenseNumber = ''" +
+            ",@NPINumber = ''" +
+            ",@Address1 = ''" +
+            ",@OfficePhone = ''"
+    )
+    List<CheckSimilarDoctor> getSimilarDoctorNameAndLicense(String labName, String fName, String lName, String licenceNo);
+
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_NDXValidateCheckExistingDoctor]" +
+            "@LabName = ?1" +
+            ",@ExistingDoctorNumber = ?2" +
+            ",@LastName = ''" +
+            ",@LicenseNumber = ''" +
+            ",@NPINumber = ''")
+    CheckExistingDoctor getExistingDoctorByDocId(String labName, String docId);
+
+
 }

@@ -2,7 +2,6 @@ package com.ndx.ndxvalidate.data.repository;
 
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.sp_access.LabUserPair;
-import com.ndx.ndxvalidate.data.sp_access.PracticeDoc;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

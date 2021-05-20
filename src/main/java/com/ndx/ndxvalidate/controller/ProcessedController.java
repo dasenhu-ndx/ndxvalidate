@@ -33,7 +33,7 @@ public class ProcessedController {
         List<ProcessedRequest> processedRequests = processedRequestRepo.findAllByProcBy(mtUserName);
         model.addAttribute("processed", processedRequests);
         model.addAttribute("mtu", mtUserName);
-        if(userStatus == true) {
+        if(userStatus) {
             return "my_processed_requests";
         }else{
             return "no_access";
@@ -51,7 +51,7 @@ public class ProcessedController {
 
         List<ProcessedRequest> processedRequests = processedRequestRepo.findAll();
         model.addAttribute("processed", processedRequests);
-        if(userStatus == true) {
+        if(userStatus) {
             return "processed_requests";
         }else{
             return "no_access";

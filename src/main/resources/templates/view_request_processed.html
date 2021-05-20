@@ -140,15 +140,46 @@
                 </tbody>
             </table>
 
-            <div class="container mt-1">
-                <div class="m-5 text-center">
-                    <div class="btn ndx-btn-color p-5">
-                        <a href="/process/check_request.html" th:href="@{/check/request/{id}(id= ${accountRequest.accId})}" class="btn ndx-btn-color">
-                            <h2>CHECK</h2>
-                        </a>
+            <div class="container mt-4">
+                <div class="card">
+                    <div class="card-header ndx-header nav-bottom-green bg-blue">
+                       <h3>This request was processed on: <span th:text="${#dates.format(processed.timeStamp, 'yyyy/MM/dd : hh:mm a')}"></span> </h3>
+                    </div>
+                    <div class="container p-3">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Key</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <tr>
+                                   <td>Processed By</td>
+                                   <td th:text="${admin.FName + ' ' + admin.LName}"></td>
+                               </tr>
+                            <tr>
+                                <td>Customer Id</td>
+                                <td th:text="${processed.newCusId}"></tdv>
+                            </tr>
+                            <tr>
+                                <td>Doctor Id</td>
+                                <td th:text="${processed.newDocId}"></td>
+                            </tr>
+                            <tr>
+                                <td>Requested On</td>
+                                <td th:text="${#dates.format(accountRequest.timeStamp, 'yyyy/MM/dd : hh:mm a')}" ></td>
+                            </tr>
+                            <tr>
+                                <td>Email with questions</td>
+                                <td ><span th:text="${admin.email}"></span> and cc: CorpITApplicationsTeam@NationalDentex.com</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

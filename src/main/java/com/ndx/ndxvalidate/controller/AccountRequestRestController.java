@@ -1,12 +1,12 @@
 package com.ndx.ndxvalidate.controller;
 
+import com.ndx.ndxvalidate.business.service.EmailService;
 import com.ndx.ndxvalidate.business.service.RequestTransaction;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
+import com.ndx.ndxvalidate.data.entity.Email;
 import com.ndx.ndxvalidate.data.repository.AccountRequestRepo;
 import org.apache.coyote.Response;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 //The edit account request form updates the form using a restful api to update all fields. this controller  houses the restful endpoint that performs this logic
 @RestController
@@ -14,10 +14,12 @@ import java.util.List;
 public class AccountRequestRestController {
     private  final AccountRequestRepo accountRequestRepo;
     private  final RequestTransaction requestTransaction;
+    private final EmailService emailService;
 
-    public AccountRequestRestController(AccountRequestRepo accountRequestRepo, RequestTransaction requestTransaction) {
+    public AccountRequestRestController(AccountRequestRepo accountRequestRepo, RequestTransaction requestTransaction, EmailService emailService) {
         this.accountRequestRepo = accountRequestRepo;
         this.requestTransaction = requestTransaction;
+        this.emailService = emailService;
     }
 
 
@@ -48,6 +50,21 @@ public class AccountRequestRestController {
         return response;
 
     }
+
+    @PostMapping("/sendEmail/{id}")
+    public Response sendEmailWithIssuesM1(@RequestBody Email email, @PathVariable(value = "id") Long id){
+
+        AccountRequest accountRequest = accountRequestRepo.findAccountRequestsByAccId(id);
+
+        emailService.emailServiceSender(accountRequest, email.getMessage());
+        Response response = new Response();
+        response.setMessage("Request Completed");
+
+
+        return response;
+
+    }
+
 
 
 

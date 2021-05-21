@@ -3,6 +3,7 @@ package com.ndx.ndxvalidate.controller;
 import com.ndx.ndxvalidate.business.service.EmailService;
 import com.ndx.ndxvalidate.business.service.MTUserService;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
+import com.ndx.ndxvalidate.data.entity.Email;
 import com.ndx.ndxvalidate.data.repository.AccountRequestRepo;
 import com.ndx.ndxvalidate.data.repository.EmailSPRepository;
 import com.ndx.ndxvalidate.data.repository.MiniChecksRepo;
@@ -10,6 +11,7 @@ import com.ndx.ndxvalidate.data.sp_access.CheckExistingCustomer;
 import com.ndx.ndxvalidate.data.sp_access.CheckExistingDoctor;
 import com.ndx.ndxvalidate.data.sp_access.CheckSimilarCustomer;
 import com.ndx.ndxvalidate.data.sp_access.CheckSimilarDoctor;
+import org.apache.coyote.Response;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -41,6 +41,38 @@
     </nav>
 </div>
 <div class="check-template p-2">
+    <div class="card mt-5">
+        <div class="card-header ndx-header nav-bottom-green bg-blue">
+            <h4>Push back on requester to make changes to the request form</h4>
+        </div>
+        <div class="controls-actions container pb-3">
+            <form id="sendEmail" class="mt-2" method="post">
+                <input type="hidden" id="requestId"  th:value="${accountRequest.accId}" >
+
+                <label  for="message"> <h4>Send Email Message to <span th:text="${accountRequest.mtUserName}"></span></h4></label>
+                <div  class="input-group mb-4">
+                    <textarea type="text" class="form-control"   id="message" name="message" value="message"> </textarea>
+                </div>
+                <div>
+                    <h5>Upon send, request is placed back in request queue for edits you can provide user with request id in message</h5>
+                </div>
+
+                <div class="text-center">
+                    <input  type="submit" class="ndx-btn-color btn" value="Send">
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <div class="m-4 text-center">
+        <div >
+            <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accId})}" class="ndx-btn-color mx-2 px-2 btn">
+                <i class="fas fa-running"></i> Run
+            </a>
+            <a href="/dashboard/edit_request.html" class="ndx-btn-color px-2 mx-2 btn" th:href="@{/edit_request/{id}(id=${accId})}" ><i class="far fa-edit"></i> Edit</a>
+        </div>
+    </div>
     <div class="card mt-5 bg-white">
         <div class="card-header ndx-header bg-blue nav-bottom-green">
            <h4>Checking Account Request for Errors</h4>
@@ -156,20 +188,7 @@
                     </tbody>
                 </table>
                 <table class="table mt-3">
-                    <tr class="controls-actions container">
-                        <form class="mt-2" method="post">
-                            <input type="hidden" id="requestId"  th:value="${accountRequest.accId}" >
 
-                            <label  for="message">Send Email Message to requester</label>
-                            <div  class="input-group mb-4">
-                                <textarea type="text" class="form-control"   id="message" name="message" value="message"> </textarea>
-                            </div>
-                            <small>upon send, request is placed back in request queue for edits</small>
-
-                            <input type="submit" class="ndx-btn-color btn" value="Send">
-
-                        </form>
-                    </tr>
                     <thead  class="table-light">
 
                     <h4 class="text-center mt-5">Checking Similar Customer</h4>
@@ -206,14 +225,17 @@
                     </tbody>
                 </table>
 
-                <div class="m-5 text-center">
-                    <div class="btn ndx-btn-color p-2">
-                        <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accId})}" class="ndx-btn-color btn">
-                            <h2>RUN</h2>
-                        </a>
-                    </div>
-                </div>
+
             </div>
+        </div>
+    </div>
+
+    <div class="m-4 text-center">
+        <div >
+            <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accId})}" class="ndx-btn-color mx-2 px-2 btn">
+                <i class="fas fa-running"></i> Run
+            </a>
+            <a href="/dashboard/edit_request.html" class="ndx-btn-color px-2 mx-2 btn" th:href="@{/edit_request/{id}(id=${accId})}" ><i class="far fa-edit"></i> Edit</a>
         </div>
     </div>
 </div>
@@ -223,5 +245,53 @@
     <script src="https://kit.fontawesome.com/2effb491bc.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript">
+        const contextpath = /*[[@{/}]]*/ "/";
+        let csrfHeaderName = "[[${_csrf.headerName}]]";
+        let csrfValue = "[[${_csrf.token}]]";
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $("#sendEmail").submit(function (event){
+                event.preventDefault();
+                ajaxPost();
+            });
+
+            function ajaxPost(){
+                let formData = {
+                    requestId: $("#requestId").val(),
+                    message: $("#message").val(),
+
+
+
+                };
+
+                let requestId = $("#requestId").val();
+                let url = contextpath + "api/request/sendEmail/"+requestId;
+
+                $.ajax({
+                    type : "POST",
+                    contentType : "application/json",
+                    url : url,
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader(csrfHeaderName, csrfValue);
+                    },
+                    data : JSON.stringify(formData),
+                    dataType : 'json',
+                    success : function (response){
+                        window.location.assign("http://localhost:8080/lms");
+                        console.log(response);
+                    },
+                    error: function (e){
+                        console.log("Error: ", e);
+                        console.log("data: ", JSON.stringify(formData))
+                        window.location.assign("http://localhost:8080/lms");
+                    }
+
+                });
+            }
+        })
+    </script>
 </footer>
 </html>

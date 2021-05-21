@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.util.Date;
 
+// @Table(name = lms teams table)
 @Entity
 @Table(name = "Ndx_Validate_Account_Processed")
 @Getter

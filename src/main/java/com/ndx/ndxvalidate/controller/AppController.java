@@ -5,6 +5,7 @@ import com.ndx.ndxvalidate.business.service.NdxModeService;
 import com.ndx.ndxvalidate.data.NdxMode;
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.entity.Admin;
+import com.ndx.ndxvalidate.data.entity.Email;
 import com.ndx.ndxvalidate.data.repository.OtherSPRepo;
 import com.ndx.ndxvalidate.data.sp_access.LabUserPair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,12 @@ public class AppController {
         return new Admin();
     }
 
+    @ModelAttribute("newEmail")
+    public Email getInstanceEmail(){
+
+
+        return new Email();
+    }
 
 
     @ModelAttribute("newAccount")

@@ -17,6 +17,7 @@ public interface AccountRequestRepo extends JpaRepository<AccountRequest, Long> 
     AccountRequest findAccountRequestsByAccId(Long id);
    List<AccountRequest> findAllByLms(int lms);
 
+
     List<AccountRequest> findAccountRequestsByStatus(int status);
 
     @Query("UPDATE AccountRequest  ar set ar.labName = ?1 where ar.accId = ?2 ")

@@ -7,7 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.util.Date;
 
-
+// @Table(name = table name that houses the account request table)
 @Entity
 @Table(name = "Ndx_Validate_Account_Request")
 @Getter

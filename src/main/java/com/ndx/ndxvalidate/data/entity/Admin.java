@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+//@Table (name = this is the LMS Teams table)
 @Entity
 @Table(name = "Ndx_Validate_LMS_Team")
 @Getter

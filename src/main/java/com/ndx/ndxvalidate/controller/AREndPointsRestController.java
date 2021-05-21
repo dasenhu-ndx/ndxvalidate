@@ -1,14 +1,16 @@
 package com.ndx.ndxvalidate.controller;
 
+import com.ndx.ndxvalidate.business.service.EmailService;
+import com.ndx.ndxvalidate.business.service.MTUserService;
+import com.ndx.ndxvalidate.data.entity.AccountRequest;
+import com.ndx.ndxvalidate.data.repository.AccountRequestRepo;
+import com.ndx.ndxvalidate.data.repository.EmailSPRepository;
 import com.ndx.ndxvalidate.data.repository.MiniChecksRepo;
 import com.ndx.ndxvalidate.data.sp_access.CheckExistingCustomer;
 import com.ndx.ndxvalidate.data.sp_access.CheckExistingDoctor;
 import com.ndx.ndxvalidate.data.sp_access.CheckSimilarCustomer;
 import com.ndx.ndxvalidate.data.sp_access.CheckSimilarDoctor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,11 +20,19 @@ import java.util.List;
 public class AREndPointsRestController {
 
     private final MiniChecksRepo miniChecksRepo;
+    private final AccountRequestRepo accountRequestRepo;
+    private  final MTUserService mtUserService;
+    private  final EmailSPRepository emailSPRepository;
+    private  final EmailService emailService;
 
 //    This is the controller that houses all the logic for restfulAPI used to make account request form dynamic
 
-    public AREndPointsRestController(MiniChecksRepo miniChecksRepo) {
+    public AREndPointsRestController(MiniChecksRepo miniChecksRepo, AccountRequestRepo accountRequestRepo, MTUserService mtUserService, EmailSPRepository emailSPRepository, EmailService emailService) {
         this.miniChecksRepo = miniChecksRepo;
+        this.accountRequestRepo = accountRequestRepo;
+        this.mtUserService = mtUserService;
+        this.emailSPRepository = emailSPRepository;
+        this.emailService = emailService;
     }
 
 //    End points to get existing customer by Id
@@ -101,6 +111,16 @@ public class AREndPointsRestController {
                                                            @PathVariable(name = "docId") String docId){
 
         return miniChecksRepo.getExistingDoctorByDocId(labName, docId);
+    }
+
+    @PostMapping("/emailIssues/{id}/{message}")
+    public String  sendEmailWithIssues(@PathVariable("id") Long id, @PathVariable("message") String message){
+
+        AccountRequest accountRequest = accountRequestRepo.findAccountRequestsByAccId(id);
+
+        emailService.emailServiceSender(accountRequest, message);
+
+        return "email sent";
     }
 
 }

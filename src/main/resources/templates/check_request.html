@@ -156,6 +156,20 @@
                     </tbody>
                 </table>
                 <table class="table mt-3">
+                    <tr class="controls-actions container">
+                        <form class="mt-2" method="post">
+                            <input type="hidden" id="requestId"  th:value="${accountRequest.accId}" >
+
+                            <label  for="message">Send Email Message to requester</label>
+                            <div  class="input-group mb-4">
+                                <textarea type="text" class="form-control"   id="message" name="message" value="message"> </textarea>
+                            </div>
+                            <small>upon send, request is placed back in request queue for edits</small>
+
+                            <input type="submit" class="ndx-btn-color btn" value="Send">
+
+                        </form>
+                    </tr>
                     <thead  class="table-light">
 
                     <h4 class="text-center mt-5">Checking Similar Customer</h4>
@@ -193,7 +207,7 @@
                 </table>
 
                 <div class="m-5 text-center">
-                    <div class="btn ndx-btn-color p-5">
+                    <div class="btn ndx-btn-color p-2">
                         <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accId})}" class="ndx-btn-color btn">
                             <h2>RUN</h2>
                         </a>

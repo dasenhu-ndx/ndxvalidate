@@ -87,7 +87,7 @@
 
                     <label id="doctorId2" for="doctorId">Old Doctor ID</label>
                     <div id="doctorId1" class="input-group mb-4">
-                        <input type="text" class="form-control"   id="doctorId" th:field="*{docId}">
+                        <input type="number" class="form-control"   id="doctorId" th:field="*{docId}">
                         <p id="EDoc"></p>
                     </div>
 
@@ -131,7 +131,7 @@
 
                     <label id="zip2" for="zip">Zip</label>
                     <div  id="zip1" class="input-group mb-3">
-                        <input type="text" class="form-control"   id="zip" th:field="*{zip}">
+                        <input type="number" class="form-control"   id="zip" th:field="*{zip}">
                     </div>
 
 
@@ -152,18 +152,25 @@
 
                     <label id="phone2" for="phone">Phone</label>
                     <div  id="phone1" class="input-group mb-4">
-                        <input type="text" class="form-control"   id="phone" th:field="*{phone}">
+                        <input type="number" class="form-control"   id="phone" th:field="*{phone}">
                     </div>
 
-                    <label id="licenceNo2" for="licenceNo">Doctor Licence Number</label>
+                    <label id="licenceNo2" for="licenceNo">Doctor License Number</label>
                     <div  id="licenceNo1" class="input-group mb-3">
                         <input type="text" class="form-control"   id="licenceNo" th:field="*{licenceNo}">
+                        <div class="input-group-append">
+                            <span style = 'font-size:25px;' id = "goodLicense">&#9989</span>
+                        </div>
+                    </div>
+
+                    <div id="licenseNoError">
+
                     </div>
 
 
                     <label id="npi2" for="npi">NPI Number</label>
                     <div id="npi1" class="input-group mb-3">
-                        <input type="text" class="form-control"   id="npi" th:field="*{npi}">
+                        <input type="number" class="form-control"   id="npi" th:field="*{npi}">
                     </div>
 
                     <label id="labNote2" for="labNote">Add Note</label>

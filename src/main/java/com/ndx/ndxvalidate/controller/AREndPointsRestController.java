@@ -40,7 +40,7 @@ public class AREndPointsRestController {
 //    End points to get existing customer by Id
 //     form/endpoints/{labName}/{customerId}
 
-    @GetMapping("/{labName}/{customerId}")
+    @GetMapping("/ec/{labName}/{customerId}")
     public CheckExistingCustomer getExistingCustomerByCustomerId(@PathVariable(name = "labName") String labName,
                                                                  @PathVariable(name = "customerId") String customerId) {
 
@@ -51,7 +51,7 @@ public class AREndPointsRestController {
 //     form/endpoints/{labName}/{customerId}/{phone}
 
 
-    @GetMapping("/{labName}/{customerId}/{phone}")
+    @GetMapping("/ec/{labName}/{customerId}/{phone}")
     public CheckExistingCustomer getExistingCustomerByCustomerIdAndPhone(@PathVariable(name = "labName") String labName,
                                                                          @PathVariable(name = "customerId") String customerId,
                                                                          @PathVariable(name = "phone") String phone) {
@@ -62,7 +62,7 @@ public class AREndPointsRestController {
 //    Endpoints to get similar customer by address
 //    form/endpoints/{labName}/{add1}
 
-    @GetMapping("/{labName}/{add1}")
+    @GetMapping("/sc/{labName}/{add1}")
     public List<CheckSimilarCustomer> getSimilarCustomersByAddress(@PathVariable(name = "labName") String labName,
                                                                    @PathVariable(name = "add1") String add1) {
 
@@ -73,7 +73,7 @@ public class AREndPointsRestController {
 //    EndPoint to get Similar Customers by Address and Phone
 //    form/endpoints/{labName}/{add1}/{phone}
 
-    @GetMapping("/{labName}/{add1}/{phone}")
+    @GetMapping("/sc/{labName}/{add1}/{phone}")
     public List<CheckSimilarCustomer> getSimilarCustomersByAddressAndPhone(@PathVariable(name = "labName") String labName,
                                                                            @PathVariable(name = "add1") String add1,
                                                                            @PathVariable(name = "phone") String phone){
@@ -85,7 +85,7 @@ public class AREndPointsRestController {
 //    Endpoint to get Similar doctor by doctor name
 //    form/endpoints/{labName}/{fName}/{lName}
 
-    @GetMapping("/{labName}/{fName}/{lName}")
+    @GetMapping("/sd/{labName}/{fName}/{lName}")
     public List<CheckSimilarDoctor> getSimilarDoctorByName(@PathVariable(name = "labName") String labName,
                                                            @PathVariable(name = "fName") String fName,
                                                            @PathVariable(name = "lName") String lName){
@@ -97,7 +97,7 @@ public class AREndPointsRestController {
 //    form/endpoints/{labName}/{fName}/{lName}/{licenseNo}
 
 
-    @GetMapping("/{labName}/{fName}/{lName}/{licenseNo}")
+    @GetMapping("/sd/{labName}/{fName}/{lName}/{licenseNo}")
     public List<CheckSimilarDoctor> getSimilarDoctorByNameAndLicenseNo(@PathVariable(name = "labName") String labName,
                                                            @PathVariable(name = "fName") String fName,@PathVariable(name = "lName") String lName,
                                                                        @PathVariable(name = "licenseNo") String licenseNo){
@@ -108,7 +108,7 @@ public class AREndPointsRestController {
 //  End point to get existing doctor by  doctor id
 //    form/endpoints/{labName}/{docId}
 
-    @GetMapping("/{labName}/{docId}")
+    @GetMapping("/ed/{labName}/{docId}")
     public CheckExistingDoctor getExistingDoctorByDoctorId(@PathVariable(name = "labName") String labName,
                                                            @PathVariable(name = "docId") String docId){
 
@@ -124,5 +124,15 @@ public class AREndPointsRestController {
 
         return "email sent";
     }
+
+//    @GetMapping("/NPI/{fName}/{lName}/{nip}")
+//    public CheckNPI RequestNPI(@PathVariable(name = "fName") String fName,
+//                                                           @PathVariable(name = "lName") String lName,
+//                                                          @PathVariable(name = "nip") String nip){
+//
+//        return webChecks.RequestNPI(fName,lName, nip);
+//    }
+//
+
 
 }

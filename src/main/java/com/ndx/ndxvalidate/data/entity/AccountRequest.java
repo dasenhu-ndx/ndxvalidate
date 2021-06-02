@@ -68,8 +68,8 @@ public class AccountRequest {
     @Column(name = "Phone")
     private String phone;
 
-    @Column(name = "LicenceNumber")
-    private String licenceNo;
+    @Column(name = "LicenseNumber")
+    private String licenseNo;
 
     @Column(name = "NPINumber")
     private String npi;
@@ -91,4 +91,9 @@ public class AccountRequest {
 
     @Column(name = "LMSStatus")
     private int lms;
+
+    @Column(name = "DBName")
+    private String dbName;
+
+
 }

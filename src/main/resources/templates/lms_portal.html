@@ -71,7 +71,7 @@
                         <th scope="col">Practice Name </th>
                         <th scope="col">State</th>
                         <th scope="col">NPI No</th>
-                        <th scope="col">Licence No</th>
+                        <th scope="col">License No</th>
                         <th scope="col">Status</th>
                         <th scope="col">Process</th>
                     </tr>
@@ -86,7 +86,7 @@
                         <td th:text="${s.PName}"></td>
                         <td th:text="${s.state}"></td>
                         <td th:text="${s.npi}"></td>
-                        <td th:text="${s.licenceNo}"></td>
+                        <td th:text="${s.licenseNo}"></td>
                         <td > <span th:if="${s.status == 0}">Not Processed</span></td>
                         <td><h4 class="text-center color-green"><a href="/lms/process.html" th:href="@{/process/request/{id}(id=${s.accId})}" ><i class="far fa-dot-circle"></i></a></h4></td>
                     </tr>

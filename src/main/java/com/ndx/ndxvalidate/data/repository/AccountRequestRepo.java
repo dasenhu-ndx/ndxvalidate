@@ -2,23 +2,38 @@ package com.ndx.ndxvalidate.data.repository;
 
 
 import com.ndx.ndxvalidate.data.entity.AccountRequest;
+import com.ndx.ndxvalidate.data.sp_access.LabUserPair;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 public interface AccountRequestRepo extends JpaRepository<AccountRequest, Long> {
 
+    List<AccountRequest> findAccountRequestsByLabNameInAndStatus(List<String> labName, int status);
 
-    List<AccountRequest> findAccountRequestsByMtUserName(String mtUserName);
-    List<AccountRequest> findAccountRequestsByMtUserNameAndStatus(String mtUserName, int status);
+
+
+    @Query("select ar.labName from AccountRequest ar where ar.mtUserName = ?1  ")
+    List<String> findLabs(String mtUserName);
+
+
+
     AccountRequest findAccountRequestsByAccId(Long id);
     List<AccountRequest> findAllByLms(int lms);
 
 
     List<AccountRequest> findAccountRequestsByStatus(int status);
+
+    @Query("UPDATE AccountRequest  ar set ar.dbName = ?1 where ar.accId = ?2 ")
+    @Modifying
+    void updateDBName(String dbName, Long accId);
 
     @Query("UPDATE AccountRequest  ar set ar.labName = ?1 where ar.accId = ?2 ")
     @Modifying
@@ -76,9 +91,9 @@ public interface AccountRequestRepo extends JpaRepository<AccountRequest, Long> 
     @Modifying
     void updatePhone(String phone, Long accId);
 
-    @Query("UPDATE AccountRequest  ar set ar.licenceNo = ?1 where ar.accId = ?2 ")
+    @Query("UPDATE AccountRequest  ar set ar.licenseNo = ?1 where ar.accId = ?2 ")
     @Modifying
-    void updateLicenceNo(String licenceNo, Long accId);
+    void updateLicenseNo(String licenseNo, Long accId);
 
     @Query("UPDATE AccountRequest  ar set ar.npi = ?1 where ar.accId = ?2 ")
     @Modifying

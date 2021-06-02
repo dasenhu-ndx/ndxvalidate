@@ -5,12 +5,18 @@ import com.ndx.ndxvalidate.data.entity.AccountRequest;
 import com.ndx.ndxvalidate.data.entity.Admin;
 import com.ndx.ndxvalidate.data.repository.AccountRequestRepo;
 import com.ndx.ndxvalidate.data.repository.AdminRepo;
+import com.ndx.ndxvalidate.data.repository.OtherSPRepo;
+import com.ndx.ndxvalidate.data.sp_access.LabUserPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 //This controller handles getting account request form data that has already been submitted.
@@ -18,14 +24,14 @@ import java.util.List;
 @Controller
 public class AccountRequestUserCallController {
 
-
+    private final OtherSPRepo otherSPRepo;
     private final AccountRequestRepo accountRequestRepo;
     private final MTUserService mtUserService;
     private final AdminRepo adminRepo;
 
     @Autowired
-    public AccountRequestUserCallController(AccountRequestRepo accountRequestRepo, MTUserService mtUserService, AdminRepo adminRepo) {
-
+    public AccountRequestUserCallController(OtherSPRepo otherSPRepo,AccountRequestRepo accountRequestRepo, MTUserService mtUserService, AdminRepo adminRepo) {
+        this.otherSPRepo = otherSPRepo;
         this.accountRequestRepo = accountRequestRepo;
         this.mtUserService = mtUserService;
         this.adminRepo = adminRepo;
@@ -35,11 +41,12 @@ public class AccountRequestUserCallController {
 
     @GetMapping("/dashboard")
     public String getDashboardVariables(Model model) {
-
-        String userName = mtUserService.currentUserName();
-        List<AccountRequest> accountRequests = accountRequestRepo.findAccountRequestsByMtUserNameAndStatus(userName, 0);
-
         String mtUserName = mtUserService.currentUserName();
+        List<String> Labs = accountRequestRepo.findLabs(mtUserName);
+
+        List<AccountRequest> accountRequests = accountRequestRepo.findAccountRequestsByLabNameInAndStatus(Labs, 0);
+
+
 
 
         Admin admin = adminRepo.findAdminByMtUserName(mtUserName);

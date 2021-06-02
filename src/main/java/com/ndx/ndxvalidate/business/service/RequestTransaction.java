@@ -31,13 +31,17 @@ public class RequestTransaction {
         accountRequestRepo.updateLName(accountRequest.getLName(), id);
         accountRequestRepo.updateEmail(accountRequest.getEmail(), id);
         accountRequestRepo.updatePhone(accountRequest.getPhone(), id);
-        accountRequestRepo.updateLicenceNo(accountRequest.getLicenceNo(), id);
+        accountRequestRepo.updateLicenseNo(accountRequest.getLicenseNo(), id);
         accountRequestRepo.updateNPI(accountRequest.getNpi(), id);
         accountRequestRepo.updateNotes(accountRequest.getNotes(), id);
-
+        accountRequestRepo.updateDBName(accountRequest.getDbName(), id);
     }
 
     public void updateLabName(String labName, long id){
         accountRequestRepo.updateLabName(labName, id);
+    }
+
+    public void updateDBName(String dbName, Long id) {
+        accountRequestRepo.updateDBName(dbName, id);
     }
 }

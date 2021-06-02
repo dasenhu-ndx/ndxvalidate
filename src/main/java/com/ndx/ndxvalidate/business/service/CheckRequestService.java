@@ -23,13 +23,13 @@ public class CheckRequestService {
     public List<CheckSimilarDoctor>  getSimilarDocList(AccountRequest accountRequest){
 
         return miniChecksRepo.getSimilarDoctor(accountRequest.getLabName(),accountRequest.getFName(), accountRequest.getLName(),
-                accountRequest.getLicenceNo(), accountRequest.getNpi(), accountRequest.getAdd1() + " " +accountRequest.getAdd2(),accountRequest.getPhone());
+                accountRequest.getLicenseNo(), accountRequest.getNpi(), accountRequest.getAdd1() + " " +accountRequest.getAdd2(),accountRequest.getPhone());
     }
 
     public  List<CheckExistingDoctor> getExistingDocList(AccountRequest accountRequest){
 
         return miniChecksRepo.getExistingDoctor(accountRequest.getLabName(),accountRequest.getDocId(),
-                accountRequest.getLName(),accountRequest.getLicenceNo(),accountRequest.getNpi());
+                accountRequest.getLName(),accountRequest.getLicenseNo(),accountRequest.getNpi());
     }
 
     public  List<CheckExistingCustomer> getExistingCustomer(AccountRequest accountRequest){

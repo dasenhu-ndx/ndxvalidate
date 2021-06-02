@@ -64,3 +64,11 @@
 {
     text-align: center!important;
 }
+textarea {
+    height: 38px;
+}
+
+.card-header.mb-3.ndx-header.bg-blue.nav-bottom-green {
+    background: #002855;
+    border-bottom: #5dbb46 solid 10px;
+}

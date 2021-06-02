@@ -97,10 +97,12 @@ public class AREndPointsRestController {
 //    form/endpoints/{labName}/{fName}/{lName}/{licenseNo}
 
 
-    @GetMapping("/sd/{labName}/{fName}/{lName}/{licenseNo}")
+    @GetMapping("/sd/{labName}/{fName}/{lName}/{licenseNo}/{licenseState}")
     public List<CheckSimilarDoctor> getSimilarDoctorByNameAndLicenseNo(@PathVariable(name = "labName") String labName,
                                                            @PathVariable(name = "fName") String fName,@PathVariable(name = "lName") String lName,
-                                                                       @PathVariable(name = "licenseNo") String licenseNo){
+                                                                       @PathVariable(name = "licenseNo") String licenseNo,
+                                                                       @PathVariable(name = "licenseState") String licenseState){
+        licenseNo = licenseNo+ licenseState;
 
         return miniChecksRepo.getSimilarDoctorNameAndLicense(labName, fName, lName,licenseNo);
     }

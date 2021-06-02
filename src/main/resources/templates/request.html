@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Test</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
@@ -13,7 +14,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-blue nav-bottom-green">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">CAVE </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -39,161 +41,226 @@
             </div>
         </div>
     </nav>
+    <div class="container-fluid">
 
-    <div class="container">
-        <div class="card mt-5 bg-white">
-            <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
-                <h4>New Account Request Form</h4>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card mt-5 bg-white">
+                    <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                        <h4>New Account Request Form</h4>
+                    </div>
+                    <div class="success" style="color: darkgreen">
+                        <h6><span th:text="${sent}"></span></h6>
+                    </div>
+                    <div class="form-container m-2">
+                        <form class="mt-2" method="post" action="" th:action="@{/requestAccount}"
+                              th:object="${newAccount}">
+
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">LabName</span>
+                                </div>
+                                <select type="text" class="form-control" id="LabName" th:field="*{labName}">
+                                    <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}"
+                                            th:text="${l.labName}"></option>
+                                </select>
+                            </div>
+
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Mode</span>
+                                </div>
+                                <select class="form-control" id="mode" th:field="*{mode}">
+                                    <option class="p-2" th:each="m : ${ndxMode}" th:value="${m.modeKey}"
+                                            th:text="${m.mode}"></option>
+                                </select>
+                            </div>
+
+
+                            <div id="IsRush1" class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Is Rush</span>
+                                </div>
+                                <select type="text" class="form-control" id="IsRush" th:field="*{isRush}">
+                                    <option value="YES">Yes</option>
+                                    <option value="NO">No</option>
+                                </select>
+                            </div>
+
+                            <div id="dhs1" class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Is DHS</span>
+                                </div>
+                                <select class="form-control" id="dhs" th:field="*{dhs}">
+                                    <option value="0">NO</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+
+                            <div id="doctorId1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="doctorId2">
+                                    <span class="input-group-text">Old Doctor ID</span>
+                                </div>
+                                <input type="number" class="form-control" id="doctorId" th:field="*{docId}">
+                               
+                            </div>
+
+
+                            <div id="customerId1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="customerId2">
+                                    <span class="input-group-text">Old Customer ID</span>
+                                </div>
+                                <input type="text" class="form-control" id="customerId" th:field="*{customerId}">
+                            </div>
+
+                            <div id="dGroup1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="dGroup2">
+                                    <span class="input-group-text">Dental Group</span>
+                                </div>
+                                <input type="text" class="form-control" id="dGroup" th:field="*{DGroup}">
+                            </div>
+
+
+                            <div id="pName1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="pName2">
+                                    <span class="input-group-text">Practice Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="pName" th:field="*{PName}">
+                            </div>
+
+
+                            <div id="address11" class="input-group mb-2">
+                                <div class="input-group-prepend" id="address12">
+                                    <span class="input-group-text">Address1</span>
+                                </div>
+                                <input type="text" class="form-control" id="address1" th:field="*{add1}">
+                            </div>
+
+
+                            <div id="address21" class="input-group mb-2">
+                                <div class="input-group-prepend" id="address22">
+                                    <span class="input-group-text">Address2</span>
+                                </div>
+                                <input type="text" class="form-control" id="address2" th:field="*{add2}">
+                            </div>
+
+
+                            <div id="city1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="city2">
+                                    <span class="input-group-text">City</span>
+                                </div>
+                                <input type="text" class="form-control" id="city" th:field="*{city}">
+                            </div>
+
+
+                            <div id="state1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="state2">
+                                    <span class="input-group-text">State</span>
+                                </div>
+                                <input type="text" class="form-control" id="state" th:field="*{state}">
+                            </div>
+
+
+                            <div id="zip1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="zip2">
+                                    <span class="input-group-text">Zip</span>
+                                </div>
+                                <input type="text" class="form-control" id="zip" th:field="*{zip}">
+                            </div>
+
+
+                            <div id="fName1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="fName2">
+                                    <span class="input-group-text">Doctor First Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="fName" th:field="*{FName}">
+                            </div>
+
+
+                            <div id="lName1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="lName2">
+                                    <span class="input-group-text">Doctor Last Name</span>
+                                </div>
+                                <input type="text" class="form-control" id="lName" th:field="*{LName}">
+                            </div>
+
+
+                            <div id="email1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="email2">
+                                    <span class="input-group-text">Email</span>
+                                </div>
+                                <input type="text" class="form-control" id="email" th:field="*{email}">
+                            </div>
+
+
+                            <div id="phone1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="phone2">
+                                    <span class="input-group-text">Phone</span>
+                                </div>
+                                <input type="text" class="form-control" id="phone" th:field="*{phone}">
+                            </div>
+
+
+                            <div id="licenseNo1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="licenseNo2">
+                                    <span class="input-group-text">Doctor License Number</span>
+                                </div>
+                                <input type="text" class="form-control" id="licenseNo" th:field="*{licenseNo}">
+                                <div class="input-group-append">
+                                    <span style='font-size:25px;' id="goodLicense">&#9989</span>
+                                </div>
+                            </div>
+
+                            <div id="licenseNoError">
+
+                            </div>
+
+
+                            <div id="npi1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="npi2">
+                                    <span class="input-group-text">NPI Number</span>
+                                </div>
+                                <input type="number" class="form-control" id="npi" th:field="*{npi}">
+                            </div>
+
+                            <div id="labNote1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="labNote2">
+                                    <span class="input-group-text">Add Note</span>
+                                </div>
+                                <textarea autocomplete="on" autocorrect="on"  type="text" class="form-control" id="labNote" th:field="*{notes}"> </textarea>
+                            </div>
+
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
+
+
+                </div>
             </div>
-            <div class="success" style="color: darkgreen">
-                <h6><span th:text="${sent}"></span></h6>
+
+            <div class="col-lg-2">
+                <div class="card mt-5 bg-white">
+                    <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                        <h4>Selection choices</h4>
+                    </div>
+                </div>
             </div>
-            <div class="form-container m-2">
-                <form class="mt-2" method="post" action="" th:action="@{/requestAccount}" th:object="${newAccount}">
 
-
-
-                    <label   for="LabName" class="form-label">Lab Name</label>
-                    <div  class="input-group mb-3">
-                        <select type="text" class="form-control"  id="LabName" th:field="*{labName}">
-                            <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}" th:text="${l.labName}" ></option>
-                        </select>
-                    </div>
-
-
-                    <label for="mode">Mode</label>
-                    <div class="input-group mb-3">
-                        <select class="form-control" id="mode" th:field="*{mode}">
-                            <option class="p-2" th:each="m : ${ndxMode}" th:value="${m.modeKey}" th:text="${m.mode}"></option>
-                        </select>
-                    </div>
-
-                    <label id="IsRush2" for="IsRush">Is Rush</label>
-                    <div id="IsRush1" class="input-group mb-3">
-
-                        <select type="text" class="form-control"   id="IsRush" th:field="*{isRush}">
-                            <option value="YES">Yes</option>
-                            <option value="NO">No</option>
-                        </select>
-                    </div>
-                    <label id="dhs2" for="dhs">Is DHS</label>
-                    <div id="dhs1" class="input-group mb-3">
-
-                        <select class="form-control"   id="dhs" th:field="*{dhs}">
-                            <option value="0">NO</option>
-                            <option value="1">Yes</option>
-                        </select>
-                    </div>
-
-                    <label id="doctorId2" for="doctorId">Old Doctor ID</label>
-                    <div id="doctorId1" class="input-group mb-4">
-                        <input type="number" class="form-control"   id="doctorId" th:field="*{docId}">
-                        <p id="EDoc"></p>
-                    </div>
-
-
-                    <label id="customerId2" for="customerId">Old Customer ID</label>
-                    <div id="customerId1" class="input-group mb-3">
-                        <input type="text" class="form-control"   id="customerId" th:field="*{customerId}">
-                    </div>
-                    <label id="dGroup2" for="dGroup">Dental Group</label>
-                    <div id="dGroup1" class="input-group mb-3">
-
-                        <input type="text" class="form-control"   id="dGroup" th:field="*{DGroup}">
-                    </div>
-
-                    <label id="pName2" for="pName">Practice Name</label>
-                    <div id="pName1" class="input-group mb-3">
-
-                        <input type="text" class="form-control"   id="pName" th:field="*{PName}">
-                    </div>
-
-                    <label id="address12" for="address1">Address1</label>
-                    <div id="address11" class="input-group mb-4">
-                        <input type="text" class="form-control"   id="address1" th:field="*{add1}">
-                    </div>
-
-                    <label id="address22" for="address2">Address2</label>
-                    <div id="address21" class="input-group mb-4">
-                        <input type="text" class="form-control"   id="address2" th:field="*{add2}">
-                    </div>
-
-
-                    <label id="city2" for="city">City</label>
-                    <div  id="city1" class="input-group mb-3">
-                        <input type="text" class="form-control"   id="city" th:field="*{city}">
-                    </div>
-
-                    <label  id="state2" for="state">State</label>
-                    <div  id="state1" class="input-group mb-4">
-                        <input type="text" class="form-control"   id="state" th:field="*{state}">
-                    </div>
-
-                    <label id="zip2" for="zip">Zip</label>
-                    <div  id="zip1" class="input-group mb-3">
-                        <input type="number" class="form-control"   id="zip" th:field="*{zip}">
-                    </div>
-
-
-                    <label id="fName2" for="fName">Doctor First Name</label>
-                    <div id="fName1" class="input-group mb-3">
-                        <input type="text" class="form-control"   id="fName" th:field="*{FName}">
-                    </div>
-
-                    <label id="lName2" for="lName">Doctor Last Name</label>
-                    <div id="lName1" class="input-group mb-3">
-                        <input type="text" class="form-control"   id="lName" th:field="*{LName}">
-                    </div>
-
-                    <label id="email2" for="email">Email</label>
-                    <div id="email1" class="input-group mb-4">
-                        <input type="text" class="form-control"   id="email" th:field="*{email}">
-                    </div>
-
-                    <label id="phone2" for="phone">Phone</label>
-                    <div  id="phone1" class="input-group mb-4">
-                        <input type="number" class="form-control"   id="phone" th:field="*{phone}">
-                    </div>
-
-                    <label id="licenceNo2" for="licenceNo">Doctor License Number</label>
-                    <div  id="licenceNo1" class="input-group mb-3">
-                        <input type="text" class="form-control"   id="licenceNo" th:field="*{licenceNo}">
-                        <div class="input-group-append">
-                            <span style = 'font-size:25px;' id = "goodLicense">&#9989</span>
-                        </div>
-                    </div>
-
-                    <div id="licenseNoError">
-
-                    </div>
-
-
-                    <label id="npi2" for="npi">NPI Number</label>
-                    <div id="npi1" class="input-group mb-3">
-                        <input type="number" class="form-control"   id="npi" th:field="*{npi}">
-                    </div>
-
-                    <label id="labNote2" for="labNote">Add Note</label>
-                    <div id="labNote1" class="input-group mb-4">
-                        <textarea type="text" class="form-control"   id="labNote" th:field="*{notes}"> </textarea>
-                    </div>
-
-                    <input type="submit" value="Submit">
-                </form>
-            </div>
 
         </div>
-
     </div>
+
 </div>
 
 
-
 </body>
-<footer >
+<footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2effb491bc.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script type="text/javascript" src="/js/main.js"></script>
 </footer>
 </html>

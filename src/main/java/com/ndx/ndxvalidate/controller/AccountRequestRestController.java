@@ -42,7 +42,13 @@ public class AccountRequestRestController {
     @PostMapping(value = "/update/{labName}/{id}")
     public Response postUpdateRequestLabName(@PathVariable(value = "labName") String labName, @PathVariable(value = "id") Long id){
        requestTransaction.updateLabName(labName, id);
-
+       String dbName = "";
+        if (labName.equalsIgnoreCase("PAIRW-ADL")  || labName.equalsIgnoreCase("PAIRW-IDA")){
+            dbName = "PAIRW";
+        } else if (labName.equalsIgnoreCase("TXCON") || labName.equalsIgnoreCase("CAHAW") || labName.equalsIgnoreCase("CAHAO") || labName.equalsIgnoreCase("CAHER") || labName.equalsIgnoreCase("CAELS")  ||labName.equalsIgnoreCase("NVLAS")  || labName.equalsIgnoreCase("NYWHI")  ) {
+            dbName = "WCDL";
+        }
+        requestTransaction.updateDBName(dbName, id);
         Response response = new Response();
         response.setMessage("Request Completed");
 

@@ -44,7 +44,7 @@ public interface RunRequestRepo extends JpaRepository<AccountRequest, Long> {
     void runCheck(String labName, String operator, int prospect, String agdnNumber, String pdmnNotes,
                   String mode, int dhs, String docId, String customerId, String dentalGroup, String practiceName,
                   String fName, String lName, String add1, String city, String state, String zip, String phone,
-                  String email, String licenceNo, String npi, String masterAccNo, String modelCustomerId, int useStreetAdd, String country,
+                  String email, String licenseNo, String npi, String masterAccNo, String modelCustomerId, int useStreetAdd, String country,
                   String corpCamp, int customerOnly, int isLab, String mtUserName);
 
 
@@ -82,7 +82,7 @@ public interface RunRequestRepo extends JpaRepository<AccountRequest, Long> {
     AccountCreated runAccount(String labName, String operator, int prospect, String agdnNumber, String pdmnNotes,
                               String mode, int dhs, String docId, String customerId, String dentalGroup, String practiceName,
                               String fName, String lName, String add1, String city, String state, String zip, String phone,
-                              String email, String licenceNo, String npi, String masterAccNo, String modelCustomerId, int useStreetAdd, String country,
+                              String email, String licenseNo, String npi, String masterAccNo, String modelCustomerId, int useStreetAdd, String country,
                               String corpCamp, int customerOnly, int isLab, String mtUserName);
 
 

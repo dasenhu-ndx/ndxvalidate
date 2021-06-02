@@ -50,7 +50,7 @@ public class ProcessRequestService {
         String zip = accountRequest.getZip();
         String phone = accountRequest.getPhone();
         String email = accountRequest.getEmail();
-        String licenseNo = accountRequest.getLicenceNo();
+        String licenseNo = accountRequest.getLicenseNo();
         String npi = accountRequest.getNpi();
         String masterAccountId = "";
         String eModelCustomerId = "";

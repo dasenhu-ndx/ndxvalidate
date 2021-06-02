@@ -27,7 +27,7 @@ public interface MiniChecksRepo extends JpaRepository<AccountRequest, Long> {
             ",@LastName = ?3" +
             ",@LicenseNumber = ?4" +
             ",@NPINumber = ?5")
-    List<CheckExistingDoctor> getExistingDoctor(String labName, String docId, String lName,String licenceNo, String npi);
+    List<CheckExistingDoctor> getExistingDoctor(String labName, String docId, String lName,String licenseNo, String npi);
 
     @Query(nativeQuery = true, value = "EXEC  [NDXData].[dbo].[SP_NDXValidateCheckSimilarCustomer] " +
             "@LabName = ?1" +
@@ -45,7 +45,7 @@ public interface MiniChecksRepo extends JpaRepository<AccountRequest, Long> {
             ",@Address1 = ?6" +
             ",@OfficePhone = ?7"
     )
-    List<CheckSimilarDoctor> getSimilarDoctor(String labName, String fName, String lName, String licenceNo, String npi,
+    List<CheckSimilarDoctor> getSimilarDoctor(String labName, String fName, String lName, String licenseNo, String npi,
                                               String add1, String phone);
 
 // Start form check endpoints here
@@ -99,7 +99,7 @@ public interface MiniChecksRepo extends JpaRepository<AccountRequest, Long> {
             ",@Address1 = ''" +
             ",@OfficePhone = ''"
     )
-    List<CheckSimilarDoctor> getSimilarDoctorNameAndLicense(String labName, String fName, String lName, String licenceNo);
+    List<CheckSimilarDoctor> getSimilarDoctorNameAndLicense(String labName, String fName, String lName, String licenseNo);
 
     @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_NDXValidateCheckExistingDoctor]" +
             "@LabName = ?1" +

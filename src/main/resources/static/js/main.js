@@ -1,6 +1,7 @@
 const contextpath = /*[[@{/}]]*/ "/";
 let csrfHeaderName = "X-CSRF-TOKEN";
 let csrfValue = "fetch";
+let correctLab = ""
 const States = ['AL','AK','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 const StateWebsites = {
     AL: 'http://www.dentalboard.org/public/current-rosters/',
@@ -56,22 +57,39 @@ const StateWebsites = {
     WY: 'https://dental.wyo.gov/public/lookup'
 }
 function DisplayEDoc(data){
-    console.log(data.state);
-    var htmlData = "test";
-    document.getElementById("EDoc").innerHTML = htmlData;
+    console.log(data);
+    console.log(data.doctorNumber);
+    document.getElementById("doctorId").value = data.doctorNumber;
+    document.getElementById("licenseNo").value = data.licenseNumber;
+    document.getElementById("npi").value = data.npinumber;
+    document.getElementById("fName").value = data.firstName;
+    document.getElementById("lName").value = data.lastName;
+
+    if(data.warning == "no Customer") {
+        document.getElementById("mode").value = 0;
+        document.getElementById("customerId").value = "";
+        ChangeDisplay(0);
+    }
 }
 
 
 function EDoc(){
+    if ($("#LabName").val() == 'PAIRW-ADL' || $("#LabName").val() == 'PAIRW-IDA'){
+        correctLab = "PAIRW";
+    } else if ($("#LabName").val() == 'TXCON' || $("#LabName").val() == 'CAHAW' || $("#LabName").val() == 'CAHAO' || $("#LabName").val() == 'CAHER' || $("#LabName").val() == 'CAELS' || $("#LabName").val() == 'NVLAS' || $("#LabName").val() == 'NYWHI' ) {
+        correctLab = "WCDL";
+    } else {
+        correctLab = $("#LabName").val();
+    }
     let formDataED = {
-        labName: $("#LabName").val(),
+        labName: correctLab,
         docId: $("#doctorId").val()
     };
-    console.log(formDataED.labName);
     let url = contextpath + "form/endpoints/ed/"+formDataED.labName+"/"+formDataED.docId;
-    console.log(url);
+
     $.getJSON(url,
         function (data) {
+
             DisplayEDoc(data);
         });
 }
@@ -79,7 +97,7 @@ function EDoc(){
 
 function DisplayECust(data){
 
-
+    console.log(data);
     document.getElementById("address1").value = data.address1;
     if (!data.hasOwnProperty('address2')) {
         document.getElementById("address2").value = '';
@@ -98,6 +116,8 @@ function DisplayECust(data){
     }
 
     if(data.warning == "no Customer") {
+        document.getElementById("mode").value = 0;
+        document.getElementById("customerId").value = "";
         ChangeDisplay(0);
     }
 
@@ -105,19 +125,18 @@ function DisplayECust(data){
 
 
 function ECust(){
-    let correctLab = ""
-    let customerID = "none"
-    if ($("#LabName").val() == 'PAIRW-ADL' || $("#LabName").val() == 'PAIRW-IDA'){
+    let customerID = "";
+        if ($("#LabName").val() == 'PAIRW-ADL' || $("#LabName").val() == 'PAIRW-IDA'){
         correctLab = "PAIRW";
     } else if ($("#LabName").val() == 'TXCON' || $("#LabName").val() == 'CAHAW' || $("#LabName").val() == 'CAHAO' || $("#LabName").val() == 'CAHER' || $("#LabName").val() == 'CAELS' || $("#LabName").val() == 'NVLAS' || $("#LabName").val() == 'NYWHI' ) {
         correctLab = "WCDL";
     } else {
         correctLab = $("#LabName").val();
     }
-
     if($("#customerId").val() !== "" && typeof $('#customerId').val() !== 'undefined'){
         customerID = $("#customerId").val();
     }
+
     let formDataED = {
         labName: correctLab,
         custId: customerID
@@ -131,60 +150,67 @@ function ECust(){
         });
 }
 
+function ChangeLab(){
+
+
+
+}
+
 function ChangeDisplay(mode){
 
     if(mode == 1){
 
-        $('#doctorId').css('display','block');
-        $('#doctorId').css('width', '100%');
-        $('#doctorId1').css('display','block');
-        $('#doctorId2').css('display','block');
+        $('#doctorId').show();
+        $('#doctorId').show();
+        $('#doctorId1').show();
+        $('#doctorId2').show();
 
-        $('#customerId').css('display','none');
-        $('#customerId').css('display','none');
-        $('#customerId').css('display','none');
+        $('#customerId').hide();
+        $('#customerId').hide();
+        $('#customerId').hide();
     } else if (mode == 2){
 
 
-        $('#customerId').css('display','block');
-        $('#customerId').css('width', '100%');
-        $('#customerId1').css('display','block');
-        $('#customerId2').css('display','block');
+        $('#customerId').show();
+        $('#customerId').show();
+        $('#customerId1').show();
+        $('#customerId2').show();
 
-        $('#doctorId').css('display','none');
-        $('#doctorId1').css('display','none');
-        $('#doctorId2').css('display','none');
+        $('#doctorId').hide();
+        $('#doctorId1').hide();
+        $('#doctorId2').hide();
 
 
     } else {
 
-        $('#doctorId').css('display','none');
-        $('#customerId').css('display','none');
+        $('#doctorId').hide();
+        $('#customerId').hide();
 
-        $('#doctorId1').css('display','none');
-        $('#customerId1').css('display','none');
+        $('#doctorId1').hide();
+        $('#customerId1').hide();
 
-        $('#doctorId2').css('display','none');
-        $('#customerId2').css('display','none');
+        $('#doctorId2').hide();
+        $('#customerId2').hide();
 
 
     }
 
     if($("#LabName").val() == "ARHBR"){
-        $('#dhs').css('display','block');
-        $('#dhs').css('width', '100%');
-        $('#dhs1').css('display','block');
-        $('#dhs2').css('display','block');
+        $('#dhs').show();
+        $('#dhs').show();
+        $('#dhs1').show();
+        $('#dhs2').show();
     } else {
-        $('#dhs').css('display','none');
-        $('#dhs1').css('display','none');
-        $('#dhs2').css('display','none');
+        $('#dhs').hide();
+        $('#dhs1').hide();
+        $('#dhs2').hide();
     }
 
 }
 
 function ValidateLicenseState(){
-    let num = $('#licenceNo').val();
+    let num = $('#licenseNo').val();
+    // console.log(num);
     let good = false;
     let currentState;
     for (let i = 0; i < States.length; i++) {
@@ -194,12 +220,12 @@ function ValidateLicenseState(){
 
             currentState = States[i];
         } else {
-            console.log("bad does not end with", end);
+            // console.log("bad does not end with", end);
         }
     }
 
     if (!good){
-        document.getElementById("licenceNo").value = "";
+        document.getElementById("licenseNo").value = "";
         document.getElementById("licenseNoError").style.color = "red";
         document.getElementById("licenseNoError").innerHTML = "The license must be followed by a '/' and then the state abbreviation";
         document.getElementById("goodLicense").innerHTML = "&#10060"
@@ -217,9 +243,9 @@ function NPICheck() {
     // Search by Name
     // https://npiregistry.cms.hhs.gov/api/?number=&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=Nathan&use_first_name_alias=&last_name=ABRAMSON&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1
 
-    if($('#nip').val() != "" && typeof $('#nip').val() !== 'undefined' ){
+    if($('#npi').val() != "" && typeof $('#npi').val() !== 'undefined' ){
 
-        url = url + $('#nip').val() + "&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=";
+        url = url + $('#npi').val() + "&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=";
     } else {
         url = url +"&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=";
     }
@@ -264,6 +290,88 @@ function ProcessNPI(info){
 }
 
 
+function CheckSDoc(){
+    let enoughData = false;
+    let url = contextpath + "form/endpoints/sd/"
+    let firstName = $('#fName').val();
+    let lastName = $('#lName').val();
+    let license = $('#licenseNo').val();
+    console.log(correctLab);
+    let formDataSD = {
+        labName: correctLab,
+        fName: firstName,
+        lName: lastName,
+        licenseNo: license
+    };
+    // for (const formDataSDKey in formDataSD) {
+    //     console.log(formDataSD[formDataSDKey]);
+    // }
+    if($('#licenseNo').val() !== ""){
+        console.log("good license");
+        url += formDataSD.labName + "/" + formDataSD.fName  + "/" + formDataSD.lName + "/" + formDataSD.licenseNo
+    }
+    else {
+        url += formDataSD.labName + "/" + formDataSD.fName  + "/" + formDataSD.lName
+    }
+
+    if($('#fName').val() !== "" && $('#lName').val() !== "" ){
+        enoughData = true;
+    }
+    if(enoughData){
+        $.getJSON(url,
+            function (data) {
+
+                DisplaySDoc(data);
+            });
+    }
+
+}
+
+function DisplaySDoc(info){
+    console.log(info);
+}
+
+function CheckSCust(){
+    let enoughDataCust = false;
+    let url = contextpath + "form/endpoints/sd/"
+    let firstName = $('#fName').val();
+    let lastName = $('#lName').val();
+    let license = $('#licenseNo').val();
+    console.log(correctLab);
+    let formDataSD = {
+        labName: correctLab,
+        fName: firstName,
+        lName: lastName,
+        licenseNo: license
+    };
+    // for (const formDataSDKey in formDataSD) {
+    //     console.log(formDataSD[formDataSDKey]);
+    // }
+    if($('#licenseNo').val() !== ""){
+        console.log("good license");
+        url += formDataSD.labName + "/" + formDataSD.fName  + "/" + formDataSD.lName + "/" + formDataSD.licenseNo
+    }
+    else {
+        url += formDataSD.labName + "/" + formDataSD.fName  + "/" + formDataSD.lName
+    }
+
+    if($('#fName').val() !== "" && $('#lName').val() !== "" ){
+        enoughDataCust = true;
+    }
+    if(enoughDataCust){
+        $.getJSON(url,
+            function (data) {
+
+                DisplaySCust(data);
+            });
+    }
+
+}
+
+function DisplaySCust(info){
+    console.log(info);
+}
+
 $(document).ready(function() {
     ChangeDisplay($("#mode").val());
 
@@ -277,36 +385,120 @@ $(document).ready(function() {
         event.preventDefault();
 
         ChangeDisplay($("#mode").val());
+
+
     });
 
     $('#doctorId').change(function(event) {
         event.preventDefault();
+
+        ChangeLab();
         EDoc();
     });
 
     $('#customerId').change(function(event) {
         event.preventDefault();
+        ChangeLab();
         ECust();
     });
 
-    $('#licenceNo').change(function(event) {
+    $('#licenseNo').change(function(event) {
         event.preventDefault();
+        ChangeLab();
         ValidateLicenseState();
+        if($('#mode').val() == 0  || $('#mode').val() == 2){
+            CheckSDoc();
+        }
     });
 
-    $('#nip').change(function(event) {
+    $('#npi').change(function(event) {
         event.preventDefault();
-        NPICheck();
+        // NPICheck();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 2){
+            CheckSDoc();
+        }
     });
 
     $('#lName').change(function(event) {
         event.preventDefault();
-        NPICheck();
+        // NPICheck();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 2){
+            CheckSDoc();
+        }
     });
 
     $('#fName').change(function(event) {
         event.preventDefault();
-        NPICheck();
+        // NPICheck();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 2){
+            CheckSDoc();
+        }
+
+    });
+
+    $('#pName').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
+    });
+
+    $('#address1').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
+    });
+
+    $('#city').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
+    });
+
+    $('#state').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
+    });
+
+    $('#zip').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
+    });
+
+    $('#dGroup').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
+    });
+    $('#email').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
+    });
+    $('#phone').change(function(event) {
+        event.preventDefault();
+        ChangeLab();
+        if($('#mode').val() == 0  || $('#mode').val() == 1){
+            CheckSCust();
+        }
     });
 
 

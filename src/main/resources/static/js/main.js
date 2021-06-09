@@ -421,10 +421,23 @@ function ChooseSDisplay(info){
     }
 }
 
-$(document).ready(function() {
-    ChangeDisplay($("#mode").val());
+function addStates() {
+    let data;
+    let text = "";
+    for (let i = 0; i < States.length; i++) {
+        data = States[i];
+        text += "<option class='p-2' value='" + data + "'>" + data + "</option>"
 
-    $('#mode').change(function(event) {
+    }
+
+    document.getElementById("state").innerHTML = text;
+}
+
+$(document).ready(function () {
+    ChangeDisplay($("#mode").val());
+    addStates();
+
+    $('#mode').change(function (event) {
         event.preventDefault();
 
         ChangeDisplay($("#mode").val());

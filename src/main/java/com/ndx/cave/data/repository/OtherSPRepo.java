@@ -20,3 +20,19 @@ public interface OtherSPRepo extends JpaRepository<AccountRequest, Long> {
             "@UserName = ?1" )
     List<DentalGroups> getDentalGroupsByUserName(String mtUserName);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

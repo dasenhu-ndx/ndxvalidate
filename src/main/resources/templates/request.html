@@ -110,7 +110,8 @@
                                     <span class="input-group-text">Dental Group</span>
                                 </div>
                                 <select type="text" class="form-control" id="dGroup" th:field="*{DGroup}">
-
+                                    <option class="p-2" th:each="l : ${dentalGroups}" th:value="${l.value1}"
+                                            th:text="${l.value1}"></option>
                                 </select>
                                 <div class="input-group-prepend" id="pName2">
                                     <span class="input-group-text">Practice Name</span>
@@ -147,8 +148,7 @@
                                     <span class="input-group-text">State</span>
                                 </div>
                                 <select type="text" class="form-control" id="state" th:field="*{state}">
-                                    <option class="p-2" th:each="l : ${state}" th:value="${l.labName}"
-                                            th:text="${l.labName}"></option>
+
                                 </select>
                                 <div class="input-group-prepend" id="zip2">
                                     <span class="input-group-text">Zip</span>

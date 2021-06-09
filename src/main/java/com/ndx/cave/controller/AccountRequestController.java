@@ -52,8 +52,8 @@ public class AccountRequestController {
         accountRequestRepo.save(accountRequest);
         List<NdxMode> ndxModes = ndxModeService.listModes();
         List<LabUserPair> labUserPairList = otherSPRepo.getLabUserPairList(mtUserCurrent);
-        List<DentalGroups> dentalGroups = otherSPRepo.getDentalGroupsByUserName(mtUserCurrent);
-        model.addAttribute("dentalGroups", dentalGroups);
+        List<DentalGroups> dentalGroupList = otherSPRepo.getDentalGroupsByUserName(mtUserCurrent);
+        model.addAttribute("dentalGroups", dentalGroupList);
         model.addAttribute("labUserPair", labUserPairList);
         model.addAttribute("ndxMode", ndxModes);
         model.addAttribute("sent", "Your request has been sent to the LMS team or processing. Allow a few hours.");

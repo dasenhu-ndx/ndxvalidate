@@ -7,6 +7,7 @@ import com.ndx.cave.data.entity.AccountRequest;
 import com.ndx.cave.data.entity.Admin;
 import com.ndx.cave.data.entity.Email;
 import com.ndx.cave.data.repository.OtherSPRepo;
+import com.ndx.cave.data.sp_access.DentalGroups;
 import com.ndx.cave.data.sp_access.LabUserPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,9 +67,11 @@ public class AppController {
         return new AccountRequest();
     }
     @GetMapping("/request")
-    public String getRequestPage(Model model){
+    public String getRequestPage(Model model) {
         List<NdxMode> ndxModes = ndxModeService.listModes();
         List<LabUserPair> labUserPairList = otherSPRepo.getLabUserPairList(mtUserService.currentUserName());
+        List<DentalGroups> dentalGroups = otherSPRepo.getDentalGroupsByUserName(mtUserService.currentUserName());
+        model.addAttribute("dentalGroups", dentalGroups);
         model.addAttribute("labUserPair", labUserPairList);
         model.addAttribute("ndxMode", ndxModes);
 

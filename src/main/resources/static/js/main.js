@@ -159,19 +159,17 @@ function ChangeLab(){
 function ChangeDisplay(mode){
 
     if(mode == 1){
-
-        $('#doctorId').show();
+        $('#hiddenRow').show();
         $('#doctorId').show();
         $('#doctorId1').show();
         $('#doctorId2').show();
 
         $('#customerId').hide();
-        $('#customerId').hide();
-        $('#customerId').hide();
+        $('#customerId1').hide();
+        $('#customerId2').hide();
     } else if (mode == 2){
 
-
-        $('#customerId').show();
+        $('#hiddenRow').show();
         $('#customerId').show();
         $('#customerId1').show();
         $('#customerId2').show();
@@ -182,7 +180,8 @@ function ChangeDisplay(mode){
 
 
     } else {
-
+        $('#hiddenRow2').hide();
+        $('#hiddenRow').hide();
         $('#doctorId').hide();
         $('#customerId').hide();
 
@@ -242,53 +241,36 @@ function NPICheck() {
     let url = "https://npiregistry.cms.hhs.gov/api/?number=";
     // Search by Name
     // https://npiregistry.cms.hhs.gov/api/?number=&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=Nathan&use_first_name_alias=&last_name=ABRAMSON&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1
-
+    let npi = "";
+    let fname = "";
+    let lname = "";
     if($('#npi').val() != "" && typeof $('#npi').val() !== 'undefined' ){
-
+        npi = $('#npi').val();
         url = url + $('#npi').val() + "&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=";
     } else {
         url = url +"&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=";
     }
     if($('#fName').val() != "" && typeof $('#fName').val() !== 'undefined' ){
-
+        fname = $('#fName').val();
+        lname = $('#lName').val();
         url = url + $('#fName').val() + "&use_first_name_alias=&last_name="+$('#lName').val()+"&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1";
     } else {
-        url = url + "&use_first_name_alias=&last_name="+$('#lName').val()+"&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1&callback=?";
+        lname = $('#lName').val();
+        url = url + "&use_first_name_alias=&last_name="+$('#lName').val()+"&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1";
     }
 
+    console.log(url);
 
-    $.getJSON(url,
-        function (data) {
 
-            ProcessNPI(data);
-        });
 
-    // $.ajax({
-    //     type: 'GET',
-    //     url: url,
-    //     beforeSend: function(xhr){
-    //         xhr.setRequestHeader(csrfHeaderName, csrfValue);
-    //     },
-    //     success: function(data) {
-    //         console.log(data);
-    //     },
-    //     error: function(error) {
-    //         console.log("FAIL....=================");
-    //     }
-    // });
 }
-//
-// function NPICheckByNPI(){
-//
-//     // search by NPI
-//     // https://npiregistry.cms.hhs.gov/api/?number=1457505869&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=&use_first_name_alias=&last_name=&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1
-// }
+
+
 
 function ProcessNPI(info){
     console.log("made it this far");
     console.log(info);
 }
-
 
 function CheckSDoc(){
     let enoughData = false;
@@ -296,6 +278,13 @@ function CheckSDoc(){
     let firstName = $('#fName').val();
     let lastName = $('#lName').val();
     let license = $('#licenseNo').val();
+    if ($("#LabName").val() == 'PAIRW-ADL' || $("#LabName").val() == 'PAIRW-IDA'){
+        correctLab = "PAIRW";
+    } else if ($("#LabName").val() == 'TXCON' || $("#LabName").val() == 'CAHAW' || $("#LabName").val() == 'CAHAO' || $("#LabName").val() == 'CAHER' || $("#LabName").val() == 'CAELS' || $("#LabName").val() == 'NVLAS' || $("#LabName").val() == 'NYWHI' ) {
+        correctLab = "WCDL";
+    } else {
+        correctLab = $("#LabName").val();
+    }
     console.log(correctLab);
     let formDataSD = {
         labName: correctLab,
@@ -328,34 +317,48 @@ function CheckSDoc(){
 }
 
 function DisplaySDoc(info){
+    $('.cards').remove();
     console.log(info);
+    let data;
+    let text = "";
+    for (let i = 0; i < info.length; i++) {
+        data = info[i];
+        text += "<button class='cards'>DoctorID: "+data.doctorNumber+" "+" <br>Dr First Name: " +data.firstName+ " <br>Dr Last Name: "+data.lastName +" <br>License Number: "+ data.licenseNumber+ " <br>NPI Number: "+data.npinumber + " <br>On Customer: "+data.customerID + " <br>Warning: "+data.warning+"</button>"
+
+    }
+    document.getElementById("similarChoice").innerHTML = text;
 }
 
 function CheckSCust(){
+    // {labName}/{add1}
+    // {labName}/{add1}/{phone}
     let enoughDataCust = false;
-    let url = contextpath + "form/endpoints/sd/"
-    let firstName = $('#fName').val();
-    let lastName = $('#lName').val();
-    let license = $('#licenseNo').val();
+    let add1 = $('#address1').val();
+    let phone = $('#phone').val();
+    if ($("#LabName").val() == 'PAIRW-ADL' || $("#LabName").val() == 'PAIRW-IDA'){
+        correctLab = "PAIRW";
+    } else if ($("#LabName").val() == 'TXCON' || $("#LabName").val() == 'CAHAW' || $("#LabName").val() == 'CAHAO' || $("#LabName").val() == 'CAHER' || $("#LabName").val() == 'CAELS' || $("#LabName").val() == 'NVLAS' || $("#LabName").val() == 'NYWHI' ) {
+        correctLab = "WCDL";
+    } else {
+        correctLab = $("#LabName").val();
+    }
     console.log(correctLab);
-    let formDataSD = {
+    let formDataSC = {
         labName: correctLab,
-        fName: firstName,
-        lName: lastName,
-        licenseNo: license
+        address: add1,
+        phone: phone
     };
-    // for (const formDataSDKey in formDataSD) {
-    //     console.log(formDataSD[formDataSDKey]);
-    // }
-    if($('#licenseNo').val() !== ""){
-        console.log("good license");
-        url += formDataSD.labName + "/" + formDataSD.fName  + "/" + formDataSD.lName + "/" + formDataSD.licenseNo
+    let url = contextpath + "form/endpoints/sc/" + formDataSC.labName + "/"
+
+    if($('#phone').val() !== ""){
+
+        url += formDataSC.address  + "/" + formDataSC.phone
     }
     else {
-        url += formDataSD.labName + "/" + formDataSD.fName  + "/" + formDataSD.lName
+        url += formDataSC.address
     }
 
-    if($('#fName').val() !== "" && $('#lName').val() !== "" ){
+    if($('#address1').val() !== "" ){
         enoughDataCust = true;
     }
     if(enoughDataCust){
@@ -369,7 +372,53 @@ function CheckSCust(){
 }
 
 function DisplaySCust(info){
+    $('.cards').remove();
     console.log(info);
+    let data;
+    let text = "";
+    for (let i = 0; i < info.length; i++) {
+        data = info[i];
+        text += "<button class='cards'>CustomerID: "+data.customerID+" "+" <br>Practice Name: " +data.practiceName+ " <br>Dental Group: "+data.dentalGroup +" <br>Address: "+ data.address1+", "+data.city+", " + data.state + ", "+ data.zipCode+ " <br>Office Phone: "+data.officePhone + " <br>Warning: "+data.warning+"</button>"
+
+    }
+    document.getElementById("similarChoice").innerHTML = text;
+}
+
+function CheckPhone(){
+    let phone = $('#phone').val();
+    if(phone.length > 12){
+        document.getElementById("phone").value = "";
+    }
+    if(phone.length == 10){
+        let res = phone.slice(0,3) + "-" + phone.slice(3,6)+"-"+phone.slice(6,10);
+        document.getElementById("phone").value = res;
+    }
+}
+
+function ChooseSDisplay(info){
+    let text = info.innerHTML
+    console.log(text);
+    if (text.indexOf("<br>Practice Name:") == -1){
+
+        let len = text.indexOf("<br>Dr First Name:");
+
+        let docID = text.slice(10, len - 2)
+        console.log(docID);
+        document.getElementById("doctorId").value = docID;
+        document.getElementById("mode").value = 1
+        EDoc();
+        ChangeDisplay(1);
+
+    } else {
+        let len = text.indexOf("<br>Practice Name:");
+
+        let custID = text.slice(11, len - 2)
+        console.log(custID);
+        document.getElementById("customerId").value = custID;
+        document.getElementById("mode").value = 2
+        ECust();
+        ChangeDisplay(2);
+    }
 }
 
 $(document).ready(function() {
@@ -413,11 +462,11 @@ $(document).ready(function() {
 
     $('#npi').change(function(event) {
         event.preventDefault();
-        // NPICheck();
+        NPICheck();
         ChangeLab();
-        if($('#mode').val() == 0  || $('#mode').val() == 2){
-            CheckSDoc();
-        }
+        // if($('#mode').val() == 0  || $('#mode').val() == 2){
+        //     CheckSDoc();
+        // }
     });
 
     $('#lName').change(function(event) {
@@ -442,9 +491,9 @@ $(document).ready(function() {
     $('#pName').change(function(event) {
         event.preventDefault();
         ChangeLab();
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
-            CheckSCust();
-        }
+        // if($('#mode').val() == 0  || $('#mode').val() == 1){
+        //     CheckSCust();
+        // }
     });
 
     $('#address1').change(function(event) {
@@ -458,47 +507,53 @@ $(document).ready(function() {
     $('#city').change(function(event) {
         event.preventDefault();
         ChangeLab();
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
-            CheckSCust();
-        }
+        // if($('#mode').val() == 0  || $('#mode').val() == 1){
+        //     CheckSCust();
+        // }
     });
 
     $('#state').change(function(event) {
         event.preventDefault();
         ChangeLab();
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
-            CheckSCust();
-        }
+        // if($('#mode').val() == 0  || $('#mode').val() == 1){
+        //     CheckSCust();
+        // }
     });
 
     $('#zip').change(function(event) {
         event.preventDefault();
         ChangeLab();
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
-            CheckSCust();
-        }
+        // if($('#mode').val() == 0  || $('#mode').val() == 1){
+        //     CheckSCust();
+        // }
     });
 
     $('#dGroup').change(function(event) {
         event.preventDefault();
         ChangeLab();
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
-            CheckSCust();
-        }
+        // if($('#mode').val() == 0  || $('#mode').val() == 1){
+        //     CheckSCust();
+        // }
     });
     $('#email').change(function(event) {
         event.preventDefault();
         ChangeLab();
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
-            CheckSCust();
-        }
+        // if($('#mode').val() == 0  || $('#mode').val() == 1){
+        //     CheckSCust();
+        // }
     });
     $('#phone').change(function(event) {
         event.preventDefault();
         ChangeLab();
+        CheckPhone();
         if($('#mode').val() == 0  || $('#mode').val() == 1){
             CheckSCust();
         }
+    });
+
+    $('#similarChoice').on(
+        'click','.cards',function(e) {
+            ChooseSDisplay(this);
     });
 
 

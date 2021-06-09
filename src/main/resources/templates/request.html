@@ -44,12 +44,12 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-lg-10">
+            <div id="form1" class="col-lg-9">
                 <div class="card mt-5 bg-white">
                     <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
                         <h4>New Account Request Form</h4>
                     </div>
-                    <div class="success" style="color: darkgreen">
+                    <div id="hiddenRow2" class="success" style="color: darkgreen">
                         <h6><span th:text="${sent}"></span></h6>
                     </div>
                     <div class="form-container m-2">
@@ -57,18 +57,7 @@
                               th:object="${newAccount}">
 
 
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">LabName</span>
-                                </div>
-                                <select type="text" class="form-control" id="LabName" th:field="*{labName}">
-                                    <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}"
-                                            th:text="${l.labName}"></option>
-                                </select>
-                            </div>
-
-
-                            <div class="input-group mb-2">
+                            <div  class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Mode</span>
                                 </div>
@@ -76,10 +65,13 @@
                                     <option class="p-2" th:each="m : ${ndxMode}" th:value="${m.modeKey}"
                                             th:text="${m.mode}"></option>
                                 </select>
-                            </div>
-
-
-                            <div id="IsRush1" class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">LabName</span>
+                                </div>
+                                <select type="text" class="form-control" id="LabName" th:field="*{labName}">
+                                    <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}"
+                                            th:text="${l.labName}"></option>
+                                </select>
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Is Rush</span>
                                 </div>
@@ -87,10 +79,7 @@
                                     <option value="YES">Yes</option>
                                     <option value="NO">No</option>
                                 </select>
-                            </div>
-
-                            <div id="dhs1" class="input-group mb-2">
-                                <div class="input-group-prepend">
+                                <div id="dhs1" class="input-group-prepend">
                                     <span class="input-group-text">Is DHS</span>
                                 </div>
                                 <select class="form-control" id="dhs" th:field="*{dhs}">
@@ -100,31 +89,29 @@
                             </div>
 
 
-                            <div id="doctorId1" class="input-group mb-2">
-                                <div class="input-group-prepend" id="doctorId2">
-                                    <span class="input-group-text">Old Doctor ID</span>
-                                </div>
-                                <input type="number" class="form-control" id="doctorId" th:field="*{docId}">
-                               
-                            </div>
 
 
-                            <div id="customerId1" class="input-group mb-2">
+
+
+
+                            <div id="hiddenRow" class="input-group mb-2">
                                 <div class="input-group-prepend" id="customerId2">
                                     <span class="input-group-text">Old Customer ID</span>
                                 </div>
                                 <input type="text" class="form-control" id="customerId" th:field="*{customerId}">
+                                <div class="input-group-prepend" id="doctorId2">
+                                    <span class="input-group-text">Old Doctor ID</span>
+                                </div>
+                                <input type="number" class="form-control" id="doctorId" th:field="*{docId}">
                             </div>
 
                             <div id="dGroup1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="dGroup2">
                                     <span class="input-group-text">Dental Group</span>
                                 </div>
-                                <input type="text" class="form-control" id="dGroup" th:field="*{DGroup}">
-                            </div>
+                                <select type="text" class="form-control" id="dGroup" th:field="*{DGroup}">
 
-
-                            <div id="pName1" class="input-group mb-2">
+                                </select>
                                 <div class="input-group-prepend" id="pName2">
                                     <span class="input-group-text">Practice Name</span>
                                 </div>
@@ -132,39 +119,37 @@
                             </div>
 
 
+
+
+
                             <div id="address11" class="input-group mb-2">
                                 <div class="input-group-prepend" id="address12">
                                     <span class="input-group-text">Address1</span>
                                 </div>
                                 <input type="text" class="form-control" id="address1" th:field="*{add1}">
+
+
                             </div>
 
 
-                            <div id="address21" class="input-group mb-2">
+
+
+                            <div  class="input-group mb-2">
                                 <div class="input-group-prepend" id="address22">
                                     <span class="input-group-text">Address2</span>
                                 </div>
                                 <input type="text" class="form-control" id="address2" th:field="*{add2}">
-                            </div>
-
-
-                            <div id="city1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="city2">
                                     <span class="input-group-text">City</span>
                                 </div>
                                 <input type="text" class="form-control" id="city" th:field="*{city}">
-                            </div>
-
-
-                            <div id="state1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="state2">
                                     <span class="input-group-text">State</span>
                                 </div>
-                                <input type="text" class="form-control" id="state" th:field="*{state}">
-                            </div>
-
-
-                            <div id="zip1" class="input-group mb-2">
+                                <select type="text" class="form-control" id="state" th:field="*{state}">
+                                    <option class="p-2" th:each="l : ${state}" th:value="${l.labName}"
+                                            th:text="${l.labName}"></option>
+                                </select>
                                 <div class="input-group-prepend" id="zip2">
                                     <span class="input-group-text">Zip</span>
                                 </div>
@@ -172,15 +157,14 @@
                             </div>
 
 
+
+
+
                             <div id="fName1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="fName2">
                                     <span class="input-group-text">Doctor First Name</span>
                                 </div>
                                 <input type="text" class="form-control" id="fName" th:field="*{FName}">
-                            </div>
-
-
-                            <div id="lName1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="lName2">
                                     <span class="input-group-text">Doctor Last Name</span>
                                 </div>
@@ -188,20 +172,19 @@
                             </div>
 
 
+
                             <div id="email1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="email2">
                                     <span class="input-group-text">Email</span>
                                 </div>
                                 <input type="text" class="form-control" id="email" th:field="*{email}">
-                            </div>
-
-
-                            <div id="phone1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="phone2">
                                     <span class="input-group-text">Phone</span>
                                 </div>
                                 <input type="text" class="form-control" id="phone" th:field="*{phone}">
                             </div>
+
+
 
 
                             <div id="licenseNo1" class="input-group mb-2">
@@ -212,6 +195,10 @@
                                 <div class="input-group-append">
                                     <span style='font-size:25px;' id="goodLicense">&#9989</span>
                                 </div>
+                                <div class="input-group-prepend" id="npi2">
+                                    <span class="input-group-text">NPI Number</span>
+                                </div>
+                                <input type="number" class="form-control" id="npi" th:field="*{npi}">
                             </div>
 
                             <div id="licenseNoError">
@@ -219,12 +206,6 @@
                             </div>
 
 
-                            <div id="npi1" class="input-group mb-2">
-                                <div class="input-group-prepend" id="npi2">
-                                    <span class="input-group-text">NPI Number</span>
-                                </div>
-                                <input type="number" class="form-control" id="npi" th:field="*{npi}">
-                            </div>
 
                             <div id="labNote1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="labNote2">
@@ -241,12 +222,16 @@
                 </div>
             </div>
 
-            <div class="col-lg-2">
+            <div id="form2" class="col-lg-3">
                 <div class="card mt-5 bg-white">
                     <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
-                        <h4>Selection choices</h4>
+                        <h5>Existing Choices</h5>
+                    </div>
+                    <div id="similarChoice" >
+
                     </div>
                 </div>
+
             </div>
 
 

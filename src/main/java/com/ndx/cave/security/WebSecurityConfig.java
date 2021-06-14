@@ -16,7 +16,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().fullyAuthenticated()
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll();
+                .formLogin().loginPage("/login").defaultSuccessUrl("/dashboard", true).permitAll();
     }
     @Bean
     public ActiveDirectoryLdapAuthenticationProvider activeDirectoryLdapAuthenticationProvider(){

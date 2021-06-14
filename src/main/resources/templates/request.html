@@ -110,6 +110,7 @@
                                     <span class="input-group-text">Dental Group</span>
                                 </div>
                                 <select type="text" class="form-control" id="dGroup" th:field="*{DGroup}">
+                                    <option class="p-2" value=""></option>
                                     <option class="p-2" th:each="l : ${dentalGroups}" th:value="${l.value1}"
                                             th:text="${l.value1}"></option>
                                 </select>

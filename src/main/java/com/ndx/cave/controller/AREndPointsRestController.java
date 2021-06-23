@@ -6,10 +6,7 @@ import com.ndx.cave.data.entity.AccountRequest;
 import com.ndx.cave.data.repository.AccountRequestRepo;
 import com.ndx.cave.data.repository.EmailSPRepository;
 import com.ndx.cave.data.repository.MiniChecksRepo;
-import com.ndx.cave.data.sp_access.CheckExistingCustomer;
-import com.ndx.cave.data.sp_access.CheckExistingDoctor;
-import com.ndx.cave.data.sp_access.CheckSimilarCustomer;
-import com.ndx.cave.data.sp_access.CheckSimilarDoctor;
+import com.ndx.cave.data.sp_access.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -116,7 +113,7 @@ public class AREndPointsRestController {
     }
 
     @PostMapping("/emailIssues/{id}/{message}")
-    public String  sendEmailWithIssues(@PathVariable("id") Long id, @PathVariable("message") String message){
+    public String sendEmailWithIssues(@PathVariable("id") Long id, @PathVariable("message") String message) {
 
         AccountRequest accountRequest = accountRequestRepo.findAccountRequestsByAccId(id);
 
@@ -125,14 +122,37 @@ public class AREndPointsRestController {
         return "email sent";
     }
 
-//    @GetMapping("/NPI/{fName}/{lName}/{nip}")
-//    public CheckNPI RequestNPI(@PathVariable(name = "fName") String fName,
-//                                                           @PathVariable(name = "lName") String lName,
-//                                                          @PathVariable(name = "nip") String nip){
-//
-//        return webChecks.RequestNPI(fName,lName, nip);
-//    }
+    @GetMapping("/sa/{country}/{address1}/{city}/{state}")
+    public CheckAddress getStdAddress(@PathVariable(name = "country") String country,
+                                      @PathVariable(name = "address1") String address1, @PathVariable(name = "city") String city,
+                                      @PathVariable(name = "state") String state) {
 
+
+        return miniChecksRepo.getStdAddress(country, address1, city, state);
+    }
+
+    @GetMapping("/sa/{country}/{address1}/{city}/{state}/{zipCode}")
+    public CheckAddress getStdAddress(@PathVariable(name = "country") String country,
+                                      @PathVariable(name = "address1") String address1, @PathVariable(name = "city") String city,
+                                      @PathVariable(name = "state") String state,
+                                      @PathVariable(name = "zipCode") String zipCode) {
+
+
+        return miniChecksRepo.getStdAddressWZip(country, address1, city, state, zipCode);
+    }
+
+    @GetMapping("/NPI/{fName}/{lName}")
+    public List<CheckNPI> RequestNPI(@PathVariable(name = "fName") String fName,
+                                     @PathVariable(name = "lName") String lName) {
+
+        return miniChecksRepo.RequestNPIWFirstLastName(fName, lName);
+    }
+
+    @GetMapping("/NPI/{npi}")
+    public List<CheckNPI> RequestNPI(@PathVariable(name = "npi") String npi) {
+
+        return miniChecksRepo.RequestNPI(npi);
+    }
 
 
 }

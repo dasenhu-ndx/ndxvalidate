@@ -25,13 +25,14 @@ public class AccountRequestRestController {
 
 // Endpoint to update form data
 //    api/request/update/{id}
-    @PostMapping(value = "/update/{id}")
+    @PostMapping(value = "/update/{id}", consumes = "application/json")
     public Response postUpdateRequest(@RequestBody AccountRequest accountRequest, @PathVariable(value = "id") Long id){
        requestTransaction.updateRequest(accountRequest, id);
         System.out.println(accountRequest.getFName() + " " + accountRequest.getLName());
         Response response = new Response();
+        System.out.println(accountRequest.getFName() + " " + accountRequest.getLName());
         response.setMessage("Request Completed");
-
+        System.out.println(accountRequest.getFName() + " " + accountRequest.getLName());
 
         return response;
 

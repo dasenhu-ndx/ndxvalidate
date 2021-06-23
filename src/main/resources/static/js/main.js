@@ -1,6 +1,4 @@
 const contextpath = /*[[@{/}]]*/ "/";
-let csrfHeaderName = "X-CSRF-TOKEN";
-let csrfValue = "fetch";
 let correctLab = ""
 const States = ['', 'AB', 'AK', 'AL', 'GJ', 'AR', 'AZ', 'BB', 'BC', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'GBR', 'GU', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'LC', 'MA', 'MB', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NB', 'NC', 'ND', 'NE', 'NL', 'NH', 'NJ', 'NL', 'NM', 'NS', 'NSW', 'NT', 'NV', 'NY', 'OH', 'OK', 'ON', 'OR', 'PA', 'PE', 'PR', 'QC', 'RI', 'SC', 'SD', 'SK', 'TN', 'TX', 'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY', 'YT', 'ABW', 'HTI', 'JA', 'KY1', 'GLS', 'VR', 'BCN', 'NP', 'VIC', 'LB', 'NU', 'NW', 'YU'];
 const StateWebsites = {
@@ -250,38 +248,55 @@ function ValidateLicenseState(){
 }
 
 function NPICheck() {
-    let url = "https://npiregistry.cms.hhs.gov/api/?number=";
-    // Search by Name
-    // https://npiregistry.cms.hhs.gov/api/?number=&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=Nathan&use_first_name_alias=&last_name=ABRAMSON&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1
-    let npi = "";
-    let fname = "";
-    let lname = "";
-    if($('#npi').val() != "" && typeof $('#npi').val() !== 'undefined' ){
-        npi = $('#npi').val();
-        url = url + $('#npi').val() + "&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=";
-    } else {
-        url = url +"&enumeration_type=NPI-1&taxonomy_description=Dentist&first_name=";
-    }
-    if($('#fName').val() != "" && typeof $('#fName').val() !== 'undefined' ){
+    let url = '';
+    let fname = '';
+    let lname = '';
+    let npi = '';
+    let searchByName = false;
+    let searchByNPI = false;
+    if ($('#fName').val() != "" && typeof $('#fName').val() !== 'undefined' && $('#lName').val() != "" && typeof $('#lName').val() !== 'undefined') {
         fname = $('#fName').val();
         lname = $('#lName').val();
-        url = url + $('#fName').val() + "&use_first_name_alias=&last_name="+$('#lName').val()+"&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1";
-    } else {
-        lname = $('#lName').val();
-        url = url + "&use_first_name_alias=&last_name="+$('#lName').val()+"&organization_name=&address_purpose=&city=&state=&postal_code=&country_code=&limit=&skip=&version=2.1";
+        searchByName = true;
+    } else if ($('#npi').val() != "" && typeof $('#npi').val() !== 'undefined' && $('#npi').val().length == 10) {
+        npi = $('#npi').val();
+        searchByNPI = true;
     }
 
-    console.log(url);
+    if (searchByName) {
+        url = contextpath + "form/endpoints/NPI/" + fname + "/" + lname;
+        $.getJSON(url,
+            function (data) {
+                console.log(data);
+                ProcessNPI(data);
 
+            });
+    } else if (searchByNPI) {
+        url = contextpath + "form/endpoints/NPI/" + npi;
+        $.getJSON(url,
+            function (data) {
+                console.log(data);
+                ProcessNPI(data);
 
+            });
+    }
 
 }
 
 
 
-function ProcessNPI(info){
-    console.log("made it this far");
+function ProcessNPI(info) {
+    $('.webCards').remove();
     console.log(info);
+    let data;
+    let text = "";
+    document.getElementById("webChecks").innerText = "NPI Web Check";
+    for (let i = 0; i < info.length; i++) {
+        data = info[i];
+        text += "<button class='webCards'>NPI Number: " + data.npinumber + "<br>NPI First Name: " + data.firstName + " <br>NPI Last Name: " + data.lastName + " <br>License Number: " + data.license + "/" + data.state + "</button>"
+
+    }
+    document.getElementById("webChoice").innerHTML = text;
 }
 
 function CheckSDoc(){
@@ -333,6 +348,7 @@ function DisplaySDoc(info){
     console.log(info);
     let data;
     let text = "";
+    document.getElementById("checks").innerText = "Similar Doctors";
     for (let i = 0; i < info.length; i++) {
         data = info[i];
         text += "<button class='cards'>DoctorID: "+data.doctorNumber+" "+" <br>Dr First Name: " +data.firstName+ " <br>Dr Last Name: "+data.lastName +" <br>License Number: "+ data.licenseNumber+ " <br>NPI Number: "+data.npinumber + " <br>On Customer: "+data.customerID + " <br>Warning: "+data.warning+"</button>"
@@ -388,6 +404,7 @@ function DisplaySCust(info){
     console.log(info);
     let data;
     let text = "";
+    document.getElementById("checks").innerText = "Similar Customers";
     for (let i = 0; i < info.length; i++) {
         data = info[i];
         text += "<button class='cards'>CustomerID: "+data.customerID+" "+" <br>Practice Name: " +data.practiceName+ " <br>Dental Group: "+data.dentalGroup +" <br>Address: "+ data.address1+", "+data.city+", " + data.state + ", "+ data.zipCode+ " <br>Office Phone: "+data.officePhone + " <br>Warning: "+data.warning+"</button>"
@@ -409,10 +426,11 @@ function CheckPhone(){
 
 function ChooseSDisplay(info){
     let text = info.innerHTML
+    let len = 0;
     console.log(text);
-    if (text.indexOf("<br>Practice Name:") == -1){
+    if (text.indexOf("<br>Practice Name:") == -1 && text.indexOf("NPI First Name:") == -1) {
 
-        let len = text.indexOf("<br>Dr First Name:");
+        len = text.indexOf("<br>Dr First Name:");
 
         let docID = text.slice(10, len - 2)
         console.log(docID);
@@ -421,8 +439,8 @@ function ChooseSDisplay(info){
         EDoc();
         ChangeDisplay(1);
 
-    } else {
-        let len = text.indexOf("<br>Practice Name:");
+    } else if (text.indexOf("DoctorID:") == -1 && text.indexOf("NPI First Name:") == -1) {
+        len = text.indexOf("<br>Practice Name:");
 
         let custID = text.slice(11, len - 2)
         console.log(custID);
@@ -430,20 +448,107 @@ function ChooseSDisplay(info){
         document.getElementById("mode").value = 2
         ECust();
         ChangeDisplay(2);
+    } else if (text.indexOf("DoctorID:") == -1 && text.indexOf("<br>Practice Name:") == -1) {
+        len = text.indexOf("<br>NPI First Name:");
+
+        let npi = text.slice(12, len);
+        console.log(npi);
+        let url = contextpath + "form/endpoints/NPI/" + npi;
+        console.log(url);
+        $.getJSON(url,
+            function (data) {
+
+                AddNPI(data);
+
+            });
     }
+}
+
+function toTitleCase(str) {
+    return str.replace(
+        /\w\S*/g,
+        function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
+}
+
+function AddNPI(info) {
+    console.log(info);
+    document.getElementById("npi").value = info[0].npinumber;
+    document.getElementById("licenseNo").value = info[0].license + "/" + info[0].state;
+    document.getElementById("fName").value = toTitleCase(info[0].firstName);
+    document.getElementById("lName").value = toTitleCase(info[0].lastName);
 }
 
 function addStates() {
     let data;
     let text = "";
-    for (let i = 0; i < States.length; i++) {
-        data = States[i];
-        text += "<option class='p-2' value='" + data + "'>" + data + "</option>"
+    let OGSt = "";
+    try {
+        OGSt = document.getElementById("OGState").value;
+    } catch (err) {
+        OGSt = 'NONEFOUND'
     }
 
-    document.getElementById("state").innerHTML = text;
+
+    console.log(OGSt);
+    console.log(States.includes(OGSt));
+
+    if (States.includes(OGSt)) {
+        text += "<option className='p-2' value='" + OGSt + "'>" + OGSt + "</option>";
+        console.log(text);
+    }
+    for (let i = 0; i < States.length; i++) {
+        data = States[i];
+        if (data != document.getElementById("OGState")) {
+            text += "<option class='p-2' value='" + data + "'>" + data + "</option>";
+        }
+
+    }
+
+    let element = document.getElementById("state");
+
+    element.innerHTML = text;
+    // console.log(document.getElementById("state2").value);
+    // element.value = document.getElementById("state2").value;
+    // console.log(element.value);
+}
+
+function CheckStdAddress() {
+    let isEnoughData = true;
+    let formDataSA = {
+        address1: $('#address1').val(),
+        city: $('#city').val(),
+        state: $('#state').val(),
+        zipCode: $('#zip').val()
+    };
 
 
+    let url = contextpath + "form/endpoints/sa/US/" + formDataSA.address1 + "/" + formDataSA.city + "/" + formDataSA.state
+    if (formDataSA.zipCode.length != 0) {
+        url += "/" + formDataSA.zipCode
+    }
+    if (formDataSA.address1.length === 0 || formDataSA.city.length === 0 || formDataSA.state.length === 0) {
+        isEnoughData = false;
+    }
+    console.log(url);
+    if (isEnoughData) {
+        $.getJSON(url,
+            function (data) {
+
+                console.log(data);
+                StandardizeAddress(data);
+            });
+    }
+}
+
+function StandardizeAddress(info) {
+
+    document.getElementById("address1").value = info.address1;
+    document.getElementById("city").value = info.city;
+    document.getElementById("state").value = info.state;
+    document.getElementById("zip").value = info.zipCode;
 }
 
 $(document).ready(function () {
@@ -474,7 +579,7 @@ $(document).ready(function () {
 
     $('#licenseNo').change(function(event) {
         event.preventDefault();
-
+        console.log("license Changed");
         ValidateLicenseState();
         if($('#mode').val() == 0  || $('#mode').val() == 2){
             CheckSDoc();
@@ -491,6 +596,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         if($('#mode').val() == 0  || $('#mode').val() == 2){
+            NPICheck();
             CheckSDoc();
         }
     });
@@ -499,32 +605,61 @@ $(document).ready(function () {
         event.preventDefault();
 
         if($('#mode').val() == 0  || $('#mode').val() == 2){
+            NPICheck();
             CheckSDoc();
         }
 
     });
 
-    $('#address1').change(function(event) {
+    $('#address1').change(function (event) {
         event.preventDefault();
 
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
+        if ($('#mode').val() == 0 || $('#mode').val() == 1) {
             CheckSCust();
+            CheckStdAddress();
         }
     });
 
-    $('#phone').change(function(event) {
+    $('#city').change(function (event) {
+        event.preventDefault();
+
+        if ($('#mode').val() == 0 || $('#mode').val() == 1) {
+            CheckStdAddress();
+        }
+    });
+    $('#state').change(function (event) {
+        event.preventDefault();
+
+        // if($('#mode').val() == 0  || $('#mode').val() == 1){
+        //     CheckStdAddress();
+        // }
+    });
+    $('#zip').click(function (event) {
+        event.preventDefault();
+
+        if ($('#mode').val() == 0 || $('#mode').val() == 1) {
+            CheckStdAddress();
+        }
+    });
+
+    $('#phone').change(function (event) {
         event.preventDefault();
 
         CheckPhone();
-        if($('#mode').val() == 0  || $('#mode').val() == 1){
+        if ($('#mode').val() == 0 || $('#mode').val() == 1) {
             CheckSCust();
         }
     });
 
     $('#similarChoice').on(
-        'click','.cards',function(e) {
+        'click', '.cards', function (e) {
             ChooseSDisplay(this);
-    });
+        });
+
+    $('#webChoice').on(
+        'click', '.webCards', function (e) {
+            ChooseSDisplay(this);
+        });
 
 
 });

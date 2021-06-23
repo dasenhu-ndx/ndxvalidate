@@ -6,6 +6,8 @@ import com.ndx.cave.data.entity.Admin;
 import com.ndx.cave.data.repository.AccountRequestRepo;
 import com.ndx.cave.data.repository.AdminRepo;
 import com.ndx.cave.data.repository.OtherSPRepo;
+import com.ndx.cave.data.sp_access.DentalGroups;
+import com.ndx.cave.data.sp_access.LabUserPair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,9 +60,12 @@ public class AccountRequestUserCallController {
 
     @GetMapping("/edit_request/{id}")
     public String editRequest(@PathVariable(value = "id") Long id, Model model) {
-
+        List<LabUserPair> labUserPairList = otherSPRepo.getLabUserPairList(mtUserService.currentUserName());
+        List<DentalGroups> dentalGroups = otherSPRepo.getDentalGroupsByUserName(mtUserService.currentUserName());
         AccountRequest accountRequest = accountRequestRepo.findAccountRequestsByAccId(id);
-        System.out.println(accountRequest.getAccId());
+
+        model.addAttribute("dentalGroups", dentalGroups);
+        model.addAttribute("labUserPair", labUserPairList);
         model.addAttribute("accRequest", accountRequest);
         return "edit_request";
     }

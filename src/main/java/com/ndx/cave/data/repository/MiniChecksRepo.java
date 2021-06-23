@@ -108,7 +108,31 @@ public interface MiniChecksRepo extends JpaRepository<AccountRequest, Long> {
             ",@NPINumber = ''")
     CheckExistingDoctor getExistingDoctorByDocId(String labName, String docId);
 
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_CAVE_CheckAddress]" +
+            "@Country = ?1" +
+            ",@Address1 = ?2" +
+            ",@City = ?3" +
+            ",@State = ?4" +
+            ",@ZipCode = ?5")
+    CheckAddress getStdAddressWZip(String country, String address1, String city, String state, String zipCode);
 
+
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_CAVE_CheckAddress]" +
+            "@Country = ?1" +
+            ",@Address1 = ?2" +
+            ",@City = ?3" +
+            ",@State = ?4" +
+            ",@ZipCode = ''")
+    CheckAddress getStdAddress(String country, String address1, String city, String state);
+
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_CAVE_CheckNPI]" +
+            "@FirstName  = ?1" +
+            ",@LastName  = ?2")
+    List<CheckNPI> RequestNPIWFirstLastName(String firstName, String lastName);
+
+    @Query(nativeQuery = true, value = "EXEC [NDXData].[dbo].[SP_CAVE_CheckNPI]" +
+            "@NPINumber  = ?1")
+    List<CheckNPI> RequestNPI(String NPINumber);
 
 
 }

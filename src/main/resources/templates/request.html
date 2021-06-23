@@ -57,7 +57,7 @@
                               th:object="${newAccount}">
 
 
-                            <div  class="input-group mb-2">
+                            <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Mode</span>
                                 </div>
@@ -73,7 +73,7 @@
                                             th:text="${l.labName}"></option>
                                 </select>
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Is Rush</span>
+                                    <span class="input-group-text">Lab Customer</span>
                                 </div>
                                 <select type="text" class="form-control" id="IsRush" th:field="*{isRush}">
                                     <option value="YES">Yes</option>
@@ -87,11 +87,6 @@
                                     <option value="1">Yes</option>
                                 </select>
                             </div>
-
-
-
-
-
 
 
                             <div id="hiddenRow" class="input-group mb-2">
@@ -121,9 +116,6 @@
                             </div>
 
 
-
-
-
                             <div id="address11" class="input-group mb-2">
                                 <div class="input-group-prepend" id="address12">
                                     <span class="input-group-text">Address1</span>
@@ -134,9 +126,7 @@
                             </div>
 
 
-
-
-                            <div  class="input-group mb-2">
+                            <div class="input-group mb-2">
                                 <div class="input-group-prepend" id="address22">
                                     <span class="input-group-text">Address2</span>
                                 </div>
@@ -158,7 +148,24 @@
                             </div>
 
 
+                            <div id="licenseNo1" class="input-group mb-2">
+                                <div class="input-group-prepend" id="npi2">
+                                    <span class="input-group-text">NPI Number</span>
+                                </div>
+                                <input type="number" class="form-control" id="npi" th:field="*{npi}">
+                                <div class="input-group-prepend" id="licenseNo2">
+                                    <span class="input-group-text">Doctor License Number</span>
+                                </div>
+                                <input type="text" class="form-control" id="licenseNo" th:field="*{licenseNo}">
+                                <div class="input-group-append">
+                                    <span style='font-size:25px;' id="goodLicense">&#9989</span>
+                                </div>
 
+                            </div>
+
+                            <div id="licenseNoError">
+
+                            </div>
 
 
                             <div id="fName1" class="input-group mb-2">
@@ -173,7 +180,6 @@
                             </div>
 
 
-
                             <div id="email1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="email2">
                                     <span class="input-group-text">Email</span>
@@ -186,33 +192,12 @@
                             </div>
 
 
-
-
-                            <div id="licenseNo1" class="input-group mb-2">
-                                <div class="input-group-prepend" id="licenseNo2">
-                                    <span class="input-group-text">Doctor License Number</span>
-                                </div>
-                                <input type="text" class="form-control" id="licenseNo" th:field="*{licenseNo}">
-                                <div class="input-group-append">
-                                    <span style='font-size:25px;' id="goodLicense">&#9989</span>
-                                </div>
-                                <div class="input-group-prepend" id="npi2">
-                                    <span class="input-group-text">NPI Number</span>
-                                </div>
-                                <input type="number" class="form-control" id="npi" th:field="*{npi}">
-                            </div>
-
-                            <div id="licenseNoError">
-
-                            </div>
-
-
-
                             <div id="labNote1" class="input-group mb-2">
                                 <div class="input-group-prepend" id="labNote2">
                                     <span class="input-group-text">Add Note</span>
                                 </div>
-                                <textarea autocomplete="on" autocorrect="on"  type="text" class="form-control" id="labNote" th:field="*{notes}"> </textarea>
+                                <textarea autocomplete="on" autocorrect="on" type="text" class="form-control"
+                                          id="labNote" th:field="*{notes}"> </textarea>
                             </div>
 
                             <input type="submit" value="Submit">
@@ -224,11 +209,20 @@
             </div>
 
             <div id="form2" class="col-lg-3">
-                <div class="card mt-5 bg-white">
+                <div id="topColumn" class="card mt-5 bg-white">
                     <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
-                        <h5>Existing Choices</h5>
+                        <h5 id='checks'>Checking the Database</h5>
                     </div>
-                    <div id="similarChoice" >
+                    <div id="similarChoice">
+
+                    </div>
+                </div>
+
+                <div id="bottomColumn" class="card mt-5 bg-white">
+                    <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                        <h5 id='webChecks'>Checking the Web</h5>
+                    </div>
+                    <div id="webChoice">
 
                     </div>
                 </div>

@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta  http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>CAVE</title>
+    <title>process</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
@@ -41,117 +41,198 @@
     </nav>
 </div>
 
-<div class="container">
-    <div class="card mt-5 bg-white">
-        <div class="card-header bg-blue nav-bottom-green ndx-header">
-            <h4> Processing Request: <span th:text="${accountRequest.accId}"></span></h4>
-        </div>
+<div class="container-fluid">
 
-        <div class="container mt-3">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <td>Key</td>
-                        <td>Value</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Facility ID</td>
-                        <td th:text="${accountRequest.labName}"></td>
-                    </tr>
-                    <tr>
-                        <td>Lab Customer</td>
-                        <td th:text="${accountRequest.isRush}"></td>
-                    </tr>
-                    <tr>
-                        <td >IS DHS</td>
-                        <td th:text="${accountRequest.dhs}"></td>
-                    </tr>
-                    <tr>
-                        <td>Request By</td>
-                        <td th:text="${accountRequest.mtUserName}"></td>
-                    </tr>
-                    <tr>
-                        <td>Existing Doctor Number</td>
-                        <td th:text="${accountRequest.docId}"></td>
-                    </tr>
-                    <tr>
-                        <td> Existing Customer Number</td>
-                        <td th:text="${accountRequest.customerId}"></td>
-                    </tr>
-                    <tr>
-                        <td> Dental Group Name</td>
-                        <td th:text="${accountRequest.DGroup}"></td>
-                    </tr>
-                    <tr>
-                        <td >Practice Name</td>
-                        <td th:text="${accountRequest.PName}"></td>
-                    </tr>
-                    <tr>
-                        <td> First Name</td>
-                        <td th:text="${accountRequest.FName}"></td>
-                    </tr>
-                    <tr>
-                        <td> Last Name</td>
-                        <td th:text="${accountRequest.LName}"></td>
-                    </tr>
-                    <tr>
-                        <td>Shipping Address 1</td>
-                        <td th:text="${accountRequest.add1}"></td>
-                    </tr>
-                    <tr>
-                        <td>Shipping Address 2</td>
-                        <td th:text="${accountRequest.add2}"></td>
-                    </tr>
-                    <tr>
-                        <td>City</td>
-                        <td th:text="${accountRequest.city}"></td>
-                    </tr>
-                    <tr>
-                        <td>State</td>
-                        <td th:text="${accountRequest.state}"></td>
-                    </tr>
-                    <tr>
-                        <td>Zip Code</td>
-                        <td th:text="${accountRequest.zip}"></td>
-                    </tr>
-                    <tr>
-                        <td>Phone</td>
-                        <td th:text="${accountRequest.phone}"></td>
-                    </tr>
+    <div class="row">
+        <div id="form1" class="col-lg-9">
 
-                    <tr>
-                        <td>Customer Email</td>
-                        <td th:text="${accountRequest.email}"></td>
-                    </tr>
-                    <tr>
-                        <td> License #</td>
-                        <td th:text="${accountRequest.licenseNo}"></td>
-                    </tr>
-                    <tr>
-                        <td>NPI #</td>
-                        <td th:text="${accountRequest.npi}"></td>
-                    </tr>
-                    <tr>
-                        <td>Notes</td>
-                        <td th:text="${accountRequest.notes}"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="card bg-white mt-5">
+                <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                    <h3> Processing Request: <span th:text="${accRequest.accId}"></span></h3>
+                </div>
+                <div class="form-container m-2">
 
-            <div class="container mt-1">
-                <div class="m-5 text-center">
-                    <div class="btn ndx-btn-color p-2">
-                        <a href="/process/check_request.html" th:href="@{/check/request/{id}(id= ${accountRequest.accId})}" class="btn ndx-btn-color">
-                            <h2>CHECK</h2>
-                        </a>
-                    </div>
+                    <form id="updateRequest" method="post">
+
+                        <input type="hidden" id="requestId" th:value="${accRequest.accId}">
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Mode</span>
+                            </div>
+                            <select class="form-control" id="mode" th:field="${accRequest.mode}">
+                                <option value="0">New Customer New Doctor</option>
+                                <option value="1">New Customer Old Doctor</option>
+                                <option value="2">Old Customer New Doctor</option>
+                            </select>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">LabName</span>
+                            </div>
+                            <select type="text" class="form-control" id="LabName" th:field="${accRequest.labName}">
+                                <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}"
+                                        th:text="${l.labName}"></option>
+                            </select>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Lab Customer</span>
+                            </div>
+                            <select type="text" class="form-control" id="IsRush" th:field="*{accRequest.isRush}">
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                            <div id="dhs1" class="input-group-prepend">
+                                <span class="input-group-text">Is DHS</span>
+                            </div>
+                            <select class="form-control" id="dhs" th:field="*{accRequest.dhs}">
+                                <option value="0">NO</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div id="hiddenRow" class="input-group mb-2">
+                            <div class="input-group-prepend" id="customerId2">
+                                <span class="input-group-text">Old Customer ID</span>
+                            </div>
+                            <input type="text" class="form-control" id="customerId" th:field="*{accRequest.customerId}">
+                            <div class="input-group-prepend" id="doctorId2">
+                                <span class="input-group-text">Old Doctor ID</span>
+                            </div>
+                            <input type="number" class="form-control" id="doctorId" th:field="*{accRequest.docId}">
+                        </div>
+
+                        <div id="dGroup1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="dGroup2">
+                                <span class="input-group-text">Dental Group</span>
+                            </div>
+                            <select type="text" class="form-control" id="dGroup" th:field="*{accRequest.DGroup}">
+                                <option class="p-2" value=""></option>
+                                <option class="p-2" th:each="l : ${dentalGroups}" th:value="${l.value1}"
+                                        th:text="${l.value1}"></option>
+                            </select>
+                            <div class="input-group-prepend" id="pName2">
+                                <span class="input-group-text">Practice Name</span>
+                            </div>
+                            <input type="text" class="form-control" id="pName" th:field="*{accRequest.PName}">
+                        </div>
+
+                        <div id="address11" class="input-group mb-2">
+                            <div class="input-group-prepend" id="address12">
+                                <span class="input-group-text">Address1</span>
+                            </div>
+                            <input type="text" class="form-control" id="address1" th:field="*{accRequest.add1}">
+
+
+                        </div>
+
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend" id="address22">
+                                <span class="input-group-text">Address2</span>
+                            </div>
+                            <input type="text" class="form-control" id="address2" th:field="*{accRequest.add2}">
+                            <div class="input-group-prepend" id="city2">
+                                <span class="input-group-text">City</span>
+                            </div>
+                            <input type="text" class="form-control" id="city" th:field="*{accRequest.city}">
+                            <div class="input-group-prepend" id="state2">
+                                <span class="input-group-text">State</span>
+                            </div>
+                            <select type="text" class="form-control" id="state" th:field="*{accRequest.state}">
+                                <option class='p-2' id="OGState" th:value="*{accRequest.state}"></option>
+                            </select>
+                            <div class="input-group-prepend" id="zip2">
+                                <span class="input-group-text">Zip</span>
+                            </div>
+                            <input type="text" class="form-control" id="zip" th:field="*{accRequest.zip}">
+                        </div>
+
+
+                        <div id="licenseNo1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="npi2">
+                                <span class="input-group-text">NPI Number</span>
+                            </div>
+                            <input type="number" class="form-control" id="npi" th:field="*{accRequest.npi}">
+                            <div class="input-group-prepend" id="licenseNo2">
+                                <span class="input-group-text">Doctor License Number</span>
+                            </div>
+                            <input type="text" class="form-control" id="licenseNo" th:field="*{accRequest.licenseNo}">
+                            <div class="input-group-append">
+                                <span style='font-size:25px;' id="goodLicense">&#9989</span>
+                            </div>
+
+                        </div>
+
+                        <div id="licenseNoError">
+
+                        </div>
+
+
+                        <div id="fName1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="fName2">
+                                <span class="input-group-text">Doctor First Name</span>
+                            </div>
+                            <input type="text" class="form-control" id="fName" th:field="*{accRequest.FName}">
+                            <div class="input-group-prepend" id="lName2">
+                                <span class="input-group-text">Doctor Last Name</span>
+                            </div>
+                            <input type="text" class="form-control" id="lName" th:field="*{accRequest.LName}">
+                        </div>
+
+
+                        <div id="email1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="email2">
+                                <span class="input-group-text">Email</span>
+                            </div>
+                            <input type="text" class="form-control" id="email" th:field="*{accRequest.email}">
+                            <div class="input-group-prepend" id="phone2">
+                                <span class="input-group-text">Phone</span>
+                            </div>
+                            <input type="text" class="form-control" id="phone" th:field="*{accRequest.phone}">
+                        </div>
+
+
+                        <div id="labNote1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="labNote2">
+                                <span class="input-group-text">Add Note</span>
+                            </div>
+                            <textarea autocomplete="on" autocorrect="on" type="text" class="form-control" id="labNote"
+                                      th:field="*{accRequest.notes}"> </textarea>
+                        </div>
+
+                        <div class="btn ndx-btn-color p-2">
+                            <a href="/process/check_request.html"
+                               th:href="@{/check/request/{id}(id= ${accRequest.accId})}" class="btn ndx-btn-color">
+                                <h2>CHECK</h2>
+                            </a>
+                        </div>
+
+
+                    </form>
                 </div>
 
             </div>
         </div>
+
+        <div id="form2" class="col-lg-3">
+            <div id="topColumn" class="card mt-5 bg-white">
+                <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                    <h5 id='checks'>Checking the Database</h5>
+                </div>
+                <div id="similarChoice">
+
+                </div>
+            </div>
+
+            <div id="bottomColumn" class="card mt-5 bg-white">
+                <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                    <h5 id='webChecks'>Checking the Web</h5>
+                </div>
+                <div id="webChoice">
+
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
 
 
@@ -163,3 +244,4 @@
     <script type="text/javascript" src="/js/main.js"></script>
 </footer>
 </html>
+

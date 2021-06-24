@@ -122,8 +122,14 @@ textarea {
     overflow-y: auto
 }
 
-#similarChoice, #webChoice {
-    height: 33vh;
+#similarChoice {
+    height: 48vh;
+    overflow-y: auto;
+    margin-top: -16px;
+}
+
+#webChoice {
+    height: 18vh;
     overflow-y: auto;
     margin-top: -16px;
 }

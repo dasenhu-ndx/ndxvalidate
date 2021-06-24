@@ -61,6 +61,7 @@ function DisplayEDoc(data){
     document.getElementById("licenseNo").value = data.licenseNumber;
     document.getElementById("npi").value = data.npinumber;
     document.getElementById("fName").value = data.firstName;
+
     document.getElementById("lName").value = data.lastName;
 
     if(data.warning == "no Customer") {
@@ -118,8 +119,13 @@ function DisplayECust(data){
     } else {
         document.getElementById("dGroup").value = data.dentalGroup;
     }
+    if (!data.hasOwnProperty('email')) {
+        document.getElementById("email").value = '';
+    } else {
+        document.getElementById("email").value = data.email;
+    }
 
-    if(data.warning == "no Customer") {
+    if (data.warning == "no Customer") {
         document.getElementById("mode").value = 0;
         document.getElementById("customerId").value = "";
         ChangeDisplay(0);
@@ -165,7 +171,17 @@ function ChangeDisplay(mode){
         $('#doctorId').show();
         $('#doctorId1').show();
         $('#doctorId2').show();
-
+        document.getElementById("fName").disabled = true;
+        document.getElementById("lName").disabled = true;
+        document.getElementById("dGroup").disabled = false;
+        document.getElementById("pName").disabled = false;
+        document.getElementById("address1").disabled = false;
+        document.getElementById("address2").disabled = false;
+        document.getElementById("city").disabled = false;
+        document.getElementById("state").disabled = false;
+        document.getElementById("zip").disabled = false;
+        document.getElementById("email").disabled = false;
+        document.getElementById("phone").disabled = false;
         $('#customerId').hide();
         document.getElementById('customerId').value = '';
 
@@ -178,7 +194,17 @@ function ChangeDisplay(mode){
 
         $('#customerId1').show();
         $('#customerId2').show();
-
+        document.getElementById("fName").disabled = false;
+        document.getElementById("lName").disabled = false;
+        document.getElementById("dGroup").disabled = true;
+        document.getElementById("pName").disabled = true;
+        document.getElementById("address1").disabled = true;
+        document.getElementById("address2").disabled = true;
+        document.getElementById("city").disabled = true;
+        document.getElementById("state").disabled = true;
+        document.getElementById("zip").disabled = true;
+        document.getElementById("email").disabled = true;
+        document.getElementById("phone").disabled = true;
         $('#doctorId').hide();
         document.getElementById('doctorId').value = '';
 
@@ -200,8 +226,17 @@ function ChangeDisplay(mode){
 
         $('#doctorId2').hide();
         $('#customerId2').hide();
-
-
+        document.getElementById("dGroup").disabled = false;
+        document.getElementById("pName").disabled = false;
+        document.getElementById("address1").disabled = false;
+        document.getElementById("address2").disabled = false;
+        document.getElementById("city").disabled = false;
+        document.getElementById("state").disabled = false;
+        document.getElementById("zip").disabled = false;
+        document.getElementById("email").disabled = false;
+        document.getElementById("phone").disabled = false;
+        document.getElementById("fName").disabled = false;
+        document.getElementById("lName").disabled = false;
     }
 
     if($("#LabName").val() == "ARHBR"){
@@ -267,16 +302,24 @@ function NPICheck() {
         url = contextpath + "form/endpoints/NPI/" + fname + "/" + lname;
         $.getJSON(url,
             function (data) {
-                console.log(data);
-                ProcessNPI(data);
+
+                if (data[0].npinumber === null) {
+                    console.log("should stop here")
+                } else {
+                    ProcessNPI(data);
+                }
+
 
             });
     } else if (searchByNPI) {
         url = contextpath + "form/endpoints/NPI/" + npi;
         $.getJSON(url,
             function (data) {
-                console.log(data);
-                ProcessNPI(data);
+                if (data[0].npinumber === null) {
+                    console.log("should stop here")
+                } else {
+                    ProcessNPI(data);
+                }
 
             });
     }
@@ -351,7 +394,10 @@ function DisplaySDoc(info){
     document.getElementById("checks").innerText = "Similar Doctors";
     for (let i = 0; i < info.length; i++) {
         data = info[i];
-        text += "<button class='cards'>DoctorID: "+data.doctorNumber+" "+" <br>Dr First Name: " +data.firstName+ " <br>Dr Last Name: "+data.lastName +" <br>License Number: "+ data.licenseNumber+ " <br>NPI Number: "+data.npinumber + " <br>On Customer: "+data.customerID + " <br>Warning: "+data.warning+"</button>"
+        if (data.active = "true") {
+            text += "<button class='cards'>DoctorID: " + data.doctorNumber + " " + " <br>Dr First Name: " + data.firstName + " <br>Dr Last Name: " + data.lastName + " <br>License Number: " + data.licenseNumber + " <br>NPI Number: " + data.npinumber + " <br>On Customer: " + data.customerId + " <br>Warning: " + data.warning + "</button>"
+        }
+
 
     }
     document.getElementById("similarChoice").innerHTML = text;
@@ -533,6 +579,7 @@ function CheckStdAddress() {
         isEnoughData = false;
     }
     console.log(url);
+    console.log(isEnoughData);
     if (isEnoughData) {
         $.getJSON(url,
             function (data) {

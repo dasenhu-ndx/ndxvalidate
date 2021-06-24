@@ -15,5 +15,6 @@ public interface CheckExistingCustomer {
     String getCreatedBy();
     String getCreateDate();
 
+    String getEmail();
 
 }

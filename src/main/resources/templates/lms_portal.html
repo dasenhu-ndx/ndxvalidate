@@ -88,7 +88,9 @@
                         <td th:text="${s.npi}"></td>
                         <td th:text="${s.licenseNo}"></td>
                         <td > <span th:if="${s.status == 0}">Not Processed</span></td>
-                        <td><h4 class="text-center color-green"><a href="/lms/process.html" th:href="@{/process/request/{id}(id=${s.accId})}" ><i class="far fa-dot-circle"></i></a></h4></td>
+                        <td><h4 class="text-center color-green"><a href="/lms/process.html"
+                                                                   th:href="@{/check/request/{id}(id=${s.accId})}"><i
+                                class="far fa-dot-circle"></i></a></h4></td>
                     </tr>
                     </tbody>
                 </table>

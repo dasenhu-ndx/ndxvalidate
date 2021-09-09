@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
+//This controller processes the requests and is still in need of work.
 @Controller
 public class ProcessingRequestController {
 

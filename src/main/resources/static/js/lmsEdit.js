@@ -1,7 +1,7 @@
 let csrfHeaderName = "X-CSRF-TOKEN";
 let csrfValue = $("input[name='_csrf']").val();
 
-function ajaxPost() {
+function updateForm() {
     let formData = {
         labName: $("#LabName").val(),
         dGroup: $("#dGroup").val(),
@@ -28,6 +28,7 @@ function ajaxPost() {
 
     let requestId = $("#requestId").val();
     let url = contextpath + "api/request/update/" + requestId;
+    let successURL = contextpath + "check/request/" + requestId;
     console.log(formData);
     console.log(url);
 
@@ -42,7 +43,7 @@ function ajaxPost() {
         data: JSON.stringify(formData),
         dataType: 'json',
         success: function (response) {
-            // window.location.assign("http://localhost:8080/dashboard");
+            // window.location.assign(successURL);
             console.log(response);
         },
         error: function (e) {
@@ -54,11 +55,48 @@ function ajaxPost() {
     });
 }
 
+function emailSend() {
+    let formData = {
+        requestId: $("#requestId").val(),
+        message: $("#message").val(),
+    };
+
+    let requestId = $("#requestId").val();
+    let url = contextpath + "api/request/sendEmail/" + requestId;
+    let successURL = contextpath + "check/request/" + requestId;
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: url,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(csrfHeaderName, csrfValue);
+        },
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        success: function (response) {
+            window.location.assign(successURL);
+            console.log(response);
+        },
+        error: function (e) {
+            console.log("Error: ", e);
+            console.log("data: ", JSON.stringify(formData))
+            window.location.assign("http://localhost:8080/lms");
+        }
+
+    });
+}
+
 $(document).ready(function () {
 
     $("#updateRequest").submit(function (event) {
         event.preventDefault();
-        ajaxPost();
+        updateForm();
+    });
+
+
+    $("#sendEmail").submit(function (event) {
+        event.preventDefault();
+        emailSend();
     });
 
 

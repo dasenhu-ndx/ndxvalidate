@@ -18,6 +18,10 @@ public class RequestTransaction {
 
     public void updateRequest(AccountRequest accountRequest, long id ){
         accountRequestRepo.updateLabName(accountRequest.getLabName(), id);
+        System.out.println(accountRequest.getDGroup());
+        System.out.println(accountRequest.getFName());
+        accountRequestRepo.updateDentalGroup(accountRequest.getDGroup(), id);
+        accountRequestRepo.updatePracticeName(accountRequest.getPName(), id);
         accountRequestRepo.updateMode(accountRequest.getMode(), id);
         accountRequestRepo.updateRush(accountRequest.getIsRush(), id);
         accountRequestRepo.updateDocId(accountRequest.getDocId(), id);

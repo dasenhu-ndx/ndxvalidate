@@ -21,9 +21,16 @@ public class CheckRequestService {
     }
 
     public List<CheckSimilarDoctor>  getSimilarDocList(AccountRequest accountRequest){
-
-        return miniChecksRepo.getSimilarDoctor(accountRequest.getLabName(),accountRequest.getFName(), accountRequest.getLName(),
-                accountRequest.getLicenseNo(), accountRequest.getNpi(), accountRequest.getAdd1() + " " +accountRequest.getAdd2(),accountRequest.getPhone());
+        System.out.println(accountRequest.getLabName());
+        System.out.println(accountRequest.getFName());
+        System.out.println(accountRequest.getLName());
+        System.out.println(accountRequest.getLicenseNo());
+        System.out.println(accountRequest.getNpi());
+        System.out.println(accountRequest.getAdd1());
+        System.out.println(accountRequest.getAdd2());
+        System.out.println(accountRequest.getPhone());
+        return miniChecksRepo.getSimilarDoctor(accountRequest.getLabName(), accountRequest.getFName(), accountRequest.getLName(),
+                accountRequest.getLicenseNo(), accountRequest.getNpi(), accountRequest.getAdd1(), accountRequest.getPhone());
     }
 
     public  List<CheckExistingDoctor> getExistingDocList(AccountRequest accountRequest){

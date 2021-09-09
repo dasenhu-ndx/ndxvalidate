@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+// this controller handles the LMS dashboard along with managing who has access to the LMS
+// dashboard itself.
 @Controller
 public class LMSPortalController {
 
@@ -45,6 +47,7 @@ public class LMSPortalController {
             return "no_access";
         }
     }
+
     @ModelAttribute("newMember")
     public Admin getInstanceAdmin(){
 
@@ -57,7 +60,6 @@ public class LMSPortalController {
 
         String mtUserName = mtUserService.currentUserName();
         Boolean userStatus = adminService.checkAdminPrivilege(mtUserName);
-
 
 
         if(userStatus) {

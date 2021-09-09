@@ -28,11 +28,11 @@ public class AccountRequestRestController {
     @PostMapping(value = "/update/{id}", consumes = "application/json")
     public Response postUpdateRequest(@RequestBody AccountRequest accountRequest, @PathVariable(value = "id") Long id){
        requestTransaction.updateRequest(accountRequest, id);
-        System.out.println(accountRequest.getFName() + " " + accountRequest.getLName());
+
         Response response = new Response();
-        System.out.println(accountRequest.getFName() + " " + accountRequest.getLName());
+
         response.setMessage("Request Completed");
-        System.out.println(accountRequest.getFName() + " " + accountRequest.getLName());
+        System.out.println(response);
 
         return response;
 

@@ -40,6 +40,208 @@
         </div>
     </nav>
 </div>
+<div class="container-fluid">
+
+    <div class="row">
+        <div id="form1" class="col-lg-9">
+
+            <div class="card bg-white mt-5">
+                <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                    <h3>Edit your Request</h3>
+                </div>
+                <div class="form-container m-2">
+
+                    <form id="updateRequest" method="post">
+
+                        <input type="hidden" id="requestId" th:value="${accountRequest.accId}">
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Mode</span>
+                            </div>
+                            <select class="form-control" id="mode" th:field="${accountRequest.mode}">
+                                <option value="0">New Customer New Doctor</option>
+                                <option value="1">New Customer Old Doctor</option>
+                                <option value="2">Old Customer New Doctor</option>
+                            </select>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">LabName</span>
+                            </div>
+                            <select type="text" class="form-control" id="LabName" th:field="${accountRequest.labName}">
+                                <option class="p-2" th:each="l : ${labUserPair}" th:value="${l.labName}"
+                                        th:text="${l.labName}"></option>
+                            </select>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Lab Customer</span>
+                            </div>
+                            <select type="text" class="form-control" id="IsRush" th:field="*{accountRequest.isRush}">
+                                <option value="YES">Yes</option>
+                                <option value="NO">No</option>
+                            </select>
+                            <div id="dhs1" class="input-group-prepend">
+                                <span class="input-group-text">Is DHS</span>
+                            </div>
+                            <select class="form-control" id="dhs" th:field="*{accountRequest.dhs}">
+                                <option value="0">NO</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <div id="hiddenRow" class="input-group mb-2">
+                            <div class="input-group-prepend" id="customerId2">
+                                <span class="input-group-text">Old Customer ID</span>
+                            </div>
+                            <input type="text" class="form-control" id="customerId"
+                                   th:field="*{accountRequest.customerId}">
+                            <div class="input-group-prepend" id="doctorId2">
+                                <span class="input-group-text">Old Doctor ID</span>
+                            </div>
+                            <input type="number" class="form-control" id="doctorId" th:field="*{accountRequest.docId}">
+                        </div>
+
+                        <div id="dGroup1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="dGroup2">
+                                <span class="input-group-text">Dental Group</span>
+                            </div>
+                            <select type="text" class="form-control" id="dGroup" th:field="*{accountRequest.DGroup}">
+                                <option class="p-2" value=""></option>
+                                <option class="p-2" th:each="l : ${dentalGroups}" th:value="${l.value1}"
+                                        th:text="${l.value1}"></option>
+                            </select>
+                            <div class="input-group-prepend" id="pName2">
+                                <span class="input-group-text">Practice Name</span>
+                            </div>
+                            <input type="text" class="form-control" id="pName" th:field="*{accountRequest.PName}">
+                        </div>
+
+                        <div id="address11" class="input-group mb-2">
+                            <div class="input-group-prepend" id="address12">
+                                <span class="input-group-text">Address1</span>
+                            </div>
+                            <input type="text" class="form-control" id="address1" th:field="*{accountRequest.add1}">
+
+
+                        </div>
+
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend" id="address22">
+                                <span class="input-group-text">Address2</span>
+                            </div>
+                            <input type="text" class="form-control" id="address2" th:field="*{accountRequest.add2}">
+                            <div class="input-group-prepend" id="city2">
+                                <span class="input-group-text">City</span>
+                            </div>
+                            <input type="text" class="form-control" id="city" th:field="*{accountRequest.city}">
+                            <div class="input-group-prepend" id="state2">
+                                <span class="input-group-text">State</span>
+                            </div>
+                            <select type="text" class="form-control" id="state" th:field="*{accountRequest.state}">
+                                <option class='p-2' id="OGState" th:value="*{accountRequest.state}"></option>
+                            </select>
+                            <div class="input-group-prepend" id="zip2">
+                                <span class="input-group-text">Zip</span>
+                            </div>
+                            <input type="text" class="form-control" id="zip" th:field="*{accountRequest.zip}">
+                        </div>
+
+
+                        <div id="licenseNo1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="npi2">
+                                <span class="input-group-text">NPI Number</span>
+                            </div>
+                            <input type="number" class="form-control" id="npi" th:field="*{accountRequest.npi}">
+                            <div class="input-group-prepend" id="licenseNo2">
+                                <span class="input-group-text">Doctor License Number</span>
+                            </div>
+                            <input type="text" class="form-control" id="licenseNo"
+                                   th:field="*{accountRequest.licenseNo}">
+                            <div class="input-group-append">
+                                <span style='font-size:25px;' id="goodLicense">&#9989</span>
+                            </div>
+
+                        </div>
+
+                        <div id="licenseNoError">
+
+                        </div>
+
+
+                        <div id="fName1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="fName2">
+                                <span class="input-group-text">Doctor First Name</span>
+                            </div>
+                            <input type="text" class="form-control" id="fName" th:field="*{accountRequest.FName}">
+                            <div class="input-group-prepend" id="lName2">
+                                <span class="input-group-text">Doctor Last Name</span>
+                            </div>
+                            <input type="text" class="form-control" id="lName" th:field="*{accountRequest.LName}">
+                        </div>
+
+
+                        <div id="email1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="email2">
+                                <span class="input-group-text">Email</span>
+                            </div>
+                            <input type="text" class="form-control" id="email" th:field="*{accountRequest.email}">
+                            <div class="input-group-prepend" id="phone2">
+                                <span class="input-group-text">Phone</span>
+                            </div>
+                            <input type="text" class="form-control" id="phone" th:field="*{accountRequest.phone}">
+                        </div>
+
+
+                        <div id="labNote1" class="input-group mb-2">
+                            <div class="input-group-prepend" id="labNote2">
+                                <span class="input-group-text">Add Note</span>
+                            </div>
+                            <textarea autocomplete="on" autocorrect="on" type="text" class="form-control" id="labNote"
+                                      th:field="*{accountRequest.notes}"> </textarea>
+                        </div>
+
+                        <input id="submitForm" class="ndx-btn-color px-2 mx-2 btn" type="submit" value="Update">
+
+                        <div class="m-4 text-center">
+                            <div>
+                                <a href="/process/request_complete.html"
+                                   th:href="@{/process/run-request/{id}(id = ${accId})}"
+                                   class="ndx-btn-color mx-2 px-2 btn">
+                                    <i class="fas fa-running"></i> Run
+                                </a>
+
+                                <!--                                <a href="/dashboard/edit_request.html" class="ndx-btn-color px-2 mx-2 btn" th:href="@{/edit_request/{id}(id=${accId})}" ><i class="far fa-edit"></i> Edit</a>-->
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="form2" class="col-lg-3">
+            <div id="topColumn" class="card mt-5 bg-white">
+                <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                    <h5 id='checks'>Checking the Database</h5>
+                </div>
+                <div id="similarChoice">
+
+                </div>
+            </div>
+
+            <div id="bottomColumn" class="card mt-5 bg-white">
+                <div class="card-header mb-3 ndx-header bg-blue nav-bottom-green">
+                    <h5 id='webChecks'>Checking the Web</h5>
+                </div>
+                <div id="webChoice">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <div class="check-template p-2">
     <div class="card mt-5">
         <div class="card-header ndx-header nav-bottom-green bg-blue">
@@ -47,197 +249,28 @@
         </div>
         <div class="controls-actions container pb-3">
             <form id="sendEmail" class="mt-2" method="post">
-                <input type="hidden" id="requestId"  th:value="${accountRequest.accId}" >
+                <input type="hidden" id="requestId2" th:value="${accountRequest.accId}">
 
-                <label  for="message"> <h4>Send Email Message to <span th:text="${accountRequest.mtUserName}"></span></h4></label>
-                <div  class="input-group mb-4">
-                    <textarea type="text" class="form-control"   id="message" name="message" value="message"> </textarea>
+                <label for="message"><h4>Send Email Message to <span th:text="${accountRequest.mtUserName}"></span></h4>
+                </label>
+                <div class="input-group mb-4">
+                    <textarea type="text" class="form-control" id="message" name="message" value="message"> </textarea>
                 </div>
                 <div>
-                    <h5>Upon send, request is placed back in request queue for edits you can provide user with request id in message</h5>
+                    <h5>Upon send, request is placed back in request queue for edits you can provide user with request
+                        id in message</h5>
                 </div>
 
                 <div class="text-center">
-                    <input  type="submit" class="ndx-btn-color btn" value="Send">
+                    <input type="submit" class="ndx-btn-color btn" value="Send">
                 </div>
 
 
             </form>
         </div>
     </div>
-    <div class="m-4 text-center">
-        <div >
-            <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accId})}" class="ndx-btn-color mx-2 px-2 btn">
-                <i class="fas fa-running"></i> Run
-            </a>
-            <a href="/dashboard/edit_request.html" class="ndx-btn-color px-2 mx-2 btn" th:href="@{/edit_request/{id}(id=${accId})}" ><i class="far fa-edit"></i> Edit</a>
-        </div>
-    </div>
-    <div class="card mt-5 bg-white">
-        <div class="card-header ndx-header bg-blue nav-bottom-green">
-           <h4>Checking Account Request for Errors</h4>
-        </div>
-        <div class="card-body">
-            <div class="request-mode mt-4">
-                <h4 class="color-green">Request Mode: <span th:text="${ndxMode.mode}"></span></h4>
-            </div>
-            <div class="check-entry p-2  table-responsive mt-4">
-
-                <table class="table">
-                    <thead class="table-light">
-
-                            <h4 class="text-center">Checking for Similar Doctor</h4>
-
-                        <tr>
-                            <th scope="col">Warning</th>
-                            <th scope="col">Doctor#</th>
-                            <th scope="col">Doctor Name</th>
-                            <th scope="col">License #</th>
-                            <th scope="col">NPI #</th>
-                            <th scope="col">Customer #</th>
-                            <th scope="col">Practice Name</th>
-                            <th scope="col">CustomerAddress</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Creation details</th>
-                            <th scope="col">Active</th>
-                            <th scope="col">Deleted</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="s : ${similarDoc}">
-                            <td th:text="${s.warning}"></td>
-                            <td th:text="${s.doctorNumber}"></td>
-                            <td th:text="${s.firstName +' ' + s.lastName}"></td>
-                            <td th:text="${s.licenseNumber}"></td>
-                            <td th:text="${s.NPINumber}"></td>
-                            <td th:text="${s.customerId}"></td>
-                            <td th:text="${s.PracticeName()}"></td>
-                            <td th:text="${s.CustomerAddress() + ' '+ s.City() + ' ' + s.State()}"></td>
-                            <td th:text="${s.OfficePhone()}"></td>
-                            <td th:text="${s.createdBy + ' ' + s.createdOn}"></td>
-                            <td th:text="${s.active}"></td>
-                            <td th:text="${s.deleted}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table class="table mt-3">
-                    <thead  class="table-light">
-
-                            <h4 class="text-center mt-5">Checking Existing Doctors</h4>
-
-                    <tr>
-                        <th scope="col">Checking</th>
-                        <th scope="col">Warning</th>
-                        <th scope="col">Doctor#</th>
-                        <th scope="col">Doctor Name</th>
-                        <th scope="col">License #</th>
-                        <th scope="col">NPI #</th>
-                        <th scope="col">Created By</th>
-                        <th scope="col">Created On</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="e: ${existingDoc}">
-                        <td th:text="${e.checking}"></td>
-                        <td th:text="${e.warning}"></td>
-                        <td th:text="${e.doctorNumber}"></td>
-                        <td th:text="${e.firstName + ' ' + e.lastName}"></td>
-                        <td th:text="${e.licenseNumber}"></td>
-                        <td th:text="${e.NPINumber}"></td>
-                        <td th:text="${e.CreatedBy()}"></td>
-                        <td th:text="${e.CreatedOn()}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table mt-3">
-                    <thead  class="table-light">
-
-                    <h4 class="text-center mt-5">Checking Existing Customer</h4>
-
-                    <tr>
-
-                        <th scope="col">Warning</th>
-                        <th scope="col">Customer #</th>
-                        <th scope="col">DentalGroup</th>
-                        <th scope="col">Practice Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">State</th>
-                        <th scope="col">City</th>
-                        <th scope="col">ZipCode</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Created By</th>
-                        <th scope="col">Created On</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="d: ${existingCus}">
-
-                        <td th:text="${d.warning}"></td>
-                        <td th:text="${d.customerID}"></td>
-                        <td th:text="${d.getDentalGroup()}"></td>
-                        <td th:text="${d.getPracticeName()}"></td>
-                        <td th:text="${d.getAddress1()}"></td>
-                        <td th:text="${d.getState()}"></td>
-                        <td th:text="${d.city}"></td>
-                        <td th:text="${d.getZipCode()}"></td>
-                        <td th:text="${d.getOfficePhone()}"></td>
-                        <td th:text="${d.createdBy}"></td>
-                        <td th:text="${d.createDate}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table class="table mt-3">
-
-                    <thead  class="table-light">
-
-                    <h4 class="text-center mt-5">Checking Similar Customer</h4>
-
-                    <tr>
-
-                        <th scope="col">Warning</th>
-                        <th scope="col">Customer #</th>
-                        <th scope="col">DentalGroup</th>
-                        <th scope="col">Practice Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">State</th>
-                        <th scope="col">City</th>
-                        <th scope="col">ZipCode</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Created By</th>
-                        <th scope="col">Created On</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="f: ${similarCus}">
-                        <td th:text="${f.warning}"></td>
-                        <td th:text="${f.customerID}"></td>
-                        <td th:text="${f.getDentalGroup()}"></td>
-                        <td th:text="${f.getPracticeName()}"></td>
-                        <td th:text="${f.getAddress1()}"></td>
-                        <td th:text="${f.getState()}"></td>
-                        <td th:text="${f.city}"></td>
-                        <td th:text="${f.getZipCode()}"></td>
-                        <td th:text="${f.getOfficePhone()}"></td>
-                        <td th:text="${f.createdBy}"></td>
-                        <td th:text="${f.createDate}"></td>
-                    </tr>
-                    </tbody>
-                </table>
 
 
-            </div>
-        </div>
-    </div>
-
-    <div class="m-4 text-center">
-        <div >
-            <a href="/process/request_complete.html" th:href="@{/process/run-request/{id}(id = ${accId})}" class="ndx-btn-color mx-2 px-2 btn">
-                <i class="fas fa-running"></i> Run
-            </a>
-            <a href="/dashboard/edit_request.html" class="ndx-btn-color px-2 mx-2 btn" th:href="@{/edit_request/{id}(id=${accId})}" ><i class="far fa-edit"></i> Edit</a>
-        </div>
-    </div>
 </div>
 </body>
 <footer >
@@ -245,53 +278,7 @@
     <script src="https://kit.fontawesome.com/2effb491bc.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript">
-        const contextpath = /*[[@{/}]]*/ "/";
-        let csrfHeaderName = "[[${_csrf.headerName}]]";
-        let csrfValue = "[[${_csrf.token}]]";
-    </script>
+    <script type="text/javascript" src="/js/lmsEdit.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function (){
-            $("#sendEmail").submit(function (event){
-                event.preventDefault();
-                ajaxPost();
-            });
-
-            function ajaxPost(){
-                let formData = {
-                    requestId: $("#requestId").val(),
-                    message: $("#message").val(),
-
-
-
-                };
-
-                let requestId = $("#requestId").val();
-                let url = contextpath + "api/request/sendEmail/"+requestId;
-
-                $.ajax({
-                    type : "POST",
-                    contentType : "application/json",
-                    url : url,
-                    beforeSend: function(xhr){
-                        xhr.setRequestHeader(csrfHeaderName, csrfValue);
-                    },
-                    data : JSON.stringify(formData),
-                    dataType : 'json',
-                    success : function (response){
-                        window.location.assign("http://localhost:8080/lms");
-                        console.log(response);
-                    },
-                    error: function (e){
-                        console.log("Error: ", e);
-                        console.log("data: ", JSON.stringify(formData))
-                        window.location.assign("http://localhost:8080/lms");
-                    }
-
-                });
-            }
-        })
-    </script>
 </footer>
 </html>

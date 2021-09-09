@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+
+//This controller handles the pages returning the requests that are already processed
 @Controller
 public class ProcessedController {
 
@@ -71,7 +73,7 @@ public class ProcessedController {
         List<ProcessedRequest> processedRequests = processedRequestRepo.findAllByAccountRequest_MtUserName(mtUserName);
         model.addAttribute("processed", processedRequests);
 
-            return "user_processed";
+        return "user_processed";
 
     }
 

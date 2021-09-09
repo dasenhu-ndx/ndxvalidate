@@ -18,8 +18,8 @@ public interface AccountRequestRepo extends JpaRepository<AccountRequest, Long> 
     List<String> findLabs(String mtUserName);
 
 
-
     AccountRequest findAccountRequestsByAccId(Long id);
+
     List<AccountRequest> findAllByLms(int lms);
 
 
@@ -28,6 +28,14 @@ public interface AccountRequestRepo extends JpaRepository<AccountRequest, Long> 
     @Query("UPDATE AccountRequest  ar set ar.dbName = ?1 where ar.accId = ?2 ")
     @Modifying
     void updateDBName(String dbName, Long accId);
+
+    @Query("UPDATE AccountRequest  ar set ar.pName = ?1 where ar.accId = ?2 ")
+    @Modifying
+    void updatePracticeName(String pName, Long accId);
+
+    @Query("UPDATE AccountRequest  ar set ar.dGroup = ?1 where ar.accId = ?2 ")
+    @Modifying
+    void updateDentalGroup(String DGroup, Long accId);
 
     @Query("UPDATE AccountRequest  ar set ar.labName = ?1 where ar.accId = ?2 ")
     @Modifying
